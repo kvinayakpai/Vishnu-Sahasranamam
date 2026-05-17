@@ -238,6 +238,7 @@ footer{
 <nav class="subhead" id="view-tabs">
   <button data-view="shlokas" class="on">Shlokas</button>
   <button data-view="attributes">Attributes</button>
+  <button data-view="map">Map</button>
 </nav>
 
 <section class="search" id="search-bar">
@@ -249,6 +250,7 @@ footer{
   <div id="view-focus" hidden></div>
   <div id="view-attributes" hidden></div>
   <div id="view-concept" hidden></div>
+  <div id="view-map" hidden></div>
 </main>
 
 </div>
@@ -338,6 +340,7 @@ function setView(v, opts){
   document.getElementById('view-focus').hidden      = v !== 'focus';
   document.getElementById('view-attributes').hidden = v !== 'attributes';
   document.getElementById('view-concept').hidden    = v !== 'concept';
+  document.getElementById('view-map').hidden        = v !== 'map';
   document.getElementById('search-bar').hidden      = false;
   window.scrollTo({top:0, behavior:'instant'});
   render();
@@ -563,11 +566,102 @@ function renderConcept(){
 /* ============================================================================
    Dispatch
    ============================================================================ */
+/* ---------- MAP view — hand-laid celestial-map using KG_POSITIONS ---------- */
+const HAS_HANDLAID = (typeof KG_POSITIONS !== 'undefined') && (typeof KG_TIER_BANDS !== 'undefined') && Object.keys(KG_POSITIONS).length > 0;
+
+function escapeXml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&apos;'})[c]); }
+
+function labelOfNama(n){
+  return state.lang==='hi' ? (n.name.hi||n.name.dev) : state.lang==='dev' ? n.name.dev : state.lang==='kn' ? n.name.kn : n.name.iast;
+}
+function labelOfConcept(c){
+  return state.lang==='hi' ? (c.hi||c.dev) : state.lang==='dev' ? c.dev : state.lang==='kn' ? c.kn : c.en;
+}
+
+function renderMap(){
+  const root = document.getElementById('view-map');
+  if (!HAS_HANDLAID){
+    root.innerHTML = '<p style="padding:2rem;color:var(--ink-soft)">Map view requires positions.js with KG_POSITIONS data.</p>';
+    return;
+  }
+  return renderMapHandLaid(root);
+}
+
+function renderMapHandLaid(root){
+  const W = 1000, H = 1500;
+  const fontFam = state.lang==='hi'?'Tiro Devanagari Hindi, serif':state.lang==='dev'?'Tiro Devanagari Sanskrit, serif':state.lang==='kn'?'Tiro Kannada, serif':'Cormorant Garamond, serif';
+  let svg = '<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="max-width:'+W+'px" xmlns="http://www.w3.org/2000/svg">';
+
+  // Tier bands
+  KG_TIER_BANDS.forEach((band, bi) => {
+    const fill = bi % 2 ? 'rgba(214,197,153,.12)' : 'rgba(230,216,176,.20)';
+    svg += '<rect x="0" y="'+band.y0+'" width="'+W+'" height="'+(band.y1 - band.y0)+'" fill="'+fill+'"/>';
+    const tier = CTIER_BY_ID[band.id];
+    const lab = tier ? (state.lang==='hi'?(tier.hi||tier.dev):state.lang==='dev'?tier.dev:state.lang==='kn'?tier.kn:tier.en) : band.id;
+    svg += '<text x="14" y="'+(band.y0 + 18)+'" font-family="'+fontFam+'" font-size="14" fill="'+band.color+'" font-weight="700" opacity="0.7">'+escapeXml(lab)+'</text>';
+  });
+
+  // Edges (nāma-relations) — render those whose both endpoints are in positions
+  EDGES.forEach(e => {
+    const a = KG_POSITIONS[e.source]; const b = KG_POSITIONS[e.target];
+    if (!a || !b) return;
+    const mx = (a.x + b.x) / 2;
+    const my = (a.y + b.y) / 2 - Math.abs(b.y - a.y) * 0.08;
+    svg += '<path d="M '+a.x+' '+a.y+' Q '+mx+' '+my+' '+b.x+' '+b.y+'" stroke="rgba(80,40,40,0.25)" stroke-width="0.8" fill="none"/>';
+  });
+
+  // Concept nodes
+  CONCEPTS.forEach(c => {
+    const p = KG_POSITIONS[c.id]; if (!p) return;
+    const lab = labelOfConcept(c);
+    const maxLen = state.lang==='en' ? 18 : 14;
+    const shown = lab.length > maxLen ? lab.slice(0, maxLen-1) + '…' : lab;
+    const tier = CTIER_BY_ID[c.tier];
+    const band = KG_TIER_BANDS.find(b => b.id === c.tier);
+    const color = band ? band.color : '#888';
+    svg += '<g class="map-node concept-node" data-cid="'+c.id+'" style="cursor:pointer">';
+    svg += '<circle cx="'+p.x+'" cy="'+p.y+'" r="'+p.r+'" fill="'+color+'" fill-opacity="0.78" stroke="'+color+'" stroke-width="1.5"/>';
+    svg += '<text x="'+p.x+'" y="'+(p.y + p.r + 13)+'" font-family="'+fontFam+'" font-size="11" text-anchor="middle" fill="var(--ink)">'+escapeXml(shown)+'</text>';
+    svg += '</g>';
+  });
+
+  // Anchor nāma nodes
+  NODES.forEach(n => {
+    const p = KG_POSITIONS[n.id]; if (!p) return;
+    const lab = labelOfNama(n);
+    const maxLen = state.lang==='en' ? 14 : 10;
+    const shown = lab.length > maxLen ? lab.slice(0, maxLen-1) + '…' : lab;
+    const tierCol = TIER_COLOR[n.tier] || '#777';
+    svg += '<g class="map-node nama-node" data-nid="'+n.id+'" style="cursor:pointer">';
+    svg += '<circle cx="'+p.x+'" cy="'+p.y+'" r="'+p.r+'" fill="'+tierCol+'" fill-opacity="0.7" stroke="'+tierCol+'" stroke-width="1"/>';
+    svg += '<text x="'+p.x+'" y="'+(p.y + p.r + 10)+'" font-family="'+fontFam+'" font-size="9" text-anchor="middle" fill="var(--ink-soft)">'+escapeXml(shown)+'</text>';
+    svg += '</g>';
+  });
+
+  svg += '</svg>';
+  root.innerHTML = '<div class="map-wrap" style="padding:1rem;overflow:auto">'+svg+'</div>';
+
+  // Click handlers
+  root.querySelectorAll('.concept-node').forEach(el => {
+    el.addEventListener('click', () => {
+      state.conceptId = el.dataset.cid;
+      setView('concept');
+    });
+  });
+  root.querySelectorAll('.nama-node').forEach(el => {
+    el.addEventListener('click', () => {
+      state.focusId = el.dataset.nid;
+      setView('focus');
+    });
+  });
+}
+
 function render(){
   if (state.view === 'shlokas') renderShlokas();
   else if (state.view === 'focus') renderFocus();
   else if (state.view === 'attributes') renderAttributes();
   else if (state.view === 'concept') renderConcept();
+  else if (state.view === 'map') renderMap();
 
   const f = document.getElementById('stats');
   if (f) f.textContent = SHLOKAS.length + ' ' + ui('shlokas') + ' · ' + NODES.length + ' ' + ui('namas') + ' · ' + CONCEPTS.length + ' ' + ui('concepts');
