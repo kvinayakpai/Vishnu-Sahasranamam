@@ -61,6 +61,9 @@ const NODES = [
     "tags": [
       "c_hari_sarvottamatva",
       "c_sarva_vyapakatva"
+    ],
+    "gita_concept_ids": [
+      "brahman"
     ]
   },
   {
@@ -89,6 +92,11 @@ const NODES = [
     "tags": [
       "c_hari_sarvottamatva",
       "c_antaryamitva"
+    ],
+    "gita_concept_ids": [
+      "brahman",
+      "sarvottamatva",
+      "antaryamin"
     ],
     "madhva": {
       "en": "The name 'Vishnu' for Madhva is not a generic divinity-label but the specific eka-paramatma; Shiva, Brahma etc. are all his abhimani-devatas.",
@@ -231,6 +239,10 @@ const NODES = [
     "tags": [
       "c_antaryamitva",
       "c_atma_svarupa"
+    ],
+    "gita_concept_ids": [
+      "paramatman",
+      "antaryamin"
     ]
   },
   {
@@ -377,6 +389,9 @@ const NODES = [
       "c_hari_sarvottamatva",
       "c_jiva_isvara_bheda"
     ],
+    "gita_concept_ids": [
+      "paramatman"
+    ],
     "madhva": {
       "en": "Madhva-vaisistya: 'paramatman' is not jiva-paramatma-aikya as Advaita reads; it names the eternally distinct supreme Self.",
       "dev": "मध्व-वैशिष्ट्यम् - 'परमात्मा' न जीव-परमात्म-ऐक्यम्; नित्य-भिन्नः परम-आत्मा एव।",
@@ -409,6 +424,10 @@ const NODES = [
     },
     "tags": [
       "c_moksha_prada"
+    ],
+    "gita_concept_ids": [
+      "moksha",
+      "paramagati"
     ]
   },
   {
@@ -474,7 +493,10 @@ const NODES = [
         "text": "sākṣī — śloka 2-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "paramatman"
+    ]
   },
   {
     "id": "n_0016",
@@ -501,6 +523,9 @@ const NODES = [
     },
     "tags": [
       "c_sat_svarupa"
+    ],
+    "gita_concept_ids": [
+      "akshara_purusha"
     ]
   },
   {
@@ -532,7 +557,10 @@ const NODES = [
         "text": "akṣaraḥ — śloka 2-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "akshara_purusha"
+    ]
   },
   {
     "id": "n_0018",
@@ -565,6 +593,9 @@ const NODES = [
     ],
     "tags": [
       "c_atma_svarupa"
+    ],
+    "gita_concept_ids": [
+      "dhyana_yoga"
     ]
   },
   {
@@ -663,6 +694,10 @@ const NODES = [
     ],
     "tags": [
       "c_avatara_narasimha"
+    ],
+    "gita_concept_ids": [
+      "avatara",
+      "vibhuti"
     ]
   },
   {
@@ -754,6 +789,11 @@ const NODES = [
     },
     "tags": [
       "c_hari_sarvottamatva"
+    ],
+    "gita_concept_ids": [
+      "purushottama",
+      "sarvottamatva",
+      "sarva_dharman_parityajya"
     ],
     "madhva": {
       "en": "For Madhva, Purushottama strictly = Hari, NOT jiva-paramatma-aikya as Advaita reads.",
@@ -1483,7 +1523,10 @@ const NODES = [
         "text": "hṛṣīkeśaḥ — śloka 6-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "antaryamin"
+    ]
   },
   {
     "id": "n_0048",
@@ -1777,6 +1820,9 @@ const NODES = [
     },
     "tags": [
       "c_avatara_rupa"
+    ],
+    "gita_concept_ids": [
+      "avatara"
     ],
     "madhva": {
       "en": "For Madhva, Krishna is svayam-bhagavan, not an avatara of Vishnu but Vishnu himself in human form.",
@@ -2679,7 +2725,10 @@ const NODES = [
         "text": "śaraṇam — śloka 10-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "sharanagati"
+    ]
   },
   {
     "id": "n_0087",
@@ -4734,6 +4783,9 @@ const NODES = [
     ],
     "tags": [
       "c_avatara_vamana"
+    ],
+    "gita_concept_ids": [
+      "avatara"
     ]
   },
   {
@@ -4858,7 +4910,10 @@ const NODES = [
         "text": "ūrjitaḥ — śloka 17-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "antaryamin"
+    ]
   },
   {
     "id": "n_0157",
@@ -5730,7 +5785,10 @@ const NODES = [
         "text": "satāṃ gatiḥ — śloka 20-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "paramagati"
+    ]
   },
   {
     "id": "n_0185",
@@ -7614,6 +7672,9 @@ const NODES = [
     "tags": [
       "c_antaryamitva",
       "c_hari_sarvottamatva"
+    ],
+    "gita_concept_ids": [
+      "paramatman"
     ],
     "madhva": {
       "en": "Madhva: 'Narayana' is the supreme proper-noun for Hari; Brahman, Paramatman, Vasudeva etc. are all svarupaikya names for the same Narayana.",
@@ -12248,6 +12309,9 @@ const NODES = [
     ],
     "tags": [
       "c_avatara_rama"
+    ],
+    "gita_concept_ids": [
+      "avatara"
     ]
   },
   {
@@ -12620,7 +12684,11 @@ const NODES = [
         "text": "puruṣaḥ — śloka 44-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "purushottama",
+      "salokya"
+    ]
   },
   {
     "id": "n_0407",
@@ -14339,7 +14407,10 @@ const NODES = [
         "text": "suhṛt — śloka 49-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "sharanagati"
+    ]
   },
   {
     "id": "n_0462",
@@ -16007,6 +16078,9 @@ const NODES = [
     },
     "tags": [
       "c_moksha_prada"
+    ],
+    "gita_concept_ids": [
+      "moksha"
     ]
   },
   {
@@ -16469,6 +16543,9 @@ const NODES = [
     "tags": [
       "c_avatara_rupa",
       "c_sarva_vyapakatva"
+    ],
+    "gita_concept_ids": [
+      "vibhuti"
     ]
   },
   {
@@ -16752,7 +16829,10 @@ const NODES = [
         "text": "mahāvarāhaḥ — śloka 58-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "avatara"
+    ]
   },
   {
     "id": "n_0540",
@@ -17717,7 +17797,10 @@ const NODES = [
         "text": "khaṇḍaparaśuḥ — śloka 61-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "avatara"
+    ]
   },
   {
     "id": "n_0571",
@@ -20187,6 +20270,9 @@ const NODES = [
     },
     "tags": [
       "c_hari_sarvottamatva"
+    ],
+    "gita_concept_ids": [
+      "sarvottamatva"
     ]
   },
   {
@@ -20370,6 +20456,10 @@ const NODES = [
     "tags": [
       "c_karunya",
       "c_moksha_prada"
+    ],
+    "gita_concept_ids": [
+      "sarvottamatva",
+      "sarva_dharman_parityajya"
     ],
     "madhva": {
       "en": "Madhva's most-emphasized nama. 'Hari-sarvottamatva' is the central axiom of his entire system - 'Hari is highest above all'.",
@@ -20713,7 +20803,10 @@ const NODES = [
         "text": "brahma — śloka 71-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "brahman"
+    ]
   },
   {
     "id": "n_0668",
@@ -22898,6 +22991,9 @@ const NODES = [
     ],
     "tags": [
       "c_bhakta_priya"
+    ],
+    "gita_concept_ids": [
+      "bhakti_yoga"
     ]
   },
   {
@@ -22962,6 +23058,9 @@ const NODES = [
     ],
     "tags": [
       "c_bhakta_vatsalatva"
+    ],
+    "gita_concept_ids": [
+      "bhakti_yoga"
     ]
   },
   {
@@ -24225,6 +24324,9 @@ const NODES = [
     },
     "tags": [
       "c_bhakta_vatsala"
+    ],
+    "gita_concept_ids": [
+      "bhakti_yoga"
     ],
     "madhva": {
       "en": "Mention of 'vatsala' is a key Madhva theme - Hari's swabhava is to remember and reward bhaktas; vatsalatva is not contingent.",
@@ -26468,7 +26570,10 @@ const NODES = [
         "text": "yogī — śloka 91-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "dhyana_yoga"
+    ]
   },
   {
     "id": "n_0853",
@@ -26499,7 +26604,10 @@ const NODES = [
         "text": "yogīśaḥ — śloka 91-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "dhyana_yoga"
+    ]
   },
   {
     "id": "n_0854",
@@ -28820,7 +28928,10 @@ const NODES = [
         "text": "vīrahā — śloka 99-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "sharanagati"
+    ]
   },
   {
     "id": "n_0929",
@@ -29628,7 +29739,10 @@ const NODES = [
         "text": "puṣpahāsaḥ — śloka 102-stham nāma."
       }
     ],
-    "tags": []
+    "tags": [],
+    "gita_concept_ids": [
+      "sayujya"
+    ]
   },
   {
     "id": "n_0955",

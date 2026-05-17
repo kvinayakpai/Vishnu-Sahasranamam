@@ -165,6 +165,22 @@ body.lang-en .focus-card .focus-shloka .shloka-script{
 }
 .tags-list .tag:hover{border-color:var(--ink-soft)}
 
+/* ============ BRIDGE — Gītā concept chips ============ */
+.gita-row{margin:8px 0 0}
+.gita-row .label{font-size:11px;color:var(--ink-fade);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.gita-chips{display:flex;flex-wrap:wrap;gap:6px;padding:2px 0}
+.gita-chip{
+  display:inline-flex;align-items:baseline;gap:6px;
+  padding:5px 10px;border-radius:14px;
+  background:#e8dec4;border:1px solid #b8a373;
+  color:#4a3318;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:13px;font-weight:600;text-decoration:none;
+  transition:background .08s, transform .08s, border-color .08s;
+}
+.gita-chip:hover{background:#dccfa2;border-color:#8e7a4a;transform:translateY(-1px)}
+body.lang-dev .gita-chip,body.lang-hi .gita-chip{font-family:'Tiro Devanagari Sanskrit','Noto Sans Devanagari',serif;font-style:normal;font-size:15px}
+body.lang-kn .gita-chip{font-family:'Tiro Kannada','Noto Sans Kannada',serif;font-style:normal;font-size:15px}
+
 /* ============ ATTRIBUTES VIEW ============ */
 .tier-section{padding:10px 14px 4px}
 .tier-section .tier-head{
@@ -274,6 +290,7 @@ const UI = {
   madhvaPrefix:  { en:'Mādhva',     dev:'माध्व',     kn:'ಮಾಧ್ವ',     hi:'माध्व' },
   shlokaSrc:     { en:'In verse',   dev:'श्लोके',    kn:'ಶ್ಲೋಕದಲ್ಲಿ', hi:'श्लोक में' },
   conceptsLbl:   { en:'Concepts',   dev:'सम्मताः',   kn:'ಪರಿಕಲ್ಪನೆಗಳು', hi:'सम्मत' },
+  gitaConcepts:  { en:'In the Gītā',  dev:'गीतायाम्',   kn:'ಗೀತೆಯಲ್ಲಿ',   hi:'गीता में' },
   namasLbl:      { en:'Nāmas',      dev:'नामानि',    kn:'ನಾಮಗಳು',     hi:'नाम' },
   noMatch:       { en:'No matches.', dev:'न सम्मतम्।', kn:'ಯಾವುದೂ ಸಿಗಲಿಲ್ಲ.', hi:'कुछ नहीं मिला।' },
   shlokas:       { en:'shlokas',    dev:'श्लोकाः',   kn:'ಶ್ಲೋಕಗಳು',   hi:'श्लोक' },
@@ -442,6 +459,35 @@ function renderShlokas(){
 /* ============================================================================
    FOCUS (single nāma)
    ============================================================================ */
+/* ============================================================================
+   BRIDGE — Gītā concept-id → display label map (4-script).
+   Used by renderFocus to render the "In the Gītā" chip row.
+   ============================================================================ */
+const GITA_CONCEPT_LABELS = {
+  purushottama:             { en:'Puruṣottama',        dev:'पुरुषोत्तम',     kn:'ಪುರುಷೋತ್ತಮ',   hi:'पुरुषोत्तम' },
+  brahman:                  { en:'Brahman',            dev:'ब्रह्मन्',         kn:'ಬ್ರಹ್ಮನ್',     hi:'ब्रह्म' },
+  paramatman:               { en:'Paramātman',         dev:'परमात्मन्',       kn:'ಪರಮಾತ್ಮನ್',   hi:'परमात्मा' },
+  avatara:                  { en:'Avatāra',            dev:'अवतार',          kn:'ಅವತಾರ',       hi:'अवतार' },
+  akshara_purusha:          { en:'Akṣara-puruṣa',      dev:'अक्षरपुरुष',      kn:'ಅಕ್ಷರಪುರುಷ',   hi:'अक्षर पुरुष' },
+  sarvottamatva:            { en:'Sarvottamatva',      dev:'सर्वोत्तमत्व',     kn:'ಸರ್ವೋತ್ತಮತ್ವ', hi:'सर्वोत्तमता' },
+  bhakti_yoga:              { en:'Bhakti-yoga',        dev:'भक्तियोग',        kn:'ಭಕ್ತಿಯೋಗ',     hi:'भक्ति-योग' },
+  dhyana_yoga:              { en:'Dhyāna-yoga',        dev:'ध्यानयोग',         kn:'ಧ್ಯಾನಯೋಗ',     hi:'ध्यान-योग' },
+  sharanagati:              { en:'Śaraṇāgati',         dev:'शरणागति',         kn:'ಶರಣಾಗತಿ',     hi:'शरणागति' },
+  sarva_dharman_parityajya: { en:'Sarva-dharmān parityajya', dev:'सर्वधर्मान् परित्यज्य', kn:'ಸರ್ವಧರ್ಮಾನ್ ಪರಿತ್ಯಜ್ಯ', hi:'सर्व-धर्मान् परित्यज्य' },
+  moksha:                   { en:'Mokṣa',              dev:'मोक्ष',           kn:'ಮೋಕ್ಷ',        hi:'मोक्ष' },
+  paramagati:               { en:'Paramā gati',        dev:'परमा गति',       kn:'ಪರಮಾ ಗತಿ',     hi:'परमा गति' },
+  salokya:                  { en:'Sālokya',            dev:'सालोक्य',         kn:'ಸಾಲೋಕ್ಯ',      hi:'सालोक्य' },
+  sayujya:                  { en:'Sāyujya',            dev:'सायुज्य',         kn:'ಸಾಯುಜ್ಯ',      hi:'सायुज्य' },
+  antaryamin:               { en:'Antaryāmin',         dev:'अन्तर्यामिन्',     kn:'ಅಂತರ್ಯಾಮಿನ್',  hi:'अन्तर्यामी' },
+  vibhuti:                  { en:'Vibhūti',            dev:'विभूति',          kn:'ವಿಭೂತಿ',       hi:'विभूति' },
+};
+
+function gitaConceptLabel(id){
+  const row = GITA_CONCEPT_LABELS[id];
+  if (!row) return id;
+  return row[state.lang] || row.en;
+}
+
 function renderFocus(){
   const root = document.getElementById('view-focus');
   const id = state.focusId || NODES[0].id;
@@ -482,6 +528,18 @@ function renderFocus(){
       const c = CONCEPT_BY_ID[cid];
       const lab = c ? labelOf(c) : cid;
       html += '<span class="tag" data-concept-id="' + cid + '">' + escapeHtml(lab) + '</span>';
+    });
+    html += '    </div></div>';
+  }
+
+  // Bridge — back-link to Gītā concept KG (Proposal D)
+  if (n.gita_concept_ids && n.gita_concept_ids.length){
+    html += '  <div class="section gita-row"><div class="label">' + escapeHtml(ui('gitaConcepts')) + '</div>';
+    html += '    <div class="gita-chips">';
+    n.gita_concept_ids.forEach(cid => {
+      const lab = gitaConceptLabel(cid);
+      const url = 'https://kvinayakpai.github.io/Bhagavadgita/#focus:' + cid;
+      html += '<a class="gita-chip" href="' + escapeHtml(url) + '" target="_blank" rel="noopener" data-concept="' + escapeHtml(cid) + '">' + escapeHtml(lab) + '</a>';
     });
     html += '    </div></div>';
   }
