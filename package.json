@@ -1,0 +1,23 @@
+{
+  "name": "vishnu-sahasranama-kg",
+  "version": "0.1.0",
+  "description": "A 107-shloka card browser + attribute-graph overlay for the Viṣṇu-sahasranāma, read through Madhva siddhānta (Gauḍa Sārasvata lineage).",
+  "main": "data.js",
+  "scripts": {
+    "build:bundle": "python3 build-bundle.py",
+    "verify": "node verify.js"
+  },
+  "keywords": [
+    "vishnu-sahasranama",
+    "vsn",
+    "madhva",
+    "knowledge-graph",
+    "ontology",
+    "vedanta"
+  ],
+  "author": "kvinayakpai",
+  "license": "MIT",
+  "devDependencies": {
+    "pptxgenjs": "^3.12.0"
+  }
+}

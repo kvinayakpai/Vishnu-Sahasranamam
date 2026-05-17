@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#f4ead8">
+<title>Viṣṇu-sahasranāma · KG (Mādhva)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Sans+Kannada:wght@400;500;600&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Tiro+Devanagari+Hindi:ital@0;1&family=Tiro+Kannada:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4ead8; --bg-2:#ebdfc7; --ink:#1f1a13; --ink-soft:#4a3f30; --ink-fade:#7a6c54;
+  --rule:#d6c599; --rule-soft:#e6d8b0; --paper:#fbf5e6; --paper-2:#f6ecd2;
+  --hl:#f9d57a;
+
+  --t-para_tattva:#8b1e1a; --t-svarupa_guna:#a83f1a; --t-lila_guna:#b8702a;
+  --t-karunya_guna:#3f7a4a; --t-bhakta_sambandha:#2f6e7a; --t-mokshaprada:#7a1e5a;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;min-height:100svh;margin:0;padding:0}
+body{
+  background:
+    radial-gradient(ellipse at 20% -10%, #f9efd9 0%, transparent 55%),
+    radial-gradient(ellipse at 110% 110%, #ead9b3 0%, transparent 55%),
+    var(--bg);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:contain;
+}
+.app{position:relative;z-index:1;max-width:840px;margin:0 auto;min-height:100svh;display:flex;flex-direction:column;}
+
+header.top{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:8px;
+  padding:max(10px,env(safe-area-inset-top,0)) 14px 10px;
+  background:#f4ead8; border-bottom:1px solid var(--rule);
+}
+header .brand{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px;overflow:hidden}
+header .brand .name{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;line-height:1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+header .brand .name em{font-style:italic;color:var(--ink-soft);font-weight:500}
+header .brand .crumb{
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-fade);white-space:nowrap;flex:0 0 auto;
+}
+header .lang{
+  display:flex;gap:0;background:var(--paper);border:1px solid var(--rule);
+  border-radius:8px;overflow:hidden;font-size:11px;letter-spacing:.06em;
+}
+header .lang button{
+  background:transparent;border:0;color:var(--ink-soft);
+  padding:6px 7px;cursor:pointer;font:inherit;
+}
+header .lang button.on{background:var(--ink);color:var(--paper)}
+header .lang button + button{border-left:1px solid var(--rule)}
+
+.subhead{display:flex;gap:0;border-bottom:1px solid var(--rule);background:#f4ead8;position:sticky;top:46px;z-index:9;}
+.subhead button{
+  flex:1;padding:10px 4px;background:transparent;border:0;
+  font:inherit;color:var(--ink-fade);font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+}
+.subhead button.on{color:var(--ink);box-shadow:inset 0 -2px 0 var(--ink)}
+
+.search{padding:10px 14px;background:#f4ead8;border-bottom:1px solid var(--rule-soft);position:sticky;top:84px;z-index:8}
+.search input{
+  width:100%;padding:8px 10px;border:1px solid var(--rule);border-radius:6px;
+  background:var(--paper);font:inherit;font-size:13px;color:var(--ink);
+}
+.search input:focus{outline:0;border-color:var(--ink-soft)}
+
+main{flex:1;padding:8px 0 80px}
+
+/* ============ SHLOKA-CARD LIST ============ */
+.shloka-card{
+  margin:10px 14px;padding:14px 16px;border-radius:10px;
+  background:linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  border:1px solid var(--rule);
+  cursor:default;
+}
+.shloka-card .num{
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-fade);margin-bottom:6px;
+}
+.shloka-card .verse{
+  font-family:'Tiro Devanagari Sanskrit',serif;font-size:17px;line-height:1.6;
+  white-space:pre-wrap;color:var(--ink);
+}
+body.lang-kn .shloka-card .verse{font-family:'Tiro Kannada',serif}
+body.lang-hi .shloka-card .verse{font-family:'Tiro Devanagari Hindi','Tiro Devanagari Sanskrit',serif}
+body.lang-en .shloka-card .verse{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px}
+.shloka-card .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.shloka-card .chip{
+  font-size:11px;padding:4px 8px;border:1px solid var(--rule);border-radius:14px;
+  background:var(--paper);color:var(--ink-soft);cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+}
+body.lang-dev .shloka-card .chip,
+body.lang-hi  .shloka-card .chip{font-family:'Tiro Devanagari Sanskrit',serif;font-size:13px}
+body.lang-kn  .shloka-card .chip{font-family:'Tiro Kannada',serif;font-size:13px}
+.shloka-card .chip:hover{border-color:var(--ink-soft)}
+
+/* ============ FOCUS (single nāma) ============ */
+.focus-card{
+  margin:10px 14px;padding:14px 16px;border-radius:10px;
+  background:var(--paper);border:1px solid var(--rule);
+}
+.focus-card .tier-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-fade);
+}
+.focus-card .tier-badge::before{
+  content:"";display:inline-block;width:8px;height:8px;border-radius:50%;
+}
+.focus-card .pos{font-size:11px;color:var(--ink-fade);margin-left:6px}
+.focus-card h1{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-size:28px;
+  margin:6px 0 2px;line-height:1.1;
+}
+body.lang-dev .focus-card h1{font-family:'Tiro Devanagari Sanskrit',serif;font-size:30px}
+body.lang-hi  .focus-card h1{font-family:'Tiro Devanagari Hindi','Tiro Devanagari Sanskrit',serif;font-size:30px}
+body.lang-kn  .focus-card h1{font-family:'Tiro Kannada',serif;font-size:30px}
+.focus-card .section{
+  margin-top:14px;
+}
+.focus-card .section .label{
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-fade);
+  margin-bottom:4px;
+}
+.focus-card .section .body{
+  font-size:14px;line-height:1.5;color:var(--ink);
+}
+.focus-card .madhva{
+  font-size:13px;line-height:1.45;color:var(--ink-soft);
+  padding:8px 10px;background:var(--paper-2);border-left:3px solid var(--t-para_tattva);
+  border-radius:0 6px 6px 0;margin-top:14px;
+}
+.focus-card .madhva .madhva-prefix{font-weight:600;color:var(--t-para_tattva)}
+.focus-card .focus-shloka{
+  margin:14px 0 0;padding:10px 14px;
+  border-left:3px solid var(--rule);
+  background:linear-gradient(180deg, var(--paper-2) 0%, var(--paper) 100%);
+  border-radius:0 6px 6px 0;
+}
+.focus-card .focus-shloka .shloka-script{
+  font-family:'Tiro Devanagari Sanskrit',serif;font-size:16px;line-height:1.55;
+  white-space:pre-wrap;color:var(--ink);
+}
+body.lang-kn .focus-card .focus-shloka .shloka-script{font-family:'Tiro Kannada',serif}
+body.lang-hi .focus-card .focus-shloka .shloka-script{font-family:'Tiro Devanagari Hindi','Tiro Devanagari Sanskrit',serif}
+body.lang-en .focus-card .focus-shloka .shloka-script{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;
+}
+.focus-card .focus-shloka .shloka-ref{
+  font-size:10px;color:var(--ink-fade);margin-top:6px;
+  letter-spacing:.06em;text-align:right;
+}
+.tags-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tags-list .tag{
+  font-size:11px;padding:4px 8px;border:1px solid var(--rule);border-radius:4px;
+  background:var(--paper-2);color:var(--ink-soft);cursor:pointer;
+}
+.tags-list .tag:hover{border-color:var(--ink-soft)}
+
+/* ============ ATTRIBUTES VIEW ============ */
+.tier-section{padding:10px 14px 4px}
+.tier-section .tier-head{
+  display:flex;align-items:baseline;gap:8px;margin-bottom:6px;
+}
+.tier-section .tier-dot{
+  display:inline-block;width:10px;height:10px;border-radius:50%;
+}
+.tier-section .tier-name{
+  font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;
+}
+.tier-section .tier-gloss{font-size:11px;color:var(--ink-fade);letter-spacing:.04em}
+.tier-section .tier-count{font-size:11px;color:var(--ink-fade);margin-left:auto}
+ul.entry-list{list-style:none;margin:0;padding:0 14px 16px}
+ul.entry-list li{
+  padding:9px 10px;margin:4px 0;border-radius:8px;
+  background:var(--paper);border:1px solid var(--rule-soft);
+  display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;
+  cursor:pointer;
+}
+ul.entry-list li:hover{border-color:var(--rule)}
+ul.entry-list li .label{
+  font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--ink);
+}
+ul.entry-list li .sub{font-size:11px;color:var(--ink-fade);margin-top:2px}
+ul.entry-list li .count{font-size:10px;color:var(--ink-fade);letter-spacing:.04em}
+body.lang-dev ul.entry-list li .label,
+body.lang-hi  ul.entry-list li .label{font-family:'Tiro Devanagari Sanskrit',serif;font-size:17px}
+body.lang-kn  ul.entry-list li .label{font-family:'Tiro Kannada',serif;font-size:17px}
+.hl{background:var(--hl);padding:0 1px;border-radius:2px}
+
+.concept-focus{
+  margin:10px 14px;padding:14px 16px;border-radius:10px;
+  background:var(--paper);border:1px solid var(--rule);
+}
+.concept-focus h1{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px;
+  margin:6px 0 4px;line-height:1.1;
+}
+body.lang-dev .concept-focus h1{font-family:'Tiro Devanagari Sanskrit',serif;font-size:26px}
+body.lang-hi  .concept-focus h1{font-family:'Tiro Devanagari Hindi','Tiro Devanagari Sanskrit',serif;font-size:26px}
+body.lang-kn  .concept-focus h1{font-family:'Tiro Kannada',serif;font-size:26px}
+.concept-focus .subtitle{font-size:13px;color:var(--ink-soft);font-style:italic;margin-bottom:8px}
+.concept-focus .note{font-size:14px;line-height:1.5;color:var(--ink);margin:8px 0}
+
+footer{
+  position:fixed;bottom:0;left:0;right:0;
+  padding:8px 14px max(8px,env(safe-area-inset-bottom,0));
+  background:rgba(244,234,216,.94);backdrop-filter:blur(8px);
+  border-top:1px solid var(--rule);
+  font-size:10px;color:var(--ink-fade);letter-spacing:.06em;text-align:center;
+}
+</style>
+</head>
+<body class="lang-en">
+<div class="app">
+
+<header class="top">
+  <div class="brand">
+    <span class="name">Viṣṇu-<em>sahasranāma</em> · KG</span>
+    <span class="crumb">Mādhva</span>
+  </div>
+  <div class="lang" id="lang-tabs">
+    <button data-lang="en" class="on">EN</button>
+    <button data-lang="dev">देव</button>
+    <button data-lang="kn">ಕನ್ನಡ</button>
+    <button data-lang="hi">हिन्दी</button>
+  </div>
+</header>
+
+<nav class="subhead" id="view-tabs">
+  <button data-view="shlokas" class="on">Shlokas</button>
+  <button data-view="attributes">Attributes</button>
+</nav>
+
+<section class="search" id="search-bar">
+  <input id="q" type="search" placeholder="Search verses, nāmas, concepts…" autocomplete="off" />
+</section>
+
+<main>
+  <div id="view-shlokas"></div>
+  <div id="view-focus" hidden></div>
+  <div id="view-attributes" hidden></div>
+  <div id="view-concept" hidden></div>
+</main>
+
+</div>
+
+<footer><span id="stats"></span></footer>
+
+<script src="data.js"></script>
+<script src="shlokas.js"></script>
+<script src="concepts.js"></script>
+<script src="positions.js"></script>
+<script>
+/* ============================================================================
+   State + UI strings
+   ============================================================================ */
+const state = { lang:'en', view:'shlokas', focusId:null, conceptId:null, q:'' };
+
+const UI = {
+  pos:           { en:'Position',   dev:'स्थानम्',   kn:'ಸ್ಥಾನ',     hi:'स्थान' },
+  artha:         { en:'Artha',      dev:'अर्थः',     kn:'ಅರ್ಥ',      hi:'अर्थ' },
+  guna:          { en:'Guṇa',       dev:'गुणः',      kn:'ಗುಣ',       hi:'गुण' },
+  madhvaPrefix:  { en:'Mādhva',     dev:'माध्व',     kn:'ಮಾಧ್ವ',     hi:'माध्व' },
+  shlokaSrc:     { en:'In verse',   dev:'श्लोके',    kn:'ಶ್ಲೋಕದಲ್ಲಿ', hi:'श्लोक में' },
+  conceptsLbl:   { en:'Concepts',   dev:'सम्मताः',   kn:'ಪರಿಕಲ್ಪನೆಗಳು', hi:'सम्मत' },
+  namasLbl:      { en:'Nāmas',      dev:'नामानि',    kn:'ನಾಮಗಳು',     hi:'नाम' },
+  noMatch:       { en:'No matches.', dev:'न सम्मतम्।', kn:'ಯಾವುದೂ ಸಿಗಲಿಲ್ಲ.', hi:'कुछ नहीं मिला।' },
+  shlokas:       { en:'shlokas',    dev:'श्लोकाः',   kn:'ಶ್ಲೋಕಗಳು',   hi:'श्लोक' },
+  namas:         { en:'nāmas',      dev:'नामानि',    kn:'ನಾಮಗಳು',     hi:'नाम' },
+  concepts:      { en:'concepts',   dev:'सम्मताः',   kn:'ಪರಿಕಲ್ಪನೆಗಳು', hi:'सम्मत' },
+  navShlokas:    { en:'Shlokas',    dev:'श्लोकाः',   kn:'ಶ್ಲೋಕಗಳು',   hi:'श्लोक' },
+  navAttributes: { en:'Attributes', dev:'गुणाः',     kn:'ಗುಣಗಳು',     hi:'गुण' },
+  searchPh:      { en:'Search verses, nāmas, concepts…',
+                   dev:'श्लोकान्, नामानि, सम्मतान् अन्विष्यतु…',
+                   kn:'ಶ್ಲೋಕಗಳು, ನಾಮಗಳು, ಪರಿಕಲ್ಪನೆಗಳನ್ನು ಹುಡುಕಿ…',
+                   hi:'श्लोक, नाम, सम्मत खोजें…' },
+};
+function ui(key){ const r = UI[key]; return r ? (r[state.lang] || r.en) : key; }
+
+/* ============================================================================
+   Indices
+   ============================================================================ */
+const NAMA_BY_ID    = Object.fromEntries(NODES.map(n => [n.id, n]));
+const SHLOKA_BY_ID  = Object.fromEntries(SHLOKAS.map(s => [s.id, s]));
+const CONCEPT_BY_ID = Object.fromEntries(CONCEPTS.map(c => [c.id, c]));
+const TIER_BY_ID    = Object.fromEntries(TIERS.map(t => [t.id, t]));
+const CTIER_BY_ID   = Object.fromEntries(CTIERS.map(t => [t.id, t]));
+
+// Build sl_xxx → [namas in that shloka], using each nama's shloka_id field
+const NAMAS_BY_SHLOKA = {};
+NODES.forEach(n => {
+  if (!NAMAS_BY_SHLOKA[n.shloka_id]) NAMAS_BY_SHLOKA[n.shloka_id] = [];
+  NAMAS_BY_SHLOKA[n.shloka_id].push(n);
+});
+Object.values(NAMAS_BY_SHLOKA).forEach(arr => arr.sort((a,b) => a.position - b.position));
+
+// Concept → namas index (use the concept's own nama_ids list)
+function namasForConcept(c){
+  return c.nama_ids.map(id => NAMA_BY_ID[id]).filter(Boolean);
+}
+
+/* ============================================================================
+   Helpers
+   ============================================================================ */
+function setLang(lang){
+  state.lang = lang;
+  document.body.classList.remove('lang-en','lang-dev','lang-kn','lang-hi');
+  document.body.classList.add('lang-'+lang);
+  document.querySelectorAll('#lang-tabs button').forEach(b => {
+    b.classList.toggle('on', b.dataset.lang === lang);
+  });
+  const qEl = document.getElementById('q');
+  if (qEl) qEl.placeholder = ui('searchPh');
+  document.querySelectorAll('#view-tabs button[data-view]').forEach(b => {
+    const k = b.dataset.view === 'shlokas' ? 'navShlokas' : 'navAttributes';
+    b.textContent = ui(k);
+  });
+  render();
+}
+
+function setView(v, opts){
+  state.view = v;
+  if (opts && opts.focusId)   state.focusId   = opts.focusId;
+  if (opts && opts.conceptId) state.conceptId = opts.conceptId;
+  document.querySelectorAll('#view-tabs button').forEach(b => {
+    b.classList.toggle('on', b.dataset.view === v || (v === 'focus' && b.dataset.view === 'shlokas') || (v === 'concept' && b.dataset.view === 'attributes'));
+  });
+  document.getElementById('view-shlokas').hidden    = v !== 'shlokas';
+  document.getElementById('view-focus').hidden      = v !== 'focus';
+  document.getElementById('view-attributes').hidden = v !== 'attributes';
+  document.getElementById('view-concept').hidden    = v !== 'concept';
+  document.getElementById('search-bar').hidden      = false;
+  window.scrollTo({top:0, behavior:'instant'});
+  render();
+}
+
+function labelOf(obj, fieldChain){
+  // obj is a NAMA: obj.name = {iast, dev, kn, hi}
+  // obj is a CONCEPT: obj.en/dev/kn/hi directly
+  const f = fieldChain ? obj[fieldChain] : obj;
+  if (state.lang === 'iast') state.lang = 'en';
+  if (state.lang === 'dev') return f.dev || f.en;
+  if (state.lang === 'kn')  return f.kn  || f.en;
+  if (state.lang === 'hi')  return f.hi  || f.dev || f.en;
+  // EN: nāmas use iast, concepts use en
+  return f.iast || f.en || f.dev;
+}
+
+function getActive(field){
+  if (field == null) return '';
+  if (typeof field === 'string') return field;
+  if (typeof field === 'object'){
+    if (state.lang === 'en') return field.en || field.dev || '';
+    return field[state.lang] || field.en || field.dev || '';
+  }
+  return String(field);
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function highlight(s, q){
+  if (!q) return escapeHtml(s);
+  const idx = s.toLowerCase().indexOf(q.toLowerCase());
+  if (idx < 0) return escapeHtml(s);
+  return escapeHtml(s.slice(0, idx)) + '<span class="hl">' + escapeHtml(s.slice(idx, idx+q.length)) + '</span>' + escapeHtml(s.slice(idx+q.length));
+}
+
+function shlokaScript(s){
+  // Pick which script to show for the verse body
+  return state.lang === 'dev' ? s.sanskrit.dev
+       : state.lang === 'kn'  ? s.sanskrit.kn
+       : state.lang === 'hi'  ? s.sanskrit.hi
+       :                        s.sanskrit.iast;
+}
+
+/* ============================================================================
+   SHLOKAS view (default)
+   ============================================================================ */
+function renderShlokas(){
+  const root = document.getElementById('view-shlokas');
+  const q = state.q.trim().toLowerCase();
+
+  const matchedShlokas = SHLOKAS.filter(s => {
+    if (!q) return true;
+    const hay = [
+      s.sanskrit.dev, s.sanskrit.iast, s.sanskrit.kn, s.sanskrit.hi,
+      ...(NAMAS_BY_SHLOKA[s.id] || []).flatMap(n => [
+        n.name.iast, n.name.dev, n.name.kn, n.name.hi,
+        getActive(n.artha), getActive(n.guna),
+      ]),
+    ].join(' ').toLowerCase();
+    return hay.includes(q);
+  });
+
+  if (!matchedShlokas.length){
+    root.innerHTML = '<div style="padding:40px 20px;text-align:center;color:var(--ink-fade)">' + escapeHtml(ui('noMatch')) + '</div>';
+    return;
+  }
+
+  let html = '';
+  matchedShlokas.forEach(s => {
+    const namas = NAMAS_BY_SHLOKA[s.id] || [];
+    html += '<article class="shloka-card">';
+    html += '  <div class="num">' + escapeHtml(ui('shlokas').slice(0,5).toUpperCase()) + ' ' + s.num + '</div>';
+    html += '  <div class="verse">' + escapeHtml(shlokaScript(s)) + '</div>';
+    if (namas.length){
+      html += '  <div class="chips">';
+      namas.forEach(n => {
+        html += '<span class="chip" data-id="' + n.id + '">' + escapeHtml(labelOf(n, 'name')) + '</span>';
+      });
+      html += '  </div>';
+    }
+    html += '</article>';
+  });
+  root.innerHTML = html;
+}
+
+/* ============================================================================
+   FOCUS (single nāma)
+   ============================================================================ */
+function renderFocus(){
+  const root = document.getElementById('view-focus');
+  const id = state.focusId || NODES[0].id;
+  const n = NAMA_BY_ID[id];
+  if (!n){ root.innerHTML = '<div style="padding:20px">Not found.</div>'; return; }
+  const tier = TIER_BY_ID[n.tier];
+  const tierLab = tier ? (tier[state.lang === 'en' ? 'en' : state.lang] || tier.en) : n.tier;
+  const sh = SHLOKA_BY_ID[n.shloka_id];
+
+  let html = '<article class="focus-card">';
+  html += '  <span class="tier-badge" style="color:var(--t-' + n.tier + ')">';
+  html += '    <style>.focus-card .tier-badge::before{background:var(--t-' + n.tier + ')}</style>';
+  html += '    ' + escapeHtml(tierLab) + '<span class="pos">· ' + escapeHtml(ui('pos')) + ' ' + n.position + '</span>';
+  html += '  </span>';
+  html += '  <h1>' + escapeHtml(labelOf(n, 'name')) + '</h1>';
+
+  html += '  <div class="section"><div class="label">' + escapeHtml(ui('artha')) + '</div>';
+  html += '    <div class="body">' + escapeHtml(getActive(n.artha)) + '</div></div>';
+
+  html += '  <div class="section"><div class="label">' + escapeHtml(ui('guna')) + '</div>';
+  html += '    <div class="body">' + escapeHtml(getActive(n.guna)) + '</div></div>';
+
+  if (n.madhva){
+    html += '  <div class="madhva"><span class="madhva-prefix">' + escapeHtml(ui('madhvaPrefix')) + ' · </span>' + escapeHtml(getActive(n.madhva)) + '</div>';
+  }
+
+  if (sh){
+    html += '  <div class="focus-shloka">';
+    html += '    <div class="shloka-script">' + escapeHtml(shlokaScript(sh)) + '</div>';
+    html += '    <div class="shloka-ref">' + escapeHtml(ui('shlokaSrc')) + ' ' + sh.num + '</div>';
+    html += '  </div>';
+  }
+
+  if (n.tags && n.tags.length){
+    html += '  <div class="section"><div class="label">' + escapeHtml(ui('conceptsLbl')) + '</div>';
+    html += '    <div class="tags-list">';
+    n.tags.forEach(cid => {
+      const c = CONCEPT_BY_ID[cid];
+      const lab = c ? labelOf(c) : cid;
+      html += '<span class="tag" data-concept-id="' + cid + '">' + escapeHtml(lab) + '</span>';
+    });
+    html += '    </div></div>';
+  }
+
+  html += '</article>';
+  root.innerHTML = html;
+}
+
+/* ============================================================================
+   ATTRIBUTES (concept browse)
+   ============================================================================ */
+function renderAttributes(){
+  const root = document.getElementById('view-attributes');
+  const q = state.q.trim().toLowerCase();
+  const matches = (c) => {
+    if (!q) return true;
+    const hay = [c.en, c.dev, c.kn, c.hi, getActive(c.title), getActive(c.note)].join(' ').toLowerCase();
+    return hay.includes(q);
+  };
+
+  let html = '';
+  let total = 0;
+  CTIERS.forEach(tier => {
+    const cs = CONCEPTS.filter(c => c.tier === tier.id && matches(c));
+    if (!cs.length) return;
+    total += cs.length;
+    const tlab = tier[state.lang === 'en' ? 'en' : state.lang] || tier.en;
+    html += '<section class="tier-section">';
+    html += '  <div class="tier-head">';
+    html += '    <span class="tier-dot" style="background:var(--t-' + tier.id + ')"></span>';
+    html += '    <span class="tier-name">' + escapeHtml(tlab) + '</span>';
+    html += '    <span class="tier-gloss">' + escapeHtml(tier.gloss) + '</span>';
+    html += '    <span class="tier-count">' + cs.length + '</span>';
+    html += '  </div>';
+    html += '</section>';
+    html += '<ul class="entry-list">';
+    cs.forEach(c => {
+      const lab = labelOf(c);
+      html += '<li data-concept-id="' + c.id + '">';
+      html += '  <div><div class="label">' + highlight(lab, q) + '</div>';
+      html += '       <div class="sub">' + escapeHtml(getActive(c.title)) + '</div></div>';
+      html += '  <div class="count">' + c.nama_ids.length + ' ' + escapeHtml(ui('namas')) + '</div>';
+      html += '</li>';
+    });
+    html += '</ul>';
+  });
+  if (!total) html = '<div style="padding:40px 20px;text-align:center;color:var(--ink-fade)">' + escapeHtml(ui('noMatch')) + '</div>';
+  root.innerHTML = html;
+}
+
+/* ============================================================================
+   CONCEPT FOCUS
+   ============================================================================ */
+function renderConcept(){
+  const root = document.getElementById('view-concept');
+  const id = state.conceptId || CONCEPTS[0].id;
+  const c = CONCEPT_BY_ID[id];
+  if (!c){ root.innerHTML = '<div style="padding:20px">Not found.</div>'; return; }
+  const tier = CTIER_BY_ID[c.tier];
+  const tierLab = tier ? (tier[state.lang === 'en' ? 'en' : state.lang] || tier.en) : c.tier;
+
+  let html = '<article class="concept-focus">';
+  html += '  <span class="tier-badge" style="color:var(--t-' + c.tier + ')">';
+  html += '    <style>.concept-focus .tier-badge::before{background:var(--t-' + c.tier + ')}</style>';
+  html += '    ' + escapeHtml(tierLab);
+  html += '  </span>';
+  html += '  <h1>' + escapeHtml(labelOf(c)) + '</h1>';
+  html += '  <div class="subtitle">' + escapeHtml(getActive(c.title)) + '</div>';
+  html += '  <p class="note">' + escapeHtml(getActive(c.note)) + '</p>';
+  html += '</article>';
+
+  const ns = namasForConcept(c);
+  if (ns.length){
+    html += '<section class="tier-section">';
+    html += '  <div class="tier-head">';
+    html += '    <span class="tier-name">' + escapeHtml(ui('namasLbl')) + '</span>';
+    html += '    <span class="tier-count">' + ns.length + '</span>';
+    html += '  </div></section>';
+    html += '<ul class="entry-list">';
+    ns.forEach(n => {
+      const sh = SHLOKA_BY_ID[n.shloka_id];
+      html += '<li data-id="' + n.id + '">';
+      html += '  <div><div class="label">' + escapeHtml(labelOf(n, 'name')) + '</div>';
+      html += '       <div class="sub">' + escapeHtml(ui('pos')) + ' ' + n.position + (sh ? ' · ' + ui('shlokaSrc') + ' ' + sh.num : '') + '</div></div>';
+      html += '  <div class="count">→</div>';
+      html += '</li>';
+    });
+    html += '</ul>';
+  }
+  root.innerHTML = html;
+}
+
+/* ============================================================================
+   Dispatch
+   ============================================================================ */
+function render(){
+  if (state.view === 'shlokas') renderShlokas();
+  else if (state.view === 'focus') renderFocus();
+  else if (state.view === 'attributes') renderAttributes();
+  else if (state.view === 'concept') renderConcept();
+
+  const f = document.getElementById('stats');
+  if (f) f.textContent = SHLOKAS.length + ' ' + ui('shlokas') + ' · ' + NODES.length + ' ' + ui('namas') + ' · ' + CONCEPTS.length + ' ' + ui('concepts');
+}
+
+/* ============================================================================
+   Wiring
+   ============================================================================ */
+document.getElementById('lang-tabs').addEventListener('click', ev => {
+  const b = ev.target.closest('button[data-lang]'); if (b) setLang(b.dataset.lang);
+});
+document.getElementById('view-tabs').addEventListener('click', ev => {
+  const b = ev.target.closest('button[data-view]');
+  if (!b) return;
+  setView(b.dataset.view);
+});
+document.getElementById('q').addEventListener('input', ev => {
+  state.q = ev.target.value;
+  if (state.view === 'focus') setView('shlokas');
+  else if (state.view === 'concept') setView('attributes');
+  else render();
+});
+
+// Delegated clicks: chips, list items, tags
+document.addEventListener('click', ev => {
+  const chip = ev.target.closest('.chip[data-id], li[data-id]');
+  if (chip){ setView('focus', {focusId: chip.dataset.id}); return; }
+  const cli = ev.target.closest('li[data-concept-id], .tag[data-concept-id]');
+  if (cli){ setView('concept', {conceptId: cli.dataset.conceptId}); return; }
+});
+
+render();
+</script>
+</body>
+</html>

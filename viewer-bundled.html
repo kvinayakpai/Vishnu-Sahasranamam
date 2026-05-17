@@ -1,0 +1,2291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#f4ead8">
+<title>Viṣṇu-sahasranāma · KG (Mādhva)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Sans+Kannada:wght@400;500;600&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Tiro+Devanagari+Hindi:ital@0;1&family=Tiro+Kannada:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4ead8; --bg-2:#ebdfc7; --ink:#1f1a13; --ink-soft:#4a3f30; --ink-fade:#7a6c54;
+  --rule:#d6c599; --rule-soft:#e6d8b0; --paper:#fbf5e6; --paper-2:#f6ecd2;
+  --hl:#f9d57a;
+
+  --t-para_tattva:#8b1e1a; --t-svarupa_guna:#a83f1a; --t-lila_guna:#b8702a;
+  --t-karunya_guna:#3f7a4a; --t-bhakta_sambandha:#2f6e7a; --t-mokshaprada:#7a1e5a;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;min-height:100svh;margin:0;padding:0}
+body{
+  background:
+    radial-gradient(ellipse at 20% -10%, #f9efd9 0%, transparent 55%),
+    radial-gradient(ellipse at 110% 110%, #ead9b3 0%, transparent 55%),
+    var(--bg);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:contain;
+}
+.app{position:relative;z-index:1;max-width:840px;margin:0 auto;min-height:100svh;display:flex;flex-direction:column;}
+
+header.top{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:8px;
+  padding:max(10px,env(safe-area-inset-top,0)) 14px 10px;
+  background:#f4ead8; border-bottom:1px solid var(--rule);
+}
+header .brand{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px;overflow:hidden}
+header .brand .name{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;line-height:1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+header .brand .name em{font-style:italic;color:var(--ink-soft);font-weight:500}
+header .brand .crumb{
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-fade);white-space:nowrap;flex:0 0 auto;
+}
+header .lang{
+  display:flex;gap:0;background:var(--paper);border:1px solid var(--rule);
+  border-radius:8px;overflow:hidden;font-size:11px;letter-spacing:.06em;
+}
+header .lang button{
+  background:transparent;border:0;color:var(--ink-soft);
+  padding:6px 7px;cursor:pointer;font:inherit;
+}
+header .lang button.on{background:var(--ink);color:var(--paper)}
+header .lang button + button{border-left:1px solid var(--rule)}
+
+.subhead{display:flex;gap:0;border-bottom:1px solid var(--rule);background:#f4ead8;position:sticky;top:46px;z-index:9;}
+.subhead button{
+  flex:1;padding:10px 4px;background:transparent;border:0;
+  font:inherit;color:var(--ink-fade);font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;
+}
+.subhead button.on{color:var(--ink);box-shadow:inset 0 -2px 0 var(--ink)}
+
+.search{padding:10px 14px;background:#f4ead8;border-bottom:1px solid var(--rule-soft);position:sticky;top:84px;z-index:8}
+.search input{
+  width:100%;padding:8px 10px;border:1px solid var(--rule);border-radius:6px;
+  background:var(--paper);font:inherit;font-size:13px;color:var(--ink);
+}
+.search input:focus{outline:0;border-color:var(--ink-soft)}
+
+main{flex:1;padding:8px 0 80px}
+
+/* ============ SHLOKA-CARD LIST ============ */
+.shloka-card{
+  margin:10px 14px;padding:14px 16px;border-radius:10px;
+  background:linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  border:1px solid var(--rule);
+  cursor:default;
+}
+.shloka-card .num{
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-fade);margin-bottom:6px;
+}
+.shloka-card .verse{
+  font-family:'Tiro Devanagari Sanskrit',serif;font-size:17px;line-height:1.6;
+  white-space:pre-wrap;color:var(--ink);
+}
+body.lang-kn .shloka-card .verse{font-family:'Tiro Kannada',serif}
+body.lang-hi .shloka-card .verse{font-family:'Tiro Devanagari Hindi','Tiro Devanagari Sanskrit',serif}
+body.lang-en .shloka-card .verse{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px}
+.shloka-card .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.shloka-card .chip{
+  font-size:11px;padding:4px 8px;border:1px solid var(--rule);border-radius:14px;
+  background:var(--paper);color:var(--ink-soft);cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+}
+body.lang-dev .shloka-card .chip,
+body.lang-hi  .shloka-card .chip{font-family:'Tiro Devanagari Sanskrit',serif;font-size:13px}
+body.lang-kn  .shloka-card .chip{font-family:'Tiro Kannada',serif;font-size:13px}
+.shloka-card .chip:hover{border-color:var(--ink-soft)}
+
+/* ============ FOCUS (single nāma) ============ */
+.focus-card{
+  margin:10px 14px;padding:14px 16px;border-radius:10px;
+  background:var(--paper);border:1px solid var(--rule);
+}
+.focus-card .tier-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-fade);
+}
+.focus-card .tier-badge::before{
+  content:"";display:inline-block;width:8px;height:8px;border-radius:50%;
+}
+.focus-card .pos{font-size:11px;color:var(--ink-fade);margin-left:6px}
+.focus-card h1{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-size:28px;
+  margin:6px 0 2px;line-height:1.1;
+}
+body.lang-dev .focus-card h1{font-family:'Tiro Devanagari Sanskrit',serif;font-size:30px}
+body.lang-hi  .focus-card h1{font-family:'Tiro Devanagari Hindi','Tiro Devanagari Sanskrit',serif;font-size:30px}
+body.lang-kn  .focus-card h1{font-family:'Tiro Kannada',serif;font-size:30px}
+.focus-card .section{
+  margin-top:14px;
+}
+.focus-card .section .label{
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-fade);
+  margin-bottom:4px;
+}
+.focus-card .section .body{
+  font-size:14px;line-height:1.5;color:var(--ink);
+}
+.focus-card .madhva{
+  font-size:13px;line-height:1.45;color:var(--ink-soft);
+  padding:8px 10px;background:var(--paper-2);border-left:3px solid var(--t-para_tattva);
+  border-radius:0 6px 6px 0;margin-top:14px;
+}
+.focus-card .madhva .madhva-prefix{font-weight:600;color:var(--t-para_tattva)}
+.focus-card .focus-shloka{
+  margin:14px 0 0;padding:10px 14px;
+  border-left:3px solid var(--rule);
+  background:linear-gradient(180deg, var(--paper-2) 0%, var(--paper) 100%);
+  border-radius:0 6px 6px 0;
+}
+.focus-card .focus-shloka .shloka-script{
+  font-family:'Tiro Devanagari Sanskrit',serif;font-size:16px;line-height:1.55;
+  white-space:pre-wrap;color:var(--ink);
+}
+body.lang-kn .focus-card .focus-shloka .shloka-script{font-family:'Tiro Kannada',serif}
+body.lang-hi .focus-card .focus-shloka .shloka-script{font-family:'Tiro Devanagari Hindi','Tiro Devanagari Sanskrit',serif}
+body.lang-en .focus-card .focus-shloka .shloka-script{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;
+}
+.focus-card .focus-shloka .shloka-ref{
+  font-size:10px;color:var(--ink-fade);margin-top:6px;
+  letter-spacing:.06em;text-align:right;
+}
+.tags-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tags-list .tag{
+  font-size:11px;padding:4px 8px;border:1px solid var(--rule);border-radius:4px;
+  background:var(--paper-2);color:var(--ink-soft);cursor:pointer;
+}
+.tags-list .tag:hover{border-color:var(--ink-soft)}
+
+/* ============ ATTRIBUTES VIEW ============ */
+.tier-section{padding:10px 14px 4px}
+.tier-section .tier-head{
+  display:flex;align-items:baseline;gap:8px;margin-bottom:6px;
+}
+.tier-section .tier-dot{
+  display:inline-block;width:10px;height:10px;border-radius:50%;
+}
+.tier-section .tier-name{
+  font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;
+}
+.tier-section .tier-gloss{font-size:11px;color:var(--ink-fade);letter-spacing:.04em}
+.tier-section .tier-count{font-size:11px;color:var(--ink-fade);margin-left:auto}
+ul.entry-list{list-style:none;margin:0;padding:0 14px 16px}
+ul.entry-list li{
+  padding:9px 10px;margin:4px 0;border-radius:8px;
+  background:var(--paper);border:1px solid var(--rule-soft);
+  display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;
+  cursor:pointer;
+}
+ul.entry-list li:hover{border-color:var(--rule)}
+ul.entry-list li .label{
+  font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--ink);
+}
+ul.entry-list li .sub{font-size:11px;color:var(--ink-fade);margin-top:2px}
+ul.entry-list li .count{font-size:10px;color:var(--ink-fade);letter-spacing:.04em}
+body.lang-dev ul.entry-list li .label,
+body.lang-hi  ul.entry-list li .label{font-family:'Tiro Devanagari Sanskrit',serif;font-size:17px}
+body.lang-kn  ul.entry-list li .label{font-family:'Tiro Kannada',serif;font-size:17px}
+.hl{background:var(--hl);padding:0 1px;border-radius:2px}
+
+.concept-focus{
+  margin:10px 14px;padding:14px 16px;border-radius:10px;
+  background:var(--paper);border:1px solid var(--rule);
+}
+.concept-focus h1{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px;
+  margin:6px 0 4px;line-height:1.1;
+}
+body.lang-dev .concept-focus h1{font-family:'Tiro Devanagari Sanskrit',serif;font-size:26px}
+body.lang-hi  .concept-focus h1{font-family:'Tiro Devanagari Hindi','Tiro Devanagari Sanskrit',serif;font-size:26px}
+body.lang-kn  .concept-focus h1{font-family:'Tiro Kannada',serif;font-size:26px}
+.concept-focus .subtitle{font-size:13px;color:var(--ink-soft);font-style:italic;margin-bottom:8px}
+.concept-focus .note{font-size:14px;line-height:1.5;color:var(--ink);margin:8px 0}
+
+footer{
+  position:fixed;bottom:0;left:0;right:0;
+  padding:8px 14px max(8px,env(safe-area-inset-bottom,0));
+  background:rgba(244,234,216,.94);backdrop-filter:blur(8px);
+  border-top:1px solid var(--rule);
+  font-size:10px;color:var(--ink-fade);letter-spacing:.06em;text-align:center;
+}
+</style>
+</head>
+<body class="lang-en">
+<div class="app">
+
+<header class="top">
+  <div class="brand">
+    <span class="name">Viṣṇu-<em>sahasranāma</em> · KG</span>
+    <span class="crumb">Mādhva</span>
+  </div>
+  <div class="lang" id="lang-tabs">
+    <button data-lang="en" class="on">EN</button>
+    <button data-lang="dev">देव</button>
+    <button data-lang="kn">ಕನ್ನಡ</button>
+    <button data-lang="hi">हिन्दी</button>
+  </div>
+</header>
+
+<nav class="subhead" id="view-tabs">
+  <button data-view="shlokas" class="on">Shlokas</button>
+  <button data-view="attributes">Attributes</button>
+</nav>
+
+<section class="search" id="search-bar">
+  <input id="q" type="search" placeholder="Search verses, nāmas, concepts…" autocomplete="off" />
+</section>
+
+<main>
+  <div id="view-shlokas"></div>
+  <div id="view-focus" hidden></div>
+  <div id="view-attributes" hidden></div>
+  <div id="view-concept" hidden></div>
+</main>
+
+</div>
+
+<footer><span id="stats"></span></footer>
+
+<script>
+/* === inlined from data.js === */
+/* Vishnu Sahasranama --- Knowledge Graph data layer
+ *
+ * Phase 1 vertical slice: ~50 hand-curated namas spanning the 107 verses,
+ * focusing on the Madhva-distinctive doctrinal anchors. The full 1000-nama
+ * fill-in is Phase 2 work.
+ *
+ * Schema per node:
+ *   id, position, shloka_id, tier,
+ *   name:   {iast, dev, kn, hi}
+ *   artha:  {en, dev, kn, hi}    # arthanusandhana
+ *   guna:   {en, dev, kn, hi}    # gunanusandhana
+ *   madhva: {en, dev, kn, hi} | null
+ *   tags:   [concept_id, ...]    # links into concepts.js
+ *
+ * EDGES connect namas: avatara-cluster, name-synonyms, vyuha-relations.
+ * TIERS group namas for browse-mode display.
+ */
+
+const TIERS = [
+  { id: "para_tattva", en: "Para-tattva", dev: "पर-तत्त्व", kn: "ಪರ-ತತ್ತ್ವ", hi: "पर-तत्त्व", gloss: "The supreme reality - Hari/Vishnu/Narayana as sarvottama" },
+  { id: "svarupa_guna", en: "Svarupa-guna", dev: "स्वरूप-गुण", kn: "ಸ್ವರೂಪ-ಗುಣ", hi: "स्वरूप-गुण", gloss: "Essential attributes - sat, cit, ananda, jnana, bala" },
+  { id: "lila_guna", en: "Lila-guna", dev: "लीला-गुण", kn: "ಲೀಲಾ-ಗುಣ", hi: "लीला-गुण", gloss: "Cosmic-play attributes - srshti, sthiti, samhara, avatara" },
+  { id: "karunya_guna", en: "Karunya-guna", dev: "कारुण्य-गुण", kn: "ಕಾರುಣ್ಯ-ಗುಣ", hi: "कारुण्य-गुण", gloss: "Mercy attributes - vatsalya, akhilaghaharitva, sharanagati" },
+  { id: "bhakta_sambandha", en: "Bhakta-sambandha", dev: "भक्त-सम्बन्ध", kn: "ಭಕ್ತ-ಸಂಬಂಧ", hi: "भक्त-सम्बन्ध", gloss: "Devotee-relation attributes - bhakta-priya, bhakta-vatsala" },
+  { id: "mokshaprada", en: "Moksha-prada", dev: "मोक्ष-प्रद", kn: "ಮೋಕ್ಷ-ಪ್ರದ", hi: "मोक्ष-प्रद", gloss: "Liberation-bestowing attributes - mukti-prada, taratamya-niyamaka" },
+];
+
+const TIER_COLOR = {
+  "para_tattva": "#8b1e1a",
+  "svarupa_guna": "#a83f1a",
+  "lila_guna": "#b8702a",
+  "karunya_guna": "#3f7a4a",
+  "bhakta_sambandha": "#2f6e7a",
+  "mokshaprada": "#7a1e5a"
+};
+
+const NODES = [
+  
+  {
+    id: "n_0001", position: 1, shloka_id: "sl_001", tier: "para_tattva",
+    name:  {"iast": "viśvam", "dev": "विश्वम्", "kn": "ವಿಶ್ವಂ", "hi": "विश्वम्"},
+    artha: {"en": "The Cosmos - Hari as the totality of all existent and possible beings; the universe in its entirety is his body.", "dev": "विश्व-शब्देन समस्तं स्थावरजङ्गमात्मकं जगत् अभिधीयते। तत् सर्वमेव विष्णोः शरीरतया तदधीनम्।", "kn": "ವಿಶ್ವ-ಶಬ್ದದಿಂದ ಸಮಸ್ತ ಸ್ಥಾವರ-ಜಂಗಮಾತ್ಮಕ ಜಗತ್ತು ವಾಚ್ಯವಾಗುತ್ತದೆ. ಇಡೀ ಜಗತ್ತು ವಿಷ್ಣುವಿನ ಶರೀರ ರೂಪದಲ್ಲಿ ಅವನಿಗೆ ಅಧೀನವಾಗಿದೆ.", "hi": "विश्व-शब्देन समस्तं स्थावरजङ्गमात्मकं जगत् अभिधीयते। तत् सर्वमेव विष्णोः शरीरतया तदधीनम्।"},
+    guna:  {"en": "Sarva-vyaapaka-svarupa: the all-pervading, all-containing nature. Verse-opening invocation establishes Hari's universal scope.", "dev": "सर्व-व्यापक-स्वरूपम्। श्लोकारम्भे एव हरेः निरुपाधिक-व्यापित्वम् उद्घोष्यते।", "kn": "ಸರ್ವ-ವ್ಯಾಪಕ-ಸ್ವರೂಪ. ಶ್ಲೋಕದ ಆರಂಭದಲ್ಲಿಯೇ ಹರಿಯ ನಿರುಪಾಧಿಕ ವ್ಯಾಪಿತ್ವದ ಘೋಷಣೆ.", "hi": "सर्व-व्यापक-स्वरूपम्। श्लोकारम्भे एव हरेः निरुपाधिक-व्यापित्वम् उद्घोष्यते।"},
+    tags: ["c_hari_sarvottamatva", "c_sarva_vyapakatva"],
+  },
+  {
+    id: "n_0002", position: 2, shloka_id: "sl_001", tier: "para_tattva",
+    name:  {"iast": "viṣṇuḥ", "dev": "विष्णुः", "kn": "ವಿಷ್ಣುಃ", "hi": "विष्णुः"},
+    artha: {"en": "Vishnu: 'the pervader' (root viś, 'to enter/pervade'). The name names him by his most characteristic act - entering all beings as antaryami.", "dev": "विष्णुः इति - विशतेः धातोः, सर्वान्तर-प्रवेशशीलः। प्रत्येकं भूतं विष्णुः अन्तर्यामि-रूपेण प्रविशति।", "kn": "ವಿಷ್ಣು ಎಂದರೆ — ವಿಶತಿ ಧಾತುವಿನಿಂದ, ಸರ್ವಾಂತರ-ಪ್ರವೇಶಶೀಲ. ಪ್ರತಿಯೊಂದು ಭೂತದಲ್ಲಿಯೂ ವಿಷ್ಣುವು ಅಂತರ್ಯಾಮಿ-ರೂಪದಲ್ಲಿ ಪ್ರವೇಶಿಸುತ್ತಾನೆ.", "hi": "विष्णुः इति - विशतेः धातोः, सर्वान्तर-प्रवेशशीलः। प्रत्येकं भूतं विष्णुः अन्तर्यामि-रूपेण प्रविशति।"},
+    guna:  {"en": "Antaryamitva: in-dweller. Madhva's pancha-bheda system makes this the primary axiom - Hari is in everything but distinct from everything.", "dev": "अन्तर्यामित्वम्। मध्व-पञ्चभेद-व्यवस्थायां प्राथमिक-सिद्धान्तः - हरिः सर्वत्र अस्ति, अथ च सर्वस्मात् भिन्नः।", "kn": "ಅಂತರ್ಯಾಮಿತ್ವ. ಮಧ್ವ-ಪಂಚಭೇದ-ವ್ಯವಸ್ಥೆಯ ಪ್ರಾಥಮಿಕ ಸಿದ್ಧಾಂತ — ಹರಿಯು ಸರ್ವತ್ರ ಇದ್ದಾನೆ, ಆದರೆ ಎಲ್ಲದರಿಂದಲೂ ಭಿನ್ನ.", "hi": "अन्तर्यामित्वम्। मध्व-पञ्चभेद-व्यवस्थायां प्राथमिक-सिद्धान्तः - हरिः सर्वत्र अस्ति, अथ च सर्वस्मात् भिन्नः।"},
+    tags: ["c_hari_sarvottamatva", "c_antaryamitva"],
+    madhva: {"en": "The name 'Vishnu' for Madhva is not a generic divinity-label but the specific eka-paramatma; Shiva, Brahma etc. are all his abhimani-devatas.", "dev": "मध्व-मते 'विष्णुः' इति शब्दः सामान्य-देवता-वाचकः न; एक-परमात्मनः अनन्यार्थः। शिवादयः अस्य अभिमानि-देवताः।", "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ 'ವಿಷ್ಣು' ಎಂಬುದು ಸಾಮಾನ್ಯ ದೇವತಾ-ವಾಚಕವಲ್ಲ; ಏಕ-ಪರಮಾತ್ಮನ ಅನನ್ಯ ನಾಮ. ಶಿವಾದಿಗಳು ಅವನ ಅಭಿಮಾನಿ-ದೇವತೆಗಳು.", "hi": "मध्व-मते 'विष्णुः' इति शब्दः सामान्य-देवता-वाचकः न; एक-परमात्मनः अनन्यार्थः। शिवादयः अस्य अभिमानि-देवताः।"},
+  },
+  {
+    id: "n_0003", position: 3, shloka_id: "sl_001", tier: "svarupa_guna",
+    name:  {"iast": "vaṣaṭkāraḥ", "dev": "वषट्कारः", "kn": "ವಷಟ್ಕಾರಃ", "hi": "वषट्कारः"},
+    artha: {"en": "Vashatkara: the embodiment of the Vedic exclamation 'vashat!' uttered at yajna oblations. Hari is the addressee, ground, and result of all vaidika-karma.", "dev": "वषट्कारः - वषट्-शब्देन वेदोक्त-यज्ञ-होम-क्षणे उच्यमानेन वाच्यः। हरिः सर्व-वैदिक-कर्मणाम् उद्देश्यः, आधारः, फलं च।", "kn": "ವಷಟ್ಕಾರ — ವಷಟ್ ಎಂಬ ವೇದೋಕ್ತ ಯಜ್ಞ-ಹೋಮ ಸಮಯದಲ್ಲಿ ಉಚ್ಚರಿಸಲ್ಪಡುವ ಶಬ್ದದಿಂದ ವಾಚ್ಯ. ಹರಿಯು ಎಲ್ಲ ವೈದಿಕ ಕರ್ಮಗಳ ಉದ್ದೇಶ್ಯ, ಆಧಾರ ಮತ್ತು ಫಲ.", "hi": "वषट्कारः - वषट्-शब्देन वेदोक्त-यज्ञ-होम-क्षणे उच्यमानेन वाच्यः। हरिः सर्व-वैदिक-कर्मणाम् उद्देश्यः, आधारः, फलं च।"},
+    guna:  {"en": "Yajna-svarupa: the Vedic-sacrifice nature. Names Hari as the locus of all karma-kanda. Sankara reads as svarupa-laksana of the Vedic order itself.", "dev": "यज्ञ-स्वरूपम्। सर्व-कर्म-काण्डस्य आश्रयत्वम्। शङ्करः वैदिक-व्यवस्थायाः स्वरूप-लक्षणतया गृह्णाति।", "kn": "ಯಜ್ಞ-ಸ್ವರೂಪ. ಸಮಸ್ತ ಕರ್ಮ-ಕಾಂಡದ ಆಶ್ರಯತ್ವ. ಶಂಕರನು ವೈದಿಕ-ವ್ಯವಸ್ಥೆಯ ಸ್ವರೂಪ-ಲಕ್ಷಣವಾಗಿ ಗ್ರಹಿಸುತ್ತಾನೆ.", "hi": "यज्ञ-स्वरूपम्। सर्व-कर्म-काण्डस्य आश्रयत्वम्। शङ्करः वैदिक-व्यवस्थायाः स्वरूप-लक्षणतया गृह्णाति।"},
+    tags: ["c_yajna_svarupa"],
+  },
+  {
+    id: "n_0004", position: 4, shloka_id: "sl_001", tier: "svarupa_guna",
+    name:  {"iast": "bhūtabhavyabhavatprabhuḥ", "dev": "भूतभव्यभवत्प्रभुः", "kn": "ಭೂತಭವ್ಯಭವತ್ಪ್ರಭುಃ", "hi": "भूतभव्यभवत्प्रभुः"},
+    artha: {"en": "Lord of the past, future, and present (bhuta + bhavya + bhavat). Triple-time mastery: he was, will be, and is now the prabhu of all that exists.", "dev": "त्रिकाल-नियन्ता - भूतस्य भविष्यस्य वर्तमानस्य च प्रभुः। यदा यदा यत्किञ्चित् सत् तत् सर्वं तदधीनम्।", "kn": "ತ್ರಿಕಾಲ-ನಿಯಂತಾ — ಭೂತ, ಭವಿಷ್ಯ, ವರ್ತಮಾನಗಳ ಪ್ರಭು. ಯಾವಾಗಲೂ ಯಾವುದೇ ಇರುವ ವಸ್ತು ಎಲ್ಲವೂ ಅವನ ಅಧೀನ.", "hi": "त्रिकाल-नियन्ता - भूतस्य भविष्यस्य वर्तमानस्य च प्रभुः। यदा यदा यत्किञ्चित् सत् तत् सर्वं तदधीनम्।"},
+    guna:  {"en": "Kala-niyamakatva: time-sovereignty. Compactly states the trans-temporal lordship that 8.4 of the Gita names as adhibhuta.", "dev": "काल-नियामकत्वम्। गीता ८।४-स्थम् अधिभूत-तत्त्वं संक्षेपेण नामरूपेण निरूपयति।", "kn": "ಕಾಲ-ನಿಯಾಮಕತ್ವ. ಗೀತಾ ೮।೪ರಲ್ಲಿ ಅಧಿಭೂತ-ತತ್ತ್ವವನ್ನು ಸಂಕ್ಷೇಪವಾಗಿ ನಾಮರೂಪದಿಂದ ನಿರೂಪಿಸುತ್ತದೆ.", "hi": "काल-नियामकत्वम्। गीता ८।४-स्थम् अधिभूत-तत्त्वं संक्षेपेण नामरूपेण निरूपयति।"},
+    tags: ["c_kala_niyamakatva"],
+  },
+  {
+    id: "n_0005", position: 5, shloka_id: "sl_001", tier: "lila_guna",
+    name:  {"iast": "bhūtakṛt", "dev": "भूतकृत्", "kn": "ಭೂತಕೃತ್", "hi": "भूतकृत्"},
+    artha: {"en": "Maker of beings (bhuta + krt). Names Hari as the agent of cosmic creation - srshti.", "dev": "भूतानां कर्ता - सृष्टि-कर्तृत्वेन हरिः अभिधीयते।", "kn": "ಭೂತಗಳ ಕರ್ತ — ಸೃಷ್ಟಿ-ಕರ್ತೃತ್ವದಿಂದ ಹರಿಯು ಅಭಿಧೇಯ.", "hi": "भूतानां कर्ता - सृष्टि-कर्तृत्वेन हरिः अभिधीयते।"},
+    guna:  {"en": "Srshti-kartrtva: creator-agency. First of the trika srshti-sthiti-samhara cluster (names 5, 6, presence-bhrt).", "dev": "सृष्टि-कर्तृत्वम्। सृष्टि-स्थिति-संहार-त्रिकस्य प्रथमं नाम।", "kn": "ಸೃಷ್ಟಿ-ಕರ್ತೃತ್ವ. ಸೃಷ್ಟಿ-ಸ್ಥಿತಿ-ಸಂಹಾರ-ತ್ರಿಕದ ಮೊದಲ ನಾಮ.", "hi": "सृष्टि-कर्तृत्वम्। सृष्टि-स्थिति-संहार-त्रिकस्य प्रथमं नाम।"},
+    tags: ["c_srshti_kartrtva"],
+  },
+  {
+    id: "n_0006", position: 6, shloka_id: "sl_001", tier: "lila_guna",
+    name:  {"iast": "bhūtabhṛt", "dev": "भूतभृत्", "kn": "ಭೂತಭೃತ್", "hi": "भूतभृत्"},
+    artha: {"en": "Sustainer of beings - bhrt-root means 'to bear/maintain'. Hari maintains all created beings in existence.", "dev": "भूतानां भर्ता / धारकः - सृष्ट-भूतानां स्थिति-कर्तृत्वम्।", "kn": "ಭೂತಗಳ ಭರ್ತಾ / ಧಾರಕ — ಸೃಷ್ಟ ಭೂತಗಳ ಸ್ಥಿತಿ-ಕರ್ತೃತ್ವ.", "hi": "भूतानां भर्ता / धारकः - सृष्ट-भूतानां स्थिति-कर्तृत्वम्।"},
+    guna:  {"en": "Sthiti-kartrtva: sustainer-agency. Forms the second member of the trika.", "dev": "स्थिति-कर्तृत्वम्। सृष्टि-स्थिति-संहार-त्रिकस्य द्वितीयं नाम।", "kn": "ಸ್ಥಿತಿ-ಕರ್ತೃತ್ವ. ಸೃಷ್ಟಿ-ಸ್ಥಿತಿ-ಸಂಹಾರ-ತ್ರಿಕದ ಎರಡನೇ ನಾಮ.", "hi": "स्थिति-कर्तृत्वम्। सृष्टि-स्थिति-संहार-त्रिकस्य द्वितीयं नाम।"},
+    tags: ["c_sthiti_kartrtva"],
+  },
+  {
+    id: "n_0007", position: 7, shloka_id: "sl_001", tier: "svarupa_guna",
+    name:  {"iast": "bhūtātmā", "dev": "भूतात्मा", "kn": "ಭೂತಾತ್ಮಾ", "hi": "भूतात्मा"},
+    artha: {"en": "The self of all beings - atman of the bhutas. Hari is the inner essence behind every individual jiva.", "dev": "भूतानाम् आत्मा - प्रत्येक-जीवस्य अन्तःस्थः परमात्मा।", "kn": "ಭೂತಗಳ ಆತ್ಮ — ಪ್ರತಿಯೊಂದು ಜೀವದ ಅಂತಃಸ್ಥ ಪರಮಾತ್ಮ.", "hi": "भूतानाम् आत्मा - प्रत्येक-जीवस्य अन्तःस्थः परमात्मा।"},
+    guna:  {"en": "Sarva-bhuta-antaryamitva. Same axis as nama 2 (Vishnu) but here as essence-of-self rather than enterer-into-self.", "dev": "सर्व-भूत-अन्तर्यामित्वम्। द्वितीय-नाम (विष्णु) तुल्यः अक्षः - इदं स्वरूप-तया, तत् प्रवेश-क्रियया।", "kn": "ಸರ್ವ-ಭೂತ-ಅಂತರ್ಯಾಮಿತ್ವ. ಎರಡನೇ ನಾಮ (ವಿಷ್ಣು) ತುಲ್ಯ ಅಕ್ಷ — ಇದು ಸ್ವರೂಪವಾಗಿ, ಅದು ಪ್ರವೇಶ-ಕ್ರಿಯೆಯಾಗಿ.", "hi": "सर्व-भूत-अन्तर्यामित्वम्। द्वितीय-नाम (विष्णु) तुल्यः अक्षः - इदं स्वरूप-तया, तत् प्रवेश-क्रियया।"},
+    tags: ["c_antaryamitva", "c_atma_svarupa"],
+  },
+  {
+    id: "n_0008", position: 8, shloka_id: "sl_001", tier: "lila_guna",
+    name:  {"iast": "bhūtabhāvanaḥ", "dev": "भूतभावनः", "kn": "ಭೂತಭಾವನಃ", "hi": "भूतभावनः"},
+    artha: {"en": "Nourisher / progenitor of beings. The causal-agency name in the creation cluster.", "dev": "भूतानां पालकः / उद्भावकः - सर्व-भूत-समुद्भव-हेतुत्वम्।", "kn": "ಭೂತಗಳ ಪಾಲಕ / ಉದ್ಭಾವಕ — ಎಲ್ಲ ಭೂತಗಳ ಸಮುದ್ಭವ-ಹೇತುತ್ವ.", "hi": "भूतानां पालकः / उद्भावकः - सर्व-भूत-समुद्भव-हेतुत्वम्।"},
+    guna:  {"en": "Karuna-anu-pravrtti in the act of creation - creates with intent to sustain.", "dev": "करुणानुप्रवृत्तेन सृष्टि-कर्म - पालन-संकल्पेन सृजति।", "kn": "ಕರುಣಾನುಪ್ರವೃತ್ತಿಯಿಂದ ಸೃಷ್ಟಿ-ಕರ್ಮ — ಪಾಲನ-ಸಂಕಲ್ಪದಿಂದ ಸೃಜಿಸುತ್ತಾನೆ.", "hi": "करुणानुप्रवृत्तेन सृष्टि-कर्म - पालन-संकल्पेन सृजति।"},
+    tags: ["c_srshti_kartrtva", "c_karunya"],
+  },
+  {
+    id: "n_0011", position: 11, shloka_id: "sl_002", tier: "svarupa_guna",
+    name:  {"iast": "pūtātmā", "dev": "पूतात्मा", "kn": "ಪೂತಾತ್ಮಾ", "hi": "पूतात्मा"},
+    artha: {"en": "The pure self - nitya-shuddha-svabhava. Free of any defilement of prakrti, karma, or guna.", "dev": "पूत आत्मा यस्य सः। नित्य-शुद्ध-स्वरूपः, प्रकृति-कर्म-गुण-दोष-वर्जितः।", "kn": "ಪವಿತ್ರ ಆತ್ಮ ಯಾವನದೋ ಅವನು. ನಿತ್ಯ-ಶುದ್ಧ-ಸ್ವರೂಪ, ಪ್ರಕೃತಿ-ಕರ್ಮ-ಗುಣ-ದೋಷ-ವರ್ಜಿತ.", "hi": "पूत आत्मा यस्य सः। नित्य-शुद्ध-स्वरूपः, प्रकृति-कर्म-गुण-दोष-वर्जितः।"},
+    guna:  {"en": "Suddha-sattva-svabhava. Madhva distinguishes Hari's svarupa-shuddhi from the contingent shuddhi achieved by mukta-jivas.", "dev": "शुद्ध-सत्त्व-स्वभावम्। मध्वः हरेः स्वरूप-शुद्धिं मुक्त-जीवानां प्रासङ्गिक-शुद्धेः व्यवच्छिनत्ति।", "kn": "ಶುದ್ಧ-ಸತ್ತ್ವ-ಸ್ವಭಾವ. ಮಧ್ವನು ಹರಿಯ ಸ್ವರೂಪ-ಶುದ್ಧಿಯನ್ನು ಮುಕ್ತ-ಜೀವಗಳ ಪ್ರಾಸಂಗಿಕ ಶುದ್ಧಿಯಿಂದ ವ್ಯವಚ್ಛೇದಿಸುತ್ತಾನೆ.", "hi": "शुद्ध-सत्त्व-स्वभावम्। मध्वः हरेः स्वरूप-शुद्धिं मुक्त-जीवानां प्रासङ्गिक-शुद्धेः व्यवच्छिनत्ति।"},
+    tags: ["c_sat_svarupa"],
+  },
+  {
+    id: "n_0012", position: 12, shloka_id: "sl_002", tier: "para_tattva",
+    name:  {"iast": "paramātmā", "dev": "परमात्मा", "kn": "ಪರಮಾತ್ಮಾ", "hi": "परमात्मा"},
+    artha: {"en": "The supreme self. The atman beyond all jivatmans, ontologically distinct from them. The 'highest Self' of BG 13.22 and 15.17.", "dev": "परम आत्मा - सर्व-जीवात्मनः अत्यन्तं विलक्षणः उत्कृष्टतमः आत्मा। गीता १३।२२, १५।१७-स्थः।", "kn": "ಪರಮ ಆತ್ಮ — ಎಲ್ಲ ಜೀವಾತ್ಮಗಳಿಂದ ಅತ್ಯಂತ ವಿಲಕ್ಷಣ ಉತ್ಕೃಷ್ಟತಮ ಆತ್ಮ. ಗೀತಾ ೧೩।೨೨, ೧೫।೧೭ರಲ್ಲಿ ಸ್ಥಿತ.", "hi": "परम आत्मा - सर्व-जीवात्मनः अत्यन्तं विलक्षणः उत्कृष्टतमः आत्मा। गीता १३।२२, १५।१७-स्थः।"},
+    guna:  {"en": "Jiva-isvara-bheda-mula. The very name encodes pancha-bheda's central axis - Hari is not jiva, jiva is not Hari.", "dev": "जीव-ईश्वर-भेद-मूलम्। नामैव पञ्च-भेदस्य केन्द्र-अक्षम् उद्घोषयति।", "kn": "ಜೀವ-ಈಶ್ವರ-ಭೇದ-ಮೂಲ. ನಾಮವೇ ಪಂಚ-ಭೇದದ ಕೇಂದ್ರ-ಅಕ್ಷವನ್ನು ಘೋಷಿಸುತ್ತದೆ.", "hi": "जीव-ईश्वर-भेद-मूलम्। नामैव पञ्च-भेदस्य केन्द्र-अक्षम् उद्घोषयति।"},
+    tags: ["c_hari_sarvottamatva", "c_jiva_isvara_bheda"],
+    madhva: {"en": "Madhva-vaisistya: 'paramatman' is not jiva-paramatma-aikya as Advaita reads; it names the eternally distinct supreme Self.", "dev": "मध्व-वैशिष्ट्यम् - 'परमात्मा' न जीव-परमात्म-ऐक्यम्; नित्य-भिन्नः परम-आत्मा एव।", "kn": "ಮಧ್ವ-ವೈಶಿಷ್ಟ್ಯ — 'ಪರಮಾತ್ಮಾ' ಜೀವ-ಪರಮಾತ್ಮ-ಐಕ್ಯವಲ್ಲ; ನಿತ್ಯ-ಭಿನ್ನ ಪರಮ-ಆತ್ಮನೇ.", "hi": "मध्व-वैशिष्ट्यम् - 'परमात्मा' न जीव-परमात्म-ऐक्यम्; नित्य-भिन्नः परम-आत्मा एव।"},
+  },
+  {
+    id: "n_0013", position: 13, shloka_id: "sl_002", tier: "mokshaprada",
+    name:  {"iast": "muktānāṃ paramā gatiḥ", "dev": "मुक्तानां परमा गतिः", "kn": "ಮುಕ್ತಾನಾಂ ಪರಮಾ ಗತಿಃ", "hi": "मुक्तानां परमा गतिः"},
+    artha: {"en": "The highest goal/destination of the liberated. The mukta-jivas reach Hari and abide in him; he is the terminus of moksha.", "dev": "मुक्तानां जीवानां परमा गतिः - मोक्ष-प्राप्तानां जीवानां अन्तिमं स्थानम्।", "kn": "ಮುಕ್ತ ಜೀವಗಳ ಪರಮ ಗತಿ — ಮೋಕ್ಷ-ಪ್ರಾಪ್ತ ಜೀವಗಳ ಅಂತಿಮ ಸ್ಥಾನ.", "hi": "मुक्तानां जीवानां परमा गतिः - मोक्ष-प्राप्तानां जीवानां अन्तिमं स्थानम्।"},
+    guna:  {"en": "Moksha-prada and mukti-niyamakatva. The mukti-taratamya doctrine is presupposed - degrees of mukti exist, all under Hari.", "dev": "मोक्ष-प्रदत्वम्, मुक्ति-नियामकत्वम्। मुक्ति-तारतम्य-सिद्धान्तः अनुस्यूतः।", "kn": "ಮೋಕ್ಷ-ಪ್ರದತ್ವ, ಮುಕ್ತಿ-ನಿಯಾಮಕತ್ವ. ಮುಕ್ತಿ-ತಾರತಮ್ಯ-ಸಿದ್ಧಾಂತ ಅನುಸ್ಯೂತ.", "hi": "मोक्ष-प्रदत्वम्, मुक्ति-नियामकत्वम्। मुक्ति-तारतम्य-सिद्धान्तः अनुस्यूतः।"},
+    tags: ["c_moksha_prada"],
+  },
+  {
+    id: "n_0016", position: 16, shloka_id: "sl_002", tier: "para_tattva",
+    name:  {"iast": "akṣaraḥ", "dev": "अक्षरः", "kn": "ಅಕ್ಷರಃ", "hi": "अक्षरः"},
+    artha: {"en": "The imperishable. Hari endures beyond all destruction; the kuta-stha akshara of BG 15.16.", "dev": "अक्षरः - न क्षरति इति। सर्व-नाश-अतीतः, गीता १५।१६-स्थः कूटस्थ अक्षर पुरुषः।", "kn": "ಅಕ್ಷರ — ಕ್ಷಯಿಸದವನು. ಸರ್ವ-ನಾಶ-ಅತೀತ, ಗೀತಾ ೧೫।೧೬ರಲ್ಲಿ ಸ್ಥಿತ ಕೂಟಸ್ಥ ಅಕ್ಷರ ಪುರುಷ.", "hi": "अक्षरः - न क्षरति इति। सर्व-नाश-अतीतः, गीता १५।१६-स्थः कूटस्थ अक्षर पुरुषः।"},
+    guna:  {"en": "Nitya-sat-svabhava. Anchors Hari's existence-mode in contrast to the kshara (perishable) jagat.", "dev": "नित्य-सत्-स्वभावम्। क्षर-जगतः वैधर्म्येन हरेः सत्ता-स्वरूप-निर्देशः।", "kn": "ನಿತ್ಯ-ಸತ್-ಸ್ವಭಾವ. ಕ್ಷರ-ಜಗತ್ತಿನಿಂದ ವೈಧರ್ಮ್ಯವಾಗಿ ಹರಿಯ ಸತ್ತಾ-ಸ್ವರೂಪ-ನಿರ್ದೇಶ.", "hi": "नित्य-सत्-स्वभावम्। क्षर-जगतः वैधर्म्येन हरेः सत्ता-स्वरूप-निर्देशः।"},
+    tags: ["c_sat_svarupa"],
+  },
+  {
+    id: "n_0024", position: 24, shloka_id: "sl_003", tier: "para_tattva",
+    name:  {"iast": "puruṣottamaḥ", "dev": "पुरुषोत्तमः", "kn": "ಪುರುಷೋತ್ತಮಃ", "hi": "पुरुषोत्तमः"},
+    artha: {"en": "The supreme person. Beyond ksara (perishable, all jivas in samsara) and akshara (imperishable, Lakshmi for Madhva). Krishna's self-designation in BG 15.18.", "dev": "पुरुषोत्तमः - क्षर-अक्षरयोः अतीतः उत्तमः पुरुषः। गीता १५।१८-स्थं श्रीकृष्णस्य आत्म-निरूपणम्।", "kn": "ಪುರುಷೋತ್ತಮ — ಕ್ಷರ-ಅಕ್ಷರಗಳಿಗಿಂತ ಅತೀತ ಉತ್ತಮ ಪುರುಷ. ಗೀತಾ ೧೫।೧೮ರಲ್ಲಿ ಶ್ರೀಕೃಷ್ಣನ ಆತ್ಮ-ನಿರೂಪಣೆ.", "hi": "पुरुषोत्तमः - क्षर-अक्षरयोः अतीतः उत्तमः पुरुषः। गीता १५।१८-स्थं श्रीकृष्णस्य आत्म-निरूपणम्।"},
+    guna:  {"en": "Sarvottamatva: absolute supremacy. The hermeneutic anchor for Madhva's reading of the entire Gita.", "dev": "सर्वोत्तमत्वम्। मध्व-दृष्ट्या समस्त-गीताया हर्मेन्यूतिक-केन्द्रम्।", "kn": "ಸರ್ವೋತ್ತಮತ್ವ. ಮಧ್ವ-ದೃಷ್ಟಿಯಿಂದ ಸಮಸ್ತ-ಗೀತೆಯ ಹರ್ಮೆನ್ಯೂಟಿಕ್ ಕೇಂದ್ರ.", "hi": "सर्वोत्तमत्वम्। मध्व-दृष्ट्या समस्त-गीताया हर्मेन्यूतिक-केन्द्रम्।"},
+    tags: ["c_hari_sarvottamatva"],
+    madhva: {"en": "For Madhva, Purushottama strictly = Hari, NOT jiva-paramatma-aikya as Advaita reads.", "dev": "मध्व-मते पुरुषोत्तमः = हरिः एव; न अद्वैतोक्तं जीव-परमात्म-ऐक्यम्।", "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ ಪುರುಷೋತ್ತಮ = ಹರಿಯೇ; ಅದ್ವೈತೋಕ್ತ ಜೀವ-ಪರಮಾತ್ಮ-ಐಕ್ಯವಲ್ಲ.", "hi": "मध्व-मते पुरुषोत्तमः = हरिः एव; न अद्वैतोक्तं जीव-परमात्म-ऐक्यम्।"},
+  },
+  {
+    id: "n_0048", position: 48, shloka_id: "sl_006", tier: "lila_guna",
+    name:  {"iast": "padmanābhaḥ", "dev": "पद्मनाभः", "kn": "ಪದ್ಮನಾಭಃ", "hi": "पद्मनाभः"},
+    artha: {"en": "Lotus-naveled. From Hari's navel emerges the lotus from which Brahma is born; the cosmogonic image par excellence.", "dev": "पद्मनाभः - यस्य नाभेः पद्मम् उद्भवति, तस्मात् पद्मात् ब्रह्मा। सृष्टि-क्रमस्य प्रतीक-नाम।", "kn": "ಪದ್ಮನಾಭ — ಯಾವನ ನಾಭಿಯಿಂದ ಪದ್ಮ ಉದ್ಭವಿಸುತ್ತದೋ, ಆ ಪದ್ಮದಿಂದ ಬ್ರಹ್ಮ. ಸೃಷ್ಟಿ-ಕ್ರಮದ ಪ್ರತೀಕ-ನಾಮ.", "hi": "पद्मनाभः - यस्य नाभेः पद्मम् उद्भवति, तस्मात् पद्मात् ब्रह्मा। सृष्टि-क्रमस्य प्रतीक-नाम।"},
+    guna:  {"en": "Srshti-mula-bhuta-rupa. The Garbhodakashayi form; iconographic locus of the cosmogonic act.", "dev": "सृष्टि-मूल-भूत-रूपम्। गर्भोदकशायि-रूपम्; सृष्टि-कर्मणः मूर्त-केन्द्रम्।", "kn": "ಸೃಷ್ಟಿ-ಮೂಲ-ಭೂತ-ರೂಪ. ಗರ್ಭೋದಕಶಾಯಿ-ರೂಪ; ಸೃಷ್ಟಿ-ಕರ್ಮದ ಮೂರ್ತ ಕೇಂದ್ರ.", "hi": "सृष्टि-मूल-भूत-रूपम्। गर्भोदकशायि-रूपम्; सृष्टि-कर्मणः मूर्त-केन्द्रम्।"},
+    tags: ["c_srshti_kartrtva"],
+  },
+  {
+    id: "n_0049", position: 49, shloka_id: "sl_006", tier: "para_tattva",
+    name:  {"iast": "amaraprabhuḥ", "dev": "अमरप्रभुः", "kn": "ಅಮರಪ್ರಭುಃ", "hi": "अमरप्रभुः"},
+    artha: {"en": "Lord of the immortals - the devas, the residents of svarga.", "dev": "अमर-प्रभुः - देवानां स्वामी, स्वर्ग-वासिनां पतिः।", "kn": "ಅಮರ-ಪ್ರಭು — ದೇವತೆಗಳ ಸ್ವಾಮಿ, ಸ್ವರ್ಗ-ವಾಸಿಗಳ ಪತಿ.", "hi": "अमर-प्रभुः - देवानां स्वामी, स्वर्ग-वासिनां पतिः।"},
+    guna:  {"en": "Deva-naam adhipatitvam. Establishes Hari as superior to all devas - foundational for Madhva taratamya.", "dev": "देवानाम् अधिपतित्वम्। मध्व-तारतम्य-सिद्धान्तस्य आधारः।", "kn": "ದೇವತೆಗಳ ಅಧಿಪತಿತ್ವ. ಮಧ್ವ-ತಾರತಮ್ಯ-ಸಿದ್ಧಾಂತದ ಆಧಾರ.", "hi": "देवानाम् अधिपतित्वम्। मध्व-तारतम्य-सिद्धान्तस्य आधारः।"},
+    tags: ["c_hari_sarvottamatva"],
+  },
+  {
+    id: "n_0057", position: 57, shloka_id: "sl_007", tier: "lila_guna",
+    name:  {"iast": "kṛṣṇaḥ", "dev": "कृष्णः", "kn": "ಕೃಷ್ಣಃ", "hi": "कृष्णः"},
+    artha: {"en": "Krishna - 'dark-blue/black one' (root krsh, 'to draw/attract'). Also: he who removes (krsh-) the sins of devotees.", "dev": "कृष्णः - कृष्-धातोः। श्याम-वर्णः, अथ च भक्तानां पापानां कर्षणकर्ता।", "kn": "ಕೃಷ್ಣ — ಕೃಷ್ ಧಾತುವಿನಿಂದ. ಶ್ಯಾಮ-ವರ್ಣ, ಮತ್ತು ಭಕ್ತರ ಪಾಪಗಳನ್ನು ಆಕರ್ಷಿಸಿ ತೆಗೆಯುವವನು.", "hi": "कृष्णः - कृष्-धातोः। श्याम-वर्णः, अथ च भक्तानां पापानां कर्षणकर्ता।"},
+    guna:  {"en": "Avatara-rupa - the Yadava-vamsha avatara; central for the Bhagavata tradition. Also: bhakta-vatsala.", "dev": "अवतार-रूपम् - यादव-वंश-अवतारः; भागवत-सम्प्रदायस्य केन्द्रम्। भक्त-वत्सलः च।", "kn": "ಅವತಾರ-ರೂಪ — ಯಾದವ-ವಂಶ-ಅವತಾರ; ಭಾಗವತ-ಸಂಪ್ರದಾಯದ ಕೇಂದ್ರ. ಭಕ್ತ-ವತ್ಸಲನೂ ಆಗಿದ್ದಾನೆ.", "hi": "अवतार-रूपम् - यादव-वंश-अवतारः; भागवत-सम्प्रदायस्य केन्द्रम्। भक्त-वत्सलः च।"},
+    tags: ["c_avatara_rupa"],
+    madhva: {"en": "For Madhva, Krishna is svayam-bhagavan, not an avatara of Vishnu but Vishnu himself in human form.", "dev": "मध्व-मते कृष्णः स्वयं-भगवान्; न तु विष्णोः अवतारः, अपि तु विष्णुरेव मानुष-रूपेण।", "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ ಕೃಷ್ಣ ಸ್ವಯಂ-ಭಗವಾನ್; ವಿಷ್ಣುವಿನ ಅವತಾರವಲ್ಲ, ವಿಷ್ಣುವೇ ಮಾನುಷ-ರೂಪದಲ್ಲಿ.", "hi": "मध्व-मते कृष्णः स्वयं-भगवान्; न तु विष्णोः अवतारः, अपि तु विष्णुरेव मानुष-रूपेण।"},
+  },
+  {
+    id: "n_0073", position: 73, shloka_id: "sl_008", tier: "lila_guna",
+    name:  {"iast": "madhusūdanaḥ", "dev": "मधुसूदनः", "kn": "ಮಧುಸೂದನಃ", "hi": "मधुसूदनः"},
+    artha: {"en": "Slayer of the demon Madhu. The naimittika rupa as defender of dharma.", "dev": "मधुसूदनः - मधु-नाम्नः असुरस्य घातकः। धर्म-संरक्षण-निमित्त-रूपम्।", "kn": "ಮಧುಸೂದನ — ಮಧು ಎಂಬ ಅಸುರನ ಸಂಹಾರಕ. ಧರ್ಮ-ಸಂರಕ್ಷಣ-ನಿಮಿತ್ತ ರೂಪ.", "hi": "मधुसूदनः - मधु-नाम्नः असुरस्य घातकः। धर्म-संरक्षण-निमित्त-रूपम्।"},
+    guna:  {"en": "Adharma-nivartakatva. The avatara-purpose as stated in BG 4.7-8 - paritranaya sadhunam vinashaya ca dushkrtam.", "dev": "अधर्म-निवर्तकत्वम्। गीता ४।७-८-स्थः अवतार-उद्देशः - परित्राणाय साधूनां विनाशाय च दुष्कृताम्।", "kn": "ಅಧರ್ಮ-ನಿವರ್ತಕತ್ವ. ಗೀತಾ ೪।೭-೮ರಲ್ಲಿ ಅವತಾರ-ಉದ್ದೇಶ — ಪರಿತ್ರಾಣಾಯ ಸಾಧೂನಾಂ ವಿನಾಶಾಯ ಚ ದುಷ್ಕೃತಾಂ.", "hi": "अधर्म-निवर्तकत्वम्। गीता ४।७-८-स्थः अवतार-उद्देशः - परित्राणाय साधूनां विनाशाय च दुष्कृताम्।"},
+    tags: ["c_avatara_rupa", "c_karunya"],
+  },
+  {
+    id: "n_0126", position: 126, shloka_id: "sl_014", tier: "karunya_guna",
+    name:  {"iast": "janārdanaḥ", "dev": "जनार्दनः", "kn": "ಜನಾರ್ದನಃ", "hi": "जनार्दनः"},
+    artha: {"en": "Janardana - 'beseecher of beings' (jana + arda - to ask/move). Hari is petitioned by all beings; or: he distresses (arda) the demons (jana = asuras).", "dev": "जनार्दनः - 'जन' (असुराः) + 'अर्द' (पीडा-दानम्); असुर-संहर्ता। अथवा 'जन' (भक्ताः) + 'अर्द' (अभ्यर्थना); भक्तैः अभ्यर्थ्यमानः।", "kn": "ಜನಾರ್ದನ — 'ಜನ' (ಅಸುರರು) + 'ಅರ್ದ' (ಪೀಡೆ ನೀಡುವುದು); ಅಸುರ-ಸಂಹರ್ತಾ. ಅಥವಾ 'ಜನ' (ಭಕ್ತರು) + 'ಅರ್ದ' (ಅಭ್ಯರ್ಥನೆ); ಭಕ್ತರಿಂದ ಅಭ್ಯರ್ಥ್ಯಮಾನ.", "hi": "जनार्दनः - 'जन' (असुराः) + 'अर्द' (पीडा-दानम्); असुर-संहर्ता। अथवा 'जन' (भक्ताः) + 'अर्द' (अभ्यर्थना); भक्तैः अभ्यर्थ्यमानः।"},
+    guna:  {"en": "Bipolar guna: simultaneously samharaka of asuras AND ashraya of devotees. Both ends of the avatara-rationale.", "dev": "द्वैधी-गुणः - असुर-संहारकः च भक्त-आश्रयः च। अवतार-प्रयोजनस्य द्वि-पक्षम्।", "kn": "ದ್ವೈಧೀ-ಗುಣ — ಅಸುರ-ಸಂಹಾರಕ ಮತ್ತು ಭಕ್ತ-ಆಶ್ರಯ. ಅವತಾರ-ಪ್ರಯೋಜನದ ದ್ವಿ-ಪಕ್ಷ.", "hi": "द्वैधी-गुणः - असुर-संहारकः च भक्त-आश्रयः च। अवतार-प्रयोजनस्य द्वि-पक्षम्।"},
+    tags: ["c_karunya", "c_avatara_rupa"],
+  },
+  {
+    id: "n_0197", position: 197, shloka_id: "sl_020", tier: "karunya_guna",
+    name:  {"iast": "govindaḥ", "dev": "गोविन्दः", "kn": "ಗೋವಿಂದಃ", "hi": "गोविन्दः"},
+    artha: {"en": "Govinda - 'finder/protector of cows' (go + vid - to know/find). Also: 'one who is known by the Vedas' (go = vac, Vedic words). Also: 'gopa-prabhu' of Vrindavana.", "dev": "गोविन्दः - गाः (धेनूः, अथवा वेद-वाचः, अथवा भूमिं) विन्दति इति। बहु-अर्थः - गोपालकः, वेद-वेद्यः, धरण्या उद्धर्ता।", "kn": "ಗೋವಿಂದ — ಗೋ (ಧೇನು, ಅಥವಾ ವೇದ-ವಾಣಿ, ಅಥವಾ ಭೂಮಿ)ಯನ್ನು ತಿಳಿಯುತ್ತಾನೆ/ಪಡೆಯುತ್ತಾನೆ. ಬಹು-ಅರ್ಥ — ಗೋಪಾಲಕ, ವೇದ-ವೇದ್ಯ, ಭೂಮಿಯ ಉದ್ಧಾರಕ.", "hi": "गोविन्दः - गाः (धेनूः, अथवा वेद-वाचः, अथवा भूमिं) विन्दति इति। बहु-अर्थः - गोपालकः, वेद-वेद्यः, धरण्या उद्धर्ता।"},
+    guna:  {"en": "Bhakta-vatsala-rupa-vishesha. The most affectionately-known nama; the Vraja-rasa locus.", "dev": "भक्त-वत्सल-रूप-विशेषः। सर्व-नाम्नां सान्द्रतम-स्नेह-निकेतनम्; व्रज-रसस्य आधारम्।", "kn": "ಭಕ್ತ-ವತ್ಸಲ-ರೂಪ-ವಿಶೇಷ. ಎಲ್ಲ ನಾಮಗಳಲ್ಲಿ ಅತ್ಯಂತ ಸ್ನೇಹ-ನಿಲಯ; ವ್ರಜ-ರಸದ ಆಧಾರ.", "hi": "भक्त-वत्सल-रूप-विशेषः। सर्व-नाम्नां सान्द्रतम-स्नेह-निकेतनम्; व्रज-रसस्य आधारम्।"},
+    tags: ["c_bhakta_vatsala"],
+  },
+  {
+    id: "n_0245", position: 245, shloka_id: "sl_026", tier: "para_tattva",
+    name:  {"iast": "nārāyaṇaḥ", "dev": "नारायणः", "kn": "ನಾರಾಯಣಃ", "hi": "नारायणः"},
+    artha: {"en": "Narayana. Two etymologies: 'nara' = waters (or jivas), 'ayana' = abode - so 'he whose abode is the waters/jivas' AND 'he who is the goal of all jivas'.", "dev": "नारायणः - 'नार' (जल/जीव-समूह) + 'अयन' (आश्रय)। उभाव्यो: जल-शायिनः, जीव-निवासः; जीव-गन्तव्यः च।", "kn": "ನಾರಾಯಣ — 'ನಾರ' (ಜಲ/ಜೀವ-ಸಮೂಹ) + 'ಅಯನ' (ಆಶ್ರಯ). ಜಲ-ಶಾಯಿ, ಜೀವ-ನಿವಾಸ; ಜೀವ-ಗಂತವ್ಯ ಎರಡೂ.", "hi": "नारायणः - 'नार' (जल/जीव-समूह) + 'अयन' (आश्रय)। उभाव्यो: जल-शायिनः, जीव-निवासः; जीव-गन्तव्यः च।"},
+    guna:  {"en": "Antaryami-bahirashraya-ubhaya-rupa: simultaneously the inner-dweller of every jiva AND the outer ground of all existence.", "dev": "अन्तर्यामि-बहिराश्रय-उभय-रूपम् - प्रत्येक-जीवस्य अन्तर्वासी च, सर्व-सत्तायाः बहिराश्रयः च।", "kn": "ಅಂತರ್ಯಾಮಿ-ಬಹಿರಾಶ್ರಯ-ಉಭಯ-ರೂಪ — ಪ್ರತಿ ಜೀವದ ಅಂತರ್ವಾಸಿ ಮತ್ತು ಸರ್ವ-ಸತ್ತೆಯ ಬಹಿರಾಶ್ರಯ.", "hi": "अन्तर्यामि-बहिराश्रय-उभय-रूपम् - प्रत्येक-जीवस्य अन्तर्वासी च, सर्व-सत्तायाः बहिराश्रयः च।"},
+    tags: ["c_antaryamitva", "c_hari_sarvottamatva"],
+    madhva: {"en": "Madhva: 'Narayana' is the supreme proper-noun for Hari; Brahman, Paramatman, Vasudeva etc. are all svarupaikya names for the same Narayana.", "dev": "मध्व-मते 'नारायणः' इति हरेः परम-प्रसिद्ध-नाम; ब्रह्म-परमात्म-वासुदेव-आदयः सर्वे स्वरूपैक्येन तस्यैव।", "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ 'ನಾರಾಯಣ' ಹರಿಯ ಪರಮ-ಪ್ರಸಿದ್ಧ ನಾಮ; ಬ್ರಹ್ಮ-ಪರಮಾತ್ಮ-ವಾಸುದೇವಾದಿಗಳೆಲ್ಲರೂ ಸ್ವರೂಪೈಕ್ಯದಿಂದ ಅವನೇ.", "hi": "मध्व-मते 'नारायणः' इति हरेः परम-प्रसिद्ध-नाम; ब्रह्म-परमात्म-वासुदेव-आदयः सर्वे स्वरूपैक्येन तस्यैव।"},
+  },
+  {
+    id: "n_0337", position: 337, shloka_id: "sl_036", tier: "para_tattva",
+    name:  {"iast": "vāsudevaḥ", "dev": "वासुदेवः", "kn": "ವಾಸುದೇವಃ", "hi": "वासुदेवः"},
+    artha: {"en": "Vasudeva - 'all-pervading deva' (root vas - to dwell). Also: 'son of Vasudeva' (the Yadava patronym for Krishna).", "dev": "वासुदेवः - वस्-धातोः, सर्व-वासी देवः। अथवा वसुदेव-पुत्रः (कृष्णस्य पितृ-नाम-आधारः)।", "kn": "ವಾಸುದೇವ — ವಸ್ ಧಾತುವಿನಿಂದ, ಸರ್ವ-ವಾಸಿ ದೇವ. ಅಥವಾ ವಸುದೇವನ ಮಗ (ಕೃಷ್ಣನ ಪಿತೃ-ನಾಮಾಧಾರ).", "hi": "वासुदेवः - वस्-धातोः, सर्व-वासी देवः। अथवा वसुदेव-पुत्रः (कृष्णस्य पितृ-नाम-आधारः)।"},
+    guna:  {"en": "Vyuha-mukhya: first member of the chatur-vyuha (Vasudeva, Sankarshana, Pradyumna, Aniruddha). Central for the Pancharatra-derived Madhva metaphysics.", "dev": "व्यूह-मुख्यः - चतुर्व्यूहस्य (वासुदेव-सङ्कर्षण-प्रद्युम्न-अनिरुद्ध) प्रथमः। पाञ्चरात्र-मूलक मध्व-तत्त्व-शास्त्रस्य केन्द्रम्।", "kn": "ವ್ಯೂಹ-ಮುಖ್ಯ — ಚತುರ್ವ್ಯೂಹದ (ವಾಸುದೇವ-ಸಂಕರ್ಷಣ-ಪ್ರದ್ಯುಮ್ನ-ಅನಿರುದ್ಧ) ಪ್ರಥಮ. ಪಾಂಚರಾತ್ರ-ಮೂಲಕ ಮಧ್ವ-ತತ್ತ್ವ-ಶಾಸ್ತ್ರದ ಕೇಂದ್ರ.", "hi": "व्यूह-मुख्यः - चतुर्व्यूहस्य (वासुदेव-सङ्कर्षण-प्रद्युम्न-अनिरुद्ध) प्रथमः। पाञ्चरात्र-मूलक मध्व-तत्त्व-शास्त्रस्य केन्द्रम्।"},
+    tags: ["c_hari_sarvottamatva", "c_avatara_rupa"],
+    madhva: {"en": "For Madhva, 'Vasudeva' carries the full sarvottamatva of Hari; it is not a lesser-form name.", "dev": "मध्व-मते 'वासुदेवः' पूर्ण-सर्वोत्तमत्व-वाची; न तु अल्प-रूप-नाम।", "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ 'ವಾಸುದೇವ' ಪೂರ್ಣ-ಸರ್ವೋತ್ತಮತ್ವ-ವಾಚಿ; ಅಲ್ಪ-ರೂಪ-ನಾಮವಲ್ಲ.", "hi": "मध्व-मते 'वासुदेवः' पूर्ण-सर्वोत्तमत्व-वाची; न तु अल्प-रूप-नाम।"},
+  },
+  {
+    id: "n_0471", position: 471, shloka_id: "sl_048", tier: "svarupa_guna",
+    name:  {"iast": "yajñaḥ", "dev": "यज्ञः", "kn": "ಯಜ್ಞಃ", "hi": "यज्ञः"},
+    artha: {"en": "Yajna - 'sacrifice itself'. Hari is the embodiment of the Vedic sacrificial act; cf. BG 4.24 brahmarpanam brahma havih.", "dev": "यज्ञः - यज्ञ-स्वरूपः। गीता ४।२४-स्थः 'ब्रह्मार्पणं ब्रह्म हविः' इति वचनेन निरूपितः।", "kn": "ಯಜ್ಞ — ಯಜ್ಞ-ಸ್ವರೂಪ. ಗೀತಾ ೪।೨೪ರಲ್ಲಿ 'ಬ್ರಹ್ಮಾರ್ಪಣಂ ಬ್ರಹ್ಮ ಹವಿಃ' ಎಂಬ ವಚನದಿಂದ ನಿರೂಪಿತ.", "hi": "यज्ञः - यज्ञ-स्वरूपः। गीता ४।२४-स्थः 'ब्रह्मार्पणं ब्रह्म हविः' इति वचनेन निरूपितः।"},
+    guna:  {"en": "Yajna-svarupa-tva. Karma-kanda's entire teleology collapses into Hari.", "dev": "यज्ञ-स्वरूप-त्वम्। समस्त-कर्म-काण्डस्य प्रयोजन-तत्त्वम् हरि-निष्ठम्।", "kn": "ಯಜ್ಞ-ಸ್ವರೂಪ-ತ್ವ. ಸಮಸ್ತ ಕರ್ಮ-ಕಾಂಡದ ಪ್ರಯೋಜನ-ತತ್ತ್ವ ಹರಿ-ನಿಷ್ಠ.", "hi": "यज्ञ-स्वरूप-त्वम्। समस्त-कर्म-काण्डस्य प्रयोजन-तत्त्वम् हरि-निष्ठम्।"},
+    tags: ["c_yajna_svarupa"],
+  },
+  {
+    id: "n_0530", position: 530, shloka_id: "sl_056", tier: "lila_guna",
+    name:  {"iast": "trivikramaḥ", "dev": "त्रिविक्रमः", "kn": "ತ್ರಿವಿಕ್ರಮಃ", "hi": "त्रिविक्रमः"},
+    artha: {"en": "Three-strider - the Vamana-avatara who pervaded the three worlds in three steps. Foundational Vedic-Vishnu epithet (RV 1.154).", "dev": "त्रिविक्रमः - त्रिभिः पादैः त्रीन् लोकान् क्रान्तवान्; वामनावतारः। ऋग्वेद १।१५४-स्थः परम-प्राचीनः विष्णु-स्तुतिः।", "kn": "ತ್ರಿವಿಕ್ರಮ — ಮೂರು ಹೆಜ್ಜೆಗಳಿಂದ ಮೂರು ಲೋಕಗಳನ್ನು ಆಕ್ರಮಿಸಿದವನು; ವಾಮನಾವತಾರ. ಋಗ್ವೇದ ೧।೧೫೪ರ ಪರಮ-ಪ್ರಾಚೀನ ವಿಷ್ಣು-ಸ್ತುತಿ.", "hi": "त्रिविक्रमः - त्रिभिः पादैः त्रीन् लोकान् क्रान्तवान्; वामनावतारः। ऋग्वेद १।१५४-स्थः परम-प्राचीनः विष्णु-स्तुतिः।"},
+    guna:  {"en": "Avatara-rupa - the Vamana descent. Also: sarva-vyapakatva enacted as cosmic stride.", "dev": "अवतार-रूपम् - वामनावतारः। सर्व-व्यापकत्वम् च क्रिया-रूपेण निरूपितम्।", "kn": "ಅವತಾರ-ರೂಪ — ವಾಮನಾವತಾರ. ಸರ್ವ-ವ್ಯಾಪಕತ್ವವೂ ಕ್ರಿಯಾ-ರೂಪದಿಂದ ನಿರೂಪಿತ.", "hi": "अवतार-रूपम् - वामनावतारः। सर्व-व्यापकत्वम् च क्रिया-रूपेण निरूपितम्।"},
+    tags: ["c_avatara_rupa", "c_sarva_vyapakatva"],
+  },
+  {
+    id: "n_0591", position: 591, shloka_id: "sl_060", tier: "para_tattva",
+    name:  {"iast": "bhagavān", "dev": "भगवान्", "kn": "ಭಗವಾನ್", "hi": "भगवान्"},
+    artha: {"en": "Bhagavan - 'possessor of bhaga'. Bhaga = the six perfections (aishvarya, virya, yashas, shri, jnana, vairagya) per Vishnu-purana 6.5.74.", "dev": "भगवान् - 'भग'-शब्देन षट्-गुणाः (ऐश्वर्य-वीर्य-यशस्-श्री-ज्ञान-वैराग्य); विष्णु-पुराण ६।५।७४-स्थः।", "kn": "ಭಗವಾನ್ — 'ಭಗ' ಎಂದರೆ ಷಡ್-ಗುಣಗಳು (ಐಶ್ವರ್ಯ-ವೀರ್ಯ-ಯಶಸ್-ಶ್ರೀ-ಜ್ಞಾನ-ವೈರಾಗ್ಯ); ವಿಷ್ಣು-ಪುರಾಣ ೬।೫।೭೪.", "hi": "भगवान् - 'भग'-शब्देन षट्-गुणाः (ऐश्वर्य-वीर्य-यशस्-श्री-ज्ञान-वैराग्य); विष्णु-पुराण ६।५।७४-स्थः।"},
+    guna:  {"en": "Shad-guna-paripurnatva. The canonical 'fullness' name; technical term across Vaishnava systems.", "dev": "षड्-गुण-परिपूर्णत्वम्। समस्त-वैष्णव-सम्प्रदाय-सम्मतं तकनीकी-शब्दम्।", "kn": "ಷಡ್-ಗುಣ-ಪರಿಪೂರ್ಣತ್ವ. ಸಮಸ್ತ ವೈಷ್ಣವ-ಸಂಪ್ರದಾಯ-ಸಮ್ಮತ ತಾಂತ್ರಿಕ ಶಬ್ದ.", "hi": "षड्-गुण-परिपूर्णत्वम्। समस्त-वैष्णव-सम्प्रदाय-सम्मतं तकनीकी-शब्दम्।"},
+    tags: ["c_hari_sarvottamatva", "c_sat_svarupa"],
+  },
+  {
+    id: "n_0594", position: 594, shloka_id: "sl_060", tier: "bhakta_sambandha",
+    name:  {"iast": "vanamālī", "dev": "वनमाली", "kn": "ವನಮಾಲೀ", "hi": "वनमाली"},
+    artha: {"en": "Wearer of the vana-mala - the forest-flower garland reaching from neck to feet. The iconographic Krishna-rupa.", "dev": "वनमाली - कण्ठ-प्रदेशात् पादपर्यन्तं प्रलम्बमानां वन-पुष्पाणां मालां धरति इति। साक्षात्-कृष्ण-रूपस्य प्रतीक-नाम।", "kn": "ವನಮಾಲಿ — ಕಂಠದಿಂದ ಪಾದದವರೆಗೆ ತೂಗುತ್ತಿರುವ ವನ-ಪುಷ್ಪಗಳ ಮಾಲೆ ಧರಿಸಿದವನು. ಸಾಕ್ಷಾತ್-ಕೃಷ್ಣ-ರೂಪದ ಪ್ರತೀಕ-ನಾಮ.", "hi": "वनमाली - कण्ठ-प्रदेशात् पादपर्यन्तं प्रलम्बमानां वन-पुष्पाणां मालां धरति इति। साक्षात्-कृष्ण-रूपस्य प्रतीक-नाम।"},
+    guna:  {"en": "Bhakti-priyatva: the saulabhya (accessibility) rupa, in contrast to vishva-rupa awesomeness.", "dev": "भक्ति-प्रियत्वम्; सौलभ्य-रूपम्, विश्व-रूप-भीम-त्वस्य प्रति-पक्षः।", "kn": "ಭಕ್ತಿ-ಪ್ರಿಯತ್ವ; ಸೌಲಭ್ಯ-ರೂಪ, ವಿಶ್ವ-ರೂಪ-ಭೀಮತ್ವದ ಪ್ರತಿ-ಪಕ್ಷ.", "hi": "भक्ति-प्रियत्वम्; सौलभ्य-रूपम्, विश्व-रूप-भीम-त्वस्य प्रति-पक्षः।"},
+    tags: ["c_bhakta_vatsala"],
+  },
+  {
+    id: "n_0641", position: 641, shloka_id: "sl_065", tier: "karunya_guna",
+    name:  {"iast": "śrīdaḥ", "dev": "श्रीदः", "kn": "ಶ್ರೀದಃ", "hi": "श्रीदः"},
+    artha: {"en": "Giver of shri - of prosperity, auspiciousness, glory. The donor-aspect.", "dev": "श्रीदः - श्रीं (समृद्धिं, मङ्गलं, यशः) ददाति इति।", "kn": "ಶ್ರೀದ — ಶ್ರೀ (ಸಮೃದ್ಧಿ, ಮಂಗಲ, ಯಶಸ್ಸು) ನೀಡುತ್ತಾನೆ.", "hi": "श्रीदः - श्रीं (समृद्धिं, मङ्गलं, यशः) ददाति इति।"},
+    guna:  {"en": "Sampad-prada-tva. The artha-purushartha angle of Hari's grace.", "dev": "सम्पद्-प्रदत्वम्। हरि-कारुण्यस्य अर्थ-पुरुषार्थ-पक्षः।", "kn": "ಸಂಪತ್-ಪ್ರದತ್ವ. ಹರಿ-ಕಾರುಣ್ಯದ ಅರ್ಥ-ಪುರುಷಾರ್ಥ ಪಕ್ಷ.", "hi": "सम्पद्-प्रदत्वम्। हरि-कारुण्यस्य अर्थ-पुरुषार्थ-पक्षः।"},
+    tags: ["c_karunya"],
+  },
+  {
+    id: "n_0643", position: 643, shloka_id: "sl_065", tier: "para_tattva",
+    name:  {"iast": "śrīnivāsaḥ", "dev": "श्रीनिवासः", "kn": "ಶ್ರೀನಿವಾಸಃ", "hi": "श्रीनिवासः"},
+    artha: {"en": "Shrinivasa - 'abode of Shri/Lakshmi'. Hari is the eternal residence of Lakshmi; iconographic name for the Venkatesha form at Tirumala.", "dev": "श्रीनिवासः - श्रीः (लक्ष्मीः) यस्मिन् नित्यं वसति। तिरुपति-वेङ्कटेशस्य प्रसिद्धं नाम।", "kn": "ಶ್ರೀನಿವಾಸ — ಶ್ರೀ (ಲಕ್ಷ್ಮಿ) ಯಾವನಲ್ಲಿ ನಿತ್ಯವಾಸ ಮಾಡುತ್ತಾಳೋ. ತಿರುಪತಿ-ವೆಂಕಟೇಶನ ಪ್ರಸಿದ್ಧ ನಾಮ.", "hi": "श्रीनिवासः - श्रीः (लक्ष्मीः) यस्मिन् नित्यं वसति। तिरुपति-वेङ्कटेशस्य प्रसिद्धं नाम।"},
+    guna:  {"en": "Lakshmi-pati-tva. The Sri-Vishnu mithuna doctrine; Lakshmi as eternal akshara puruṣa of BG 15.16 in Madhva reading.", "dev": "लक्ष्मी-पति-त्वम्। श्री-विष्णु-मिथुन-सिद्धान्तः; गीता १५।१६-स्थः अक्षर-पुरुषः मध्व-मते लक्ष्मीः।", "kn": "ಲಕ್ಷ್ಮೀ-ಪತಿ-ತ್ವ. ಶ್ರೀ-ವಿಷ್ಣು-ಮಿಥುನ ಸಿದ್ಧಾಂತ; ಗೀತಾ ೧೫।೧೬ ಅಕ್ಷರ-ಪುರುಷ ಮಧ್ವ-ಮತದಲ್ಲಿ ಲಕ್ಷ್ಮಿ.", "hi": "लक्ष्मी-पति-त्वम्। श्री-विष्णु-मिथुन-सिद्धान्तः; गीता १५।१६-स्थः अक्षर-पुरुषः मध्व-मते लक्ष्मीः।"},
+    tags: ["c_lakshmi_sambandha"],
+    madhva: {"en": "Madhva: Sri/Lakshmi is the highest jiva-tattva, eternally subordinate to Hari but supreme above all other jivas (Brahma included).", "dev": "मध्व-मते लक्ष्मीः उच्चतमं जीव-तत्त्वम्, हरेः नित्य-परतन्त्रा, अथ च ब्रह्मादीन् सर्व-जीवान् अतिशेते।", "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ ಲಕ್ಷ್ಮೀ ಉಚ್ಚತಮ ಜೀವ-ತತ್ತ್ವ, ಹರಿಯ ನಿತ್ಯ-ಪರತಂತ್ರ, ಆದರೆ ಬ್ರಹ್ಮಾದಿ ಸರ್ವ-ಜೀವಗಳಿಗಿಂತ ಮೇಲೆ.", "hi": "मध्व-मते लक्ष्मीः उच्चतमं जीव-तत्त्वम्, हरेः नित्य-परतन्त्रा, अथ च ब्रह्मादीन् सर्व-जीवान् अतिशेते।"},
+  },
+  {
+    id: "n_0650", position: 650, shloka_id: "sl_065", tier: "para_tattva",
+    name:  {"iast": "lokatrayāśrayaḥ", "dev": "लोकत्रयाश्रयः", "kn": "ಲೋಕತ್ರಯಾಶ್ರಯಃ", "hi": "लोकत्रयाश्रयः"},
+    artha: {"en": "Refuge of the three worlds. The ultimate ashraya of bhuh, bhuvah, svah.", "dev": "लोक-त्रय-आश्रयः - भूः-भुवः-स्वः इति त्रयाणां लोकानाम् अन्तिमं आश्रयभूतः।", "kn": "ಲೋಕ-ತ್ರಯ-ಆಶ್ರಯ — ಭೂಃ, ಭುವಃ, ಸ್ವಃ ಮೂರು ಲೋಕಗಳ ಅಂತಿಮ ಆಶ್ರಯಭೂತ.", "hi": "लोक-त्रय-आश्रयः - भूः-भुवः-स्वः इति त्रयाणां लोकानाम् अन्तिमं आश्रयभूतः।"},
+    guna:  {"en": "Sarva-loka-niyamakatva. Hari as the unconditioned ground of all three worlds.", "dev": "सर्व-लोक-नियामकत्वम्। हरिः त्रिलोक-निरुपाधिक-आधारः।", "kn": "ಸರ್ವ-ಲೋಕ-ನಿಯಾಮಕತ್ವ. ಹರಿಯು ತ್ರಿಲೋಕ-ನಿರುಪಾಧಿಕ-ಆಧಾರ.", "hi": "सर्व-लोक-नियामकत्वम्। हरिः त्रिलोक-निरुपाधिक-आधारः।"},
+    tags: ["c_hari_sarvottamatva"],
+  },
+  {
+    id: "n_0656", position: 656, shloka_id: "sl_069", tier: "karunya_guna",
+    name:  {"iast": "hariḥ", "dev": "हरिः", "kn": "ಹರಿಃ", "hi": "हरिः"},
+    artha: {"en": "Hari - 'remover' (root hr - to take away). He who takes away the suffering, sins, and bondages of devotees.", "dev": "हरिः - हृ-धातोः; भक्तानां दुःख-पाप-बन्धन-हर्ता।", "kn": "ಹರಿ — ಹೃ ಧಾತುವಿನಿಂದ; ಭಕ್ತರ ದುಃಖ-ಪಾಪ-ಬಂಧನಗಳ ಹರ್ತಾ.", "hi": "हरिः - हृ-धातोः; भक्तानां दुःख-पाप-बन्धन-हर्ता।"},
+    guna:  {"en": "Akhilagha-haritva. Bhakta-paratantra-uddhara: liberates devotees from samsara-bandhana.", "dev": "अखिल-अघ-हारित्वम्। भक्त-परतन्त्र-उद्धारः; संसार-बन्धनात् भक्तानां मोचनम्।", "kn": "ಅಖಿಲ-ಅಘ-ಹಾರಿತ್ವ. ಭಕ್ತ-ಪರತಂತ್ರ-ಉದ್ಧಾರ; ಸಂಸಾರ-ಬಂಧನದಿಂದ ಭಕ್ತರ ಮೋಚನ.", "hi": "अखिल-अघ-हारित्वम्। भक्त-परतन्त्र-उद्धारः; संसार-बन्धनात् भक्तानां मोचनम्।"},
+    tags: ["c_karunya", "c_moksha_prada"],
+    madhva: {"en": "Madhva's most-emphasized nama. 'Hari-sarvottamatva' is the central axiom of his entire system - 'Hari is highest above all'.", "dev": "मध्व-सम्प्रदायस्य परम-केन्द्र-नाम। 'हरि-सर्वोत्तमत्वम्' इति समस्त-मध्व-तत्त्व-शास्त्रस्य आधार-अक्षम् - 'सर्वोपरि हरिः'।", "kn": "ಮಧ್ವ-ಸಂಪ್ರದಾಯದ ಪರಮ-ಕೇಂದ್ರ-ನಾಮ. 'ಹರಿ-ಸರ್ವೋತ್ತಮತ್ವ' ಸಮಸ್ತ ಮಧ್ವ-ತತ್ತ್ವ-ಶಾಸ್ತ್ರದ ಆಧಾರ-ಅಕ್ಷ — 'ಸರ್ವೋಪರಿ ಹರಿಃ'.", "hi": "मध्व-सम्प्रदायस्य परम-केन्द्र-नाम। 'हरि-सर्वोत्तमत्वम्' इति समस्त-मध्व-तत्त्व-शास्त्रस्य आधार-अक्षम् - 'सर्वोपरि हरिः'।"},
+  },
+  {
+    id: "n_0702", position: 702, shloka_id: "sl_071", tier: "para_tattva",
+    name:  {"iast": "brahmā", "dev": "ब्रह्मा", "kn": "ಬ್ರಹ್ಮಾ", "hi": "ब्रह्मा"},
+    artha: {"en": "Brahma (with long-a) - 'the great expanding one'. Names Hari as the brhat tattva, not the four-faced Brahma-devata.", "dev": "ब्रह्मा (दीर्घ-आकारः) - 'बृहत्' इति। निःसीम-तत्त्व-स्वरूपः, न तु चतुर्मुख-ब्रह्म-देवः।", "kn": "ಬ್ರಹ್ಮಾ (ದೀರ್ಘಾಕಾರ) — 'ಬೃಹತ್' ಎಂದು. ನಿಃಸೀಮ-ತತ್ತ್ವ-ಸ್ವರೂಪ, ಚತುರ್ಮುಖ ಬ್ರಹ್ಮ-ದೇವತೆಯಲ್ಲ.", "hi": "ब्रह्मा (दीर्घ-आकारः) - 'बृहत्' इति। निःसीम-तत्त्व-स्वरूपः, न तु चतुर्मुख-ब्रह्म-देवः।"},
+    guna:  {"en": "Nirupadhika-paripurnatva: unconditioned fullness. The semantic anchor for the contested Brahman-shabda.", "dev": "निरुपाधिक-परिपूर्णत्वम्। विवाद-ग्रस्तस्य ब्रह्म-शब्दस्य अर्थ-निर्धारणम्।", "kn": "ನಿರುಪಾಧಿಕ-ಪರಿಪೂರ್ಣತ್ವ. ವಿವಾದಗ್ರಸ್ತ ಬ್ರಹ್ಮ-ಶಬ್ದದ ಅರ್ಥ-ನಿರ್ಧಾರ.", "hi": "निरुपाधिक-परिपूर्णत्वम्। विवाद-ग्रस्तस्य ब्रह्म-शब्दस्य अर्थ-निर्धारणम्।"},
+    tags: ["c_hari_sarvottamatva"],
+    madhva: {"en": "For Madhva, the 'Brahman' of Upanishads is strictly Hari/Vishnu/Narayana - not a nirvishesha tattva nor the chatur-mukha Brahma.", "dev": "मध्व-मते उपनिषद्-ब्रह्म-शब्दः अनन्यथा हरिः/विष्णुः/नारायणः - न निर्विशेष-तत्त्वम्, न चतुर्मुख-ब्रह्मा।", "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ ಉಪನಿಷದ್-ಬ್ರಹ್ಮ-ಶಬ್ದ ಅನ್ಯಥಾ ಅಲ್ಲ — ಹರಿಯೇ; ನಿರ್ವಿಶೇಷ-ತತ್ತ್ವವಲ್ಲ, ಚತುರ್ಮುಖ-ಬ್ರಹ್ಮನೂ ಅಲ್ಲ.", "hi": "मध्व-मते उपनिषद्-ब्रह्म-शब्दः अनन्यथा हरिः/विष्णुः/नारायणः - न निर्विशेष-तत्त्वम्, न चतुर्मुख-ब्रह्मा।"},
+  },
+  {
+    id: "n_0333", position: 333, shloka_id: "sl_036", tier: "svarupa_guna",
+    name:  {"iast": "bṛhadbhānuḥ", "dev": "बृहद्भानुः", "kn": "ಬೃಹದ್ಭಾನುಃ", "hi": "बृहद्भानुः"},
+    artha: {"en": "The great luminary. Hari as the source-light of all light; cf. BG 13.17 jyotisham api taj jyotis.", "dev": "बृहत्-भानुः - महा-ज्योतिः; सर्व-प्रकाशानां प्रकाशकः। गीता १३।१७-स्थः 'ज्योतिषामपि तत् ज्योतिः'।", "kn": "ಬೃಹದ್ಭಾನು — ಮಹಾ-ಜ್ಯೋತಿ; ಎಲ್ಲ ಪ್ರಕಾಶಗಳ ಪ್ರಕಾಶಕ. ಗೀತಾ ೧೩।೧೭ರಲ್ಲಿ 'ಜ್ಯೋತಿಷಾಮಪಿ ತತ್ ಜ್ಯೋತಿಃ'.", "hi": "बृहत्-भानुः - महा-ज्योतिः; सर्व-प्रकाशानां प्रकाशकः। गीता १३।१७-स्थः 'ज्योतिषामपि तत् ज्योतिः'।"},
+    guna:  {"en": "Jyotir-jyoti-svarupa: the self-luminous light beyond all luminaries.", "dev": "ज्योतिषां ज्योति-स्वरूपम्। निरुपाधिक-स्वयं-प्रकाशता।", "kn": "ಜ್ಯೋತಿರ್ಜ್ಯೋತಿ-ಸ್ವರೂಪ. ನಿರುಪಾಧಿಕ-ಸ್ವಯಂ-ಪ್ರಕಾಶತೆ.", "hi": "ज्योतिषां ज्योति-स्वरूपम्। निरुपाधिक-स्वयं-प्रकाशता।"},
+    tags: ["c_sat_svarupa"],
+  },
+  {
+    id: "n_0777", position: 777, shloka_id: "sl_078", tier: "bhakta_sambandha",
+    name:  {"iast": "lokabandhuḥ", "dev": "लोकबन्धुः", "kn": "ಲೋಕಬಂಧುಃ", "hi": "लोकबन्धुः"},
+    artha: {"en": "Friend of all worlds. The relational name - Hari is the bandhu of every being.", "dev": "लोक-बन्धुः - सर्व-लोकानां सुहृत्; प्रत्येक-भूतस्य आत्म-बन्धु-भावेन वर्तते।", "kn": "ಲೋಕ-ಬಂಧು — ಸರ್ವ-ಲೋಕಗಳ ಸುಹೃತ್; ಪ್ರತಿ ಭೂತಕ್ಕೆ ಆತ್ಮ-ಬಂಧುವಾಗಿ ವರ್ತಿಸುತ್ತಾನೆ.", "hi": "लोक-बन्धुः - सर्व-लोकानां सुहृत्; प्रत्येक-भूतस्य आत्म-बन्धु-भावेन वर्तते।"},
+    guna:  {"en": "Sarva-bhuta-sauhrda. The relational-affection guna; basis for prapatti.", "dev": "सर्व-भूत-सौहार्दम्। सम्बन्ध-स्नेह-गुणः; प्रपत्तेः मूलाधारः।", "kn": "ಸರ್ವ-ಭೂತ-ಸೌಹಾರ್ದ. ಸಂಬಂಧ-ಸ್ನೇಹ-ಗುಣ; ಪ್ರಪತ್ತಿಯ ಮೂಲಾಧಾರ.", "hi": "सर्व-भूत-सौहार्दम्। सम्बन्ध-स्नेह-गुणः; प्रपत्तेः मूलाधारः।"},
+    tags: ["c_bhakta_vatsala"],
+  },
+  {
+    id: "n_0780", position: 780, shloka_id: "sl_078", tier: "bhakta_sambandha",
+    name:  {"iast": "bhaktavatsalaḥ", "dev": "भक्तवत्सलः", "kn": "ಭಕ್ತವತ್ಸಲಃ", "hi": "भक्तवत्सलः"},
+    artha: {"en": "Affectionate to devotees - vatsalya is the love-of-a-mother-cow-for-her-calf. The proper-name for Hari's specific tenderness toward bhaktas.", "dev": "भक्त-वत्सलः - भक्तेषु वत्सलः; मातु-धेनुः वत्सेषु यथा वत्सलता तथा भक्तेषु।", "kn": "ಭಕ್ತ-ವತ್ಸಲ — ಭಕ್ತರಲ್ಲಿ ವತ್ಸಲ; ಮಾತೃ-ಧೇನು ಕರುವಿನಲ್ಲಿ ತೋರುವ ವತ್ಸಲತೆಯಂತೆ ಭಕ್ತರಲ್ಲಿ.", "hi": "भक्त-वत्सलः - भक्तेषु वत्सलः; मातु-धेनुः वत्सेषु यथा वत्सलता तथा भक्तेषु।"},
+    guna:  {"en": "Bhakta-vatsalatva (proper-noun guna). One of the four canonical relations to bhaktas.", "dev": "भक्त-वत्सलत्वम् (विशिष्ट-गुण-नाम)। भक्त-सम्बन्धस्य चतुर्विधेषु एकम्।", "kn": "ಭಕ್ತ-ವತ್ಸಲತ್ವ (ವಿಶಿಷ್ಟ-ಗುಣ-ನಾಮ). ಭಕ್ತ-ಸಂಬಂಧದ ನಾಲ್ಕು ರೂಪಗಳಲ್ಲಿ ಒಂದು.", "hi": "भक्त-वत्सलत्वम् (विशिष्ट-गुण-नाम)। भक्त-सम्बन्धस्य चतुर्विधेषु एकम्।"},
+    tags: ["c_bhakta_vatsala"],
+    madhva: {"en": "Mention of 'vatsala' is a key Madhva theme - Hari's swabhava is to remember and reward bhaktas; vatsalatva is not contingent.", "dev": "वत्सल-शब्दः मध्व-सम्प्रदाये अति-महत्त्व-शाली; भक्त-स्मरण-अनुग्रहौ हरेः स्वभाव-सिद्धौ, न प्रासङ्गिकौ।", "kn": "ವತ್ಸಲ-ಶಬ್ದ ಮಧ್ವ-ಸಂಪ್ರದಾಯದಲ್ಲಿ ಅತಿ-ಮಹತ್ತ್ವಶಾಲಿ; ಭಕ್ತ-ಸ್ಮರಣ-ಅನುಗ್ರಹಗಳು ಹರಿಯ ಸ್ವಭಾವ-ಸಿದ್ಧ, ಪ್ರಾಸಂಗಿಕ ಅಲ್ಲ.", "hi": "वत्सल-शब्दः मध्व-सम्प्रदाये अति-महत्त्व-शाली; भक्त-स्मरण-अनुग्रहौ हरेः स्वभाव-सिद्धौ, न प्रासङ्गिकौ।"},
+  },
+  {
+    id: "n_0886", position: 886, shloka_id: "sl_089", tier: "svarupa_guna",
+    name:  {"iast": "amṛtāśaḥ", "dev": "अमृताशः", "kn": "ಅಮೃತಾಶಃ", "hi": "अमृताशः"},
+    artha: {"en": "Drinker/possessor of amrita. The immortality-bestowing aspect; also alludes to the kshira-sagara-mathana.", "dev": "अमृत-आशः - अमृत-भोक्ता; क्षीर-सागर-मन्थन-कथा-निर्देशः अपि।", "kn": "ಅಮೃತಾಶ — ಅಮೃತ-ಭೋಕ್ತಾ; ಕ್ಷೀರ-ಸಾಗರ-ಮಂಥನ-ಕಥೆಯ ನಿರ್ದೇಶವೂ.", "hi": "अमृत-आशः - अमृत-भोक्ता; क्षीर-सागर-मन्थन-कथा-निर्देशः अपि।"},
+    guna:  {"en": "Amritatva-prada-tva. The classic Vaishnava soteriological function.", "dev": "अमृतत्व-प्रदत्वम्। शास्त्रीय-वैष्णव-सोटेरियोलोजी-कार्यम्।", "kn": "ಅಮೃತತ್ವ-ಪ್ರದತ್ವ. ಶಾಸ್ತ್ರೀಯ-ವೈಷ್ಣವ-ಸೋಟರಿಯಾಲಜಿ ಕಾರ್ಯ.", "hi": "अमृतत्व-प्रदत्वम्। शास्त्रीय-वैष्णव-सोटेरियोलोजी-कार्यम्।"},
+    tags: ["c_moksha_prada"],
+  },
+  {
+    id: "n_0963", position: 963, shloka_id: "sl_097", tier: "lila_guna",
+    name:  {"iast": "cakrī", "dev": "चक्री", "kn": "ಚಕ್ರೀ", "hi": "चक्री"},
+    artha: {"en": "Holder of the discus - Sudarshana-chakra. The chief ayudha; cosmic-order enforcer.", "dev": "चक्री - सुदर्शन-चक्र-धरः। प्रधान-आयुधम्; ब्रह्माण्ड-नियामक-शक्तेः मूर्तम्।", "kn": "ಚಕ್ರೀ — ಸುದರ್ಶನ-ಚಕ್ರ-ಧಾರಕ. ಪ್ರಧಾನ ಆಯುಧ; ಬ್ರಹ್ಮಾಂಡ-ನಿಯಾಮಕ-ಶಕ್ತಿಯ ಮೂರ್ತ ರೂಪ.", "hi": "चक्री - सुदर्शन-चक्र-धरः। प्रधान-आयुधम्; ब्रह्माण्ड-नियामक-शक्तेः मूर्तम्।"},
+    guna:  {"en": "Niyamakatva-rupa-vishesha. The discus is the visible sign of his cosmic-governance.", "dev": "नियामकत्व-रूप-विशेषः। चक्रं ब्रह्माण्ड-शासन-शक्तेः दृश्य-चिह्नम्।", "kn": "ನಿಯಾಮಕತ್ವ-ರೂಪ-ವಿಶೇಷ. ಚಕ್ರವು ಬ್ರಹ್ಮಾಂಡ-ಶಾಸನ-ಶಕ್ತಿಯ ದೃಶ್ಯ-ಚಿಹ್ನ.", "hi": "नियामकत्व-रूप-विशेषः। चक्रं ब्रह्माण्ड-शासन-शक्तेः दृश्य-चिह्नम्।"},
+    tags: ["c_avatara_rupa"],
+  },
+  {
+    id: "n_0986", position: 986, shloka_id: "sl_099", tier: "svarupa_guna",
+    name:  {"iast": "jīvanaḥ", "dev": "जीवनः", "kn": "ಜೀವನಃ", "hi": "जीवनः"},
+    artha: {"en": "The Living One - the life-source; the prana of all pranas (cf. Kena Upanishad).", "dev": "जीवनः - प्राणानां प्राणः; जीव-शक्तेः मूल-स्रोतः।", "kn": "ಜೀವನ — ಪ್ರಾಣಗಳ ಪ್ರಾಣ; ಜೀವ-ಶಕ್ತಿಯ ಮೂಲ-ಸ್ರೋತ.", "hi": "जीवनः - प्राणानां प्राणः; जीव-शक्तेः मूल-स्रोतः।"},
+    guna:  {"en": "Sat-cit-svarupa - the existence-and-consciousness ground.", "dev": "सत्-चित्-स्वरूपम्। सत्ता-चैतन्य-आधारः।", "kn": "ಸತ್-ಚಿತ್-ಸ್ವರೂಪ. ಸತ್ತಾ-ಚೈತನ್ಯ-ಆಧಾರ.", "hi": "सत्-चित्-स्वरूपम्। सत्ता-चैतन्य-आधारः।"},
+    tags: ["c_sat_svarupa", "c_atma_svarupa"],
+  },
+  {
+    id: "n_0991", position: 991, shloka_id: "sl_100", tier: "svarupa_guna",
+    name:  {"iast": "anantarūpaḥ", "dev": "अनन्तरूपः", "kn": "ಅನಂತರೂಪಃ", "hi": "अनन्तरूपः"},
+    artha: {"en": "Infinite-formed. Hari has endless rupas - vyuha, avatara, antaryami, archa, all distinct yet svarupaikya.", "dev": "अनन्त-रूपः - असंख्य-रूप-धरः। व्यूह-अवतार-अन्तर्यामी-अर्चा-इत्यादयः सर्वे रूपाः, सर्वे स्वरूपैक्येन।", "kn": "ಅನಂತ-ರೂಪ — ಅಸಂಖ್ಯ-ರೂಪ-ಧಾರಕ. ವ್ಯೂಹ-ಅವತಾರ-ಅಂತರ್ಯಾಮಿ-ಅರ್ಚಾ ಎಲ್ಲವೂ ರೂಪಗಳು, ಎಲ್ಲ ಸ್ವರೂಪೈಕ್ಯದಿಂದ.", "hi": "अनन्त-रूपः - असंख्य-रूप-धरः। व्यूह-अवतार-अन्तर्यामी-अर्चा-इत्यादयः सर्वे रूपाः, सर्वे स्वरूपैक्येन।"},
+    guna:  {"en": "Svarupa-aikya-anantatva. Multiplicity of rupas with non-multiplicity of svarupa.", "dev": "स्वरूप-ऐक्य-अनन्तत्वम्। रूप-बहुल्यम्, स्वरूप-अद्वैतम्।", "kn": "ಸ್ವರೂಪ-ಐಕ್ಯ-ಅನಂತತ್ವ. ರೂಪ-ಬಾಹುಲ್ಯ, ಸ್ವರೂಪ-ಅದ್ವೈತ.", "hi": "स्वरूप-ऐक्य-अनन्तत्वम्। रूप-बहुल्यम्, स्वरूप-अद्वैतम्।"},
+    tags: ["c_hari_sarvottamatva"],
+  },
+  {
+    id: "n_1066", position: 1066, shloka_id: "sl_107", tier: "lila_guna",
+    name:  {"iast": "gadādharaḥ", "dev": "गदाधरः", "kn": "ಗದಾಧರಃ", "hi": "गदाधरः"},
+    artha: {"en": "Bearer of the mace (Kaumodaki). With chakra, shankha, padma — the chatur-bhuja icon.", "dev": "गदाधरः - कौमोदकी-गदां धरति। चक्र-शङ्ख-पद्म-सहितः चतुर्भुज-मूर्तेः अङ्गम्।", "kn": "ಗದಾಧರ — ಕೌಮೋದಕೀ-ಗದೆಯನ್ನು ಧರಿಸುತ್ತಾನೆ. ಚಕ್ರ-ಶಂಖ-ಪದ್ಮಗಳೊಂದಿಗೆ ಚತುರ್ಭುಜ-ಮೂರ್ತಿಯ ಅಂಗ.", "hi": "गदाधरः - कौमोदकी-गदां धरति। चक्र-शङ्ख-पद्म-सहितः चतुर्भुज-मूर्तेः अङ्गम्।"},
+    guna:  {"en": "Asura-samhara-rupa - the gada is the destroyer-of-pride; cosmic ego-leveler.", "dev": "असुर-संहार-रूपम् - गदा अहङ्कार-नाशिनी; ब्रह्माण्ड-स्तरे अहङ्कार-समीकरणी।", "kn": "ಅಸುರ-ಸಂಹಾರ-ರೂಪ — ಗದೆಯು ಅಹಂಕಾರ-ನಾಶಿನಿ; ಬ್ರಹ್ಮಾಂಡ-ಸ್ತರದಲ್ಲಿ ಅಹಂಕಾರ-ಸಮೀಕರಣಿ.", "hi": "असुर-संहार-रूपम् - गदा अहङ्कार-नाशिनी; ब्रह्माण्ड-स्तरे अहङ्कार-समीकरणी।"},
+    tags: ["c_avatara_rupa"],
+  },
+  {
+    id: "n_1068", position: 1068, shloka_id: "sl_107", tier: "lila_guna",
+    name:  {"iast": "sarvapraharaṇāyudhaḥ", "dev": "सर्वप्रहरणायुधः", "kn": "ಸರ್ವಪ್ರಹರಣಾಯುಧಃ", "hi": "सर्वप्रहरणायुधः"},
+    artha: {"en": "He whose weapons strike everything. The closing nama: Hari wields any object as ayudha; nothing falls outside his reach.", "dev": "सर्व-प्रहरण-आयुधः - यद्-यद् वस्तु तद्-तत् आयुधम्; निरवशेष-शक्ति-शाली। समाप्ति-नाम।", "kn": "ಸರ್ವ-ಪ್ರಹರಣ-ಆಯುಧ — ಯಾವುದೇ ವಸ್ತು ಎಲ್ಲವೂ ಆಯುಧ; ನಿರವಶೇಷ-ಶಕ್ತಿಶಾಲಿ. ಸಮಾಪ್ತಿ-ನಾಮ.", "hi": "सर्व-प्रहरण-आयुधः - यद्-यद् वस्तु तद्-तत् आयुधम्; निरवशेष-शक्ति-शाली। समाप्ति-नाम।"},
+    guna:  {"en": "Niravadhika-shakti. Closes the 1000-nama enumeration by asserting unbounded capacity.", "dev": "निरवधिक-शक्तिः। १००० नाम-गणनायाः समाप्ति-नाम-तया, अनवच्छिन्न-सामर्थ्य-घोषणम्।", "kn": "ನಿರವಧಿಕ-ಶಕ್ತಿ. ೧೦೦೦ ನಾಮಗಳ ಗಣನೆಯ ಸಮಾಪ್ತಿ-ನಾಮವಾಗಿ, ಅನವಚ್ಛಿನ್ನ ಸಾಮರ್ಥ್ಯದ ಘೋಷಣೆ.", "hi": "निरवधिक-शक्तिः। १००० नाम-गणनायाः समाप्ति-नाम-तया, अनवच्छिन्न-सामर्थ्य-घोषणम्।"},
+    tags: ["c_hari_sarvottamatva"],
+  },
+  {
+    id: "n_0215", position: 215, shloka_id: "sl_022", tier: "lila_guna",
+    name:  {"iast": "siṃhaḥ", "dev": "सिंहः", "kn": "ಸಿಂಹಃ", "hi": "सिंहः"},
+    artha: {"en": "The Lion - both the Narasimha avatara and the bhakta-rakshaka ferocity.", "dev": "सिंहः - नारसिंह-अवतारः; भक्त-रक्षण-कालीन-उग्र-स्वरूपम्।", "kn": "ಸಿಂಹ — ನಾರಸಿಂಹ-ಅವತಾರ; ಭಕ್ತ-ರಕ್ಷಣ-ಕಾಲೀನ ಉಗ್ರ-ಸ್ವರೂಪ.", "hi": "सिंहः - नारसिंह-अवतारः; भक्त-रक्षण-कालीन-उग्र-स्वरूपम्।"},
+    guna:  {"en": "Bhakta-paritrana-rupa. The Prahlada-paritrana exemplar.", "dev": "भक्त-परित्राण-रूपम्। प्रह्लाद-परित्राणस्य उदाहरणम्।", "kn": "ಭಕ್ತ-ಪರಿತ್ರಾಣ-ರೂಪ. ಪ್ರಹ್ಲಾದ-ಪರಿತ್ರಾಣದ ಉದಾಹರಣೆ.", "hi": "भक्त-परित्राण-रूपम्। प्रह्लाद-परित्राणस्य उदाहरणम्।"},
+    tags: ["c_avatara_rupa", "c_bhakta_vatsala"],
+  },
+  {
+    id: "n_0220", position: 220, shloka_id: "sl_022", tier: "lila_guna",
+    name:  {"iast": "surārihā", "dev": "सुरारिहा", "kn": "ಸುರಾರಿಹಾ", "hi": "सुरारिहा"},
+    artha: {"en": "Slayer of the suras' enemies (asuras). The dushta-nigraha aspect.", "dev": "सुर-अरि-हा - देव-शत्रूणाम् (असुराणाम्) घातकः; दुष्ट-निग्रह-स्वभावम्।", "kn": "ಸುರ-ಅರಿ-ಹಾ — ದೇವ-ಶತ್ರುಗಳ (ಅಸುರರ) ಸಂಹಾರಕ; ದುಷ್ಟ-ನಿಗ್ರಹ-ಸ್ವಭಾವ.", "hi": "सुर-अरि-हा - देव-शत्रूणाम् (असुराणाम्) घातकः; दुष्ट-निग्रह-स्वभावम्।"},
+    guna:  {"en": "Dushta-nigraha. The mirror-companion of bhakta-paritrana.", "dev": "दुष्ट-निग्रहः। भक्त-परित्राणस्य प्रतिबिम्ब-गुणः।", "kn": "ದುಷ್ಟ-ನಿಗ್ರಹ. ಭಕ್ತ-ಪರಿತ್ರಾಣದ ಪ್ರತಿಬಿಂಬ-ಗುಣ.", "hi": "दुष्ट-निग्रहः। भक्त-परित्राणस्य प्रतिबिम्ब-गुणः।"},
+    tags: ["c_avatara_rupa"],
+  },
+  {
+    id: "n_0260", position: 260, shloka_id: "sl_026", tier: "para_tattva",
+    name:  {"iast": "naraḥ", "dev": "नरः", "kn": "ನರಃ", "hi": "नरः"},
+    artha: {"en": "Nara - 'the man/person'. The Nara-Narayana pair: Hari as the human-counterpart of his own divine essence.", "dev": "नरः - मानुष-रूपः; नर-नारायण-युगलस्य पूर्व-पादः। हरिः स्व-दिव्य-तत्त्वस्य मानुष-रूपम् अपि।", "kn": "ನರ — ಮಾನುಷ-ರೂಪ; ನರ-ನಾರಾಯಣ-ಯುಗಲದ ಮೊದಲ ಪಾದ. ಹರಿಯು ತನ್ನ ದಿವ್ಯ-ತತ್ತ್ವದ ಮಾನುಷ-ರೂಪವೂ.", "hi": "नरः - मानुष-रूपः; नर-नारायण-युगलस्य पूर्व-पादः। हरिः स्व-दिव्य-तत्त्वस्य मानुष-रूपम् अपि।"},
+    guna:  {"en": "Avatara-rahasya. Hari's incarnation is not contingent (karma-baddha) but iccha-prakata.", "dev": "अवतार-रहस्यम्। हरेः अवतरणं न कर्म-बद्धम्, अपि तु इच्छा-प्रकटम्।", "kn": "ಅವತಾರ-ರಹಸ್ಯ. ಹರಿಯ ಅವತರಣ ಕರ್ಮ-ಬದ್ಧವಲ್ಲ, ಇಚ್ಛಾ-ಪ್ರಕಟ.", "hi": "अवतार-रहस्यम्। हरेः अवतरणं न कर्म-बद्धम्, अपि तु इच्छा-प्रकटम्।"},
+    tags: ["c_avatara_rupa"],
+  },
+  {
+    id: "n_0552", position: 552, shloka_id: "sl_056", tier: "svarupa_guna",
+    name:  {"iast": "mahārhaḥ", "dev": "महार्हः", "kn": "ಮಹಾರ್ಹಃ", "hi": "महार्हः"},
+    artha: {"en": "Greatly worthy - of worship, of offering, of service.", "dev": "महा-अर्हः - महान् पूजा-योग्यः; अर्चा-नैवेद्य-सेवा-योग्यः।", "kn": "ಮಹಾ-ಅರ್ಹ — ಮಹಾನ್ ಪೂಜಾ-ಯೋಗ್ಯ; ಅರ್ಚಾ-ನೈವೇದ್ಯ-ಸೇವಾ-ಯೋಗ್ಯ.", "hi": "महा-अर्हः - महान् पूजा-योग्यः; अर्चा-नैवेद्य-सेवा-योग्यः।"},
+    guna:  {"en": "Archana-yogyata. Foundational for archa-vatara doctrine.", "dev": "अर्चना-योग्यता। अर्चावतार-सिद्धान्तस्य आधारः।", "kn": "ಅರ್ಚನಾ-ಯೋಗ್ಯತೆ. ಅರ್ಚಾವತಾರ-ಸಿದ್ಧಾಂತದ ಆಧಾರ.", "hi": "अर्चना-योग्यता। अर्चावतार-सिद्धान्तस्य आधारः।"},
+    tags: ["c_hari_sarvottamatva"],
+  },
+  {
+    id: "n_0557", position: 557, shloka_id: "sl_056", tier: "svarupa_guna",
+    name:  {"iast": "ānandaḥ", "dev": "आनन्दः", "kn": "ಆನಂದಃ", "hi": "आनन्दः"},
+    artha: {"en": "Bliss. Hari is ananda-svarupa - the sat-cit-ananda Brahman of Taittiriya Upanishad 2.7.", "dev": "आनन्दः - आनन्द-स्वरूपः; तैत्तिरीयोपनिषद् २।७-स्थः सच्चिदानन्द-ब्रह्म।", "kn": "ಆನಂದ — ಆನಂದ-ಸ್ವರೂಪ; ತೈತ್ತಿರೀಯೋಪನಿಷದ್ ೨।೭ ಸಚ್ಚಿದಾನಂದ-ಬ್ರಹ್ಮ.", "hi": "आनन्दः - आनन्द-स्वरूपः; तैत्तिरीयोपनिषद् २।७-स्थः सच्चिदानन्द-ब्रह्म।"},
+    guna:  {"en": "Ananda-svarupatva. Third member of sat-cit-ananda.", "dev": "आनन्द-स्वरूपत्वम्। सच्चिदानन्द-त्रिकस्य तृतीयम्।", "kn": "ಆನಂದ-ಸ್ವರೂಪತ್ವ. ಸಚ್ಚಿದಾನಂದ-ತ್ರಿಕದ ತೃತೀಯ.", "hi": "आनन्द-स्वरूपत्वम्। सच्चिदानन्द-त्रिकस्य तृतीयम्।"},
+    tags: ["c_sat_svarupa"],
+  },
+  {
+    id: "n_0300", position: 300, shloka_id: "sl_030", tier: "svarupa_guna",
+    name:  {"iast": "mantraḥ", "dev": "मन्त्रः", "kn": "ಮಂತ್ರಃ", "hi": "मन्त्रः"},
+    artha: {"en": "Mantra - the sacred utterance. Hari is the mantra-svarupa; chanting his nama IS chanting his form.", "dev": "मन्त्रः - मनन-त्राण-स्वरूपम्; मन्त्र-स्वरूपः। नाम-कीर्तनं रूप-कीर्तनं तत्तुल्यम्।", "kn": "ಮಂತ್ರ — ಮನನ-ತ್ರಾಣ-ಸ್ವರೂಪ; ಮಂತ್ರ-ಸ್ವರೂಪ. ನಾಮ-ಕೀರ್ತನವೇ ರೂಪ-ಕೀರ್ತನಕ್ಕೆ ಸಮಾನ.", "hi": "मन्त्रः - मनन-त्राण-स्वरूपम्; मन्त्र-स्वरूपः। नाम-कीर्तनं रूप-कीर्तनं तत्तुल्यम्।"},
+    guna:  {"en": "Nama-rupa-aikya. Theological ground for namopasana.", "dev": "नाम-रूप-ऐक्यम्। नामोपासनायाः तत्त्व-शास्त्रीयाधारः।", "kn": "ನಾಮ-ರೂಪ-ಐಕ್ಯ. ನಾಮೋಪಾಸನೆಯ ತತ್ತ್ವಶಾಸ್ತ್ರೀಯ ಆಧಾರ.", "hi": "नाम-रूप-ऐक्यम्। नामोपासनायाः तत्त्व-शास्त्रीयाधारः।"},
+    tags: ["c_sat_svarupa"],
+  },
+  {
+    id: "n_0490", position: 490, shloka_id: "sl_049", tier: "lila_guna",
+    name:  {"iast": "vidāraṇaḥ", "dev": "विदारणः", "kn": "ವಿದಾರಣಃ", "hi": "विदारणः"},
+    artha: {"en": "Tearer-apart - the asura-vidarana ferocity; Narasimha-rupa allusion.", "dev": "विदारणः - असुर-विदारण-स्वभावम्; नारसिंह-रूप-निर्देशः।", "kn": "ವಿದಾರಣ — ಅಸುರ-ವಿದಾರಣ-ಸ್ವಭಾವ; ನಾರಸಿಂಹ-ರೂಪ-ನಿರ್ದೇಶ.", "hi": "विदारणः - असुर-विदारण-स्वभावम्; नारसिंह-रूप-निर्देशः।"},
+    guna:  {"en": "Bhakta-virodhi-vidarana. Specific narasimha-pattern; targeted ferocity, not generalized violence.", "dev": "भक्त-विरोधि-विदारण-गुणः। नारसिंह-विशेषः - लक्ष्यीकृत-उग्रता, सामान्य-हिंसा न।", "kn": "ಭಕ್ತ-ವಿರೋಧಿ-ವಿದಾರಣ-ಗುಣ. ನಾರಸಿಂಹ-ವಿಶೇಷ — ಲಕ್ಷ್ಯೀಕೃತ ಉಗ್ರತೆ, ಸಾಮಾನ್ಯ-ಹಿಂಸೆಯಲ್ಲ.", "hi": "भक्त-विरोधि-विदारण-गुणः। नारसिंह-विशेषः - लक्ष्यीकृत-उग्रता, सामान्य-हिंसा न।"},
+    tags: ["c_avatara_rupa", "c_bhakta_vatsala"],
+  },
+  {
+    id: "n_0052", position: 52, shloka_id: "sl_006", tier: "svarupa_guna",
+    name:  {"iast": "hṛṣīkeśaḥ", "dev": "हृषीकेशः", "kn": "ಹೃಷೀಕೇಶಃ", "hi": "हृषीकेशः"},
+    artha: {"en": "Hrishikesha - 'lord of the senses' (hrishika + isha). The faculty-governor name.", "dev": "हृषीकेशः - 'हृषीक' (इन्द्रियाणि) + 'ईश' (स्वामी)। इन्द्रिय-नियामकः।", "kn": "ಹೃಷೀಕೇಶ — 'ಹೃಷೀಕ' (ಇಂದ್ರಿಯಗಳು) + 'ಈಶ' (ಸ್ವಾಮಿ). ಇಂದ್ರಿಯ-ನಿಯಾಮಕ.", "hi": "हृषीकेशः - 'हृषीक' (इन्द्रियाणि) + 'ईश' (स्वामी)। इन्द्रिय-नियामकः।"},
+    guna:  {"en": "Indriya-niyamakatva: the faculty-direction guna - antaryamitva at the level of cognitive equipment.", "dev": "इन्द्रिय-नियामकत्वम्। ज्ञान-इन्द्रियाणां तले अन्तर्यामित्वम्।", "kn": "ಇಂದ್ರಿಯ-ನಿಯಾಮಕತ್ವ. ಜ್ಞಾನೇಂದ್ರಿಯಗಳ ಮಟ್ಟದಲ್ಲಿ ಅಂತರ್ಯಾಮಿತ್ವ.", "hi": "इन्द्रिय-नियामकत्वम्। ज्ञान-इन्द्रियाणां तले अन्तर्यामित्वम्।"},
+    tags: ["c_antaryamitva"],
+  },
+  {
+    id: "n_0515", position: 515, shloka_id: "sl_055", tier: "mokshaprada",
+    name:  {"iast": "mukundaḥ", "dev": "मुकुन्दः", "kn": "ಮುಕುಂದಃ", "hi": "मुकुन्दः"},
+    artha: {"en": "Mukunda - 'giver of mukti' (mukti + da). The liberation-bestower par excellence.", "dev": "मुकुन्दः - 'मुक्ति' + 'दः'; मोक्ष-प्रदः।", "kn": "ಮುಕುಂದ — 'ಮುಕ್ತಿ' + 'ದ'; ಮೋಕ್ಷ-ಪ್ರದ.", "hi": "मुकुन्दः - 'मुक्ति' + 'दः'; मोक्ष-प्रदः।"},
+    guna:  {"en": "Mukti-prada-tva. Hari removes klesha; Mukunda installs in mukti.", "dev": "मुक्ति-प्रदत्वम्। हरि-नाम्नः सम्पूरक-गुणः।", "kn": "ಮುಕ್ತಿ-ಪ್ರದತ್ವ. ಹರಿ-ನಾಮದ ಸಂಪೂರಕ-ಗುಣ.", "hi": "मुक्ति-प्रदत्वम्। हरि-नाम्नः सम्पूरक-गुणः।"},
+    tags: ["c_moksha_prada"],
+  },
+  {
+    id: "n_0659", position: 659, shloka_id: "sl_067", tier: "para_tattva",
+    name:  {"iast": "anīśaḥ", "dev": "अनीशः", "kn": "ಅನೀಶಃ", "hi": "अनीशः"},
+    artha: {"en": "The un-lorded - he over whom no one is lord. Negation-form anchoring sarvottamatva.", "dev": "अनीशः - न ईशः यस्य; न तस्य कश्चित् नियामकः।", "kn": "ಅನೀಶ — ಯಾವನಿಗೆ ಯಾವ ಈಶನೂ ಇಲ್ಲ. ನಿಷೇಧ-ರೂಪದಿಂದ ಸರ್ವೋತ್ತಮತ್ವ-ನಿರ್ದೇಶ.", "hi": "अनीशः - न ईशः यस्य; न तस्य कश्चित् नियामकः।"},
+    guna:  {"en": "Sarvottamatva (negation-form). Canonical Madhva proof-pada.", "dev": "सर्वोत्तमत्वम् (निषेध-रूपेण)। मध्व-सिद्धान्तस्य प्रमाण-वचनम्।", "kn": "ಸರ್ವೋತ್ತಮತ್ವ (ನಿಷೇಧ-ರೂಪ). ಮಧ್ವ-ಸಿದ್ಧಾಂತದ ಪ್ರಮಾಣ ವಚನ.", "hi": "सर्वोत्तमत्वम् (निषेध-रूपेण)। मध्व-सिद्धान्तस्य प्रमाण-वचनम्।"},
+    tags: ["c_hari_sarvottamatva"],
+  },
+  {
+    id: "n_0074", position: 74, shloka_id: "sl_007", tier: "svarupa_guna",
+    name:  {"iast": "pavitram", "dev": "पवित्रम्", "kn": "ಪವಿತ್ರಂ", "hi": "पवित्रम्"},
+    artha: {"en": "Pavitram - 'the purifier'. He who purifies all who contemplate or remember him.", "dev": "पवित्रम् - पवित्र-कारकम्; स्मरण-चिन्तन-मात्रेण सर्व-शोधकम्।", "kn": "ಪವಿತ್ರಮ್ — ಪವಿತ್ರ-ಕಾರಕ; ಸ್ಮರಣ-ಚಿಂತನ-ಮಾತ್ರದಿಂದ ಸರ್ವ-ಶೋಧಕ.", "hi": "पवित्रम् - पवित्र-कारकम्; स्मरण-चिन्तन-मात्रेण सर्व-शोधकम्।"},
+    guna:  {"en": "Pavitri-karana-shakti. The grace-by-association function.", "dev": "पवित्री-करण-शक्तिः। सम्बन्ध-अनुग्रह-कर्म।", "kn": "ಪವಿತ್ರೀ-ಕರಣ-ಶಕ್ತಿ. ಸಂಬಂಧ-ಅನುಗ್ರಹ-ಕರ್ಮ.", "hi": "पवित्री-करण-शक्तिः। सम्बन्ध-अनुग्रह-कर्म।"},
+    tags: ["c_karunya"],
+  },
+];
+
+const E = (s, t, type, label) => ({ source:s, target:t, type, label });
+
+const EDGES = [
+  E("n_0002", "n_0007", "is-a", "antaryami-svarupa"),
+  E("n_0024", "n_0002", "is-a", "purushottama-anchored-in-Vishnu"),
+  E("n_0245", "n_0024", "is-a", "Narayana-as-Purushottama"),
+  E("n_0337", "n_0245", "is-a", "Vasudeva-svarupa-aikya-Narayana"),
+  E("n_0057", "n_0337", "is-a", "Krishna-svarupa-Vasudeva"),
+  E("n_0656", "n_0002", "is-a", "Hari-svarupa-Vishnu"),
+  E("n_0073", "n_0057", "manifests-as", "Madhusudana-via-Krishna"),
+  E("n_0215", "n_0057", "manifests-as", "Narasimha-rupa-via-avatara"),
+  E("n_0530", "n_0245", "manifests-as", "Trivikrama-via-Vamana"),
+  E("n_0048", "n_0005", "manifests-as", "Padmanabha-srshti-locus"),
+  E("n_0643", "n_0002", "is-a", "Shrinivasa-svarupa-Vishnu"),
+  E("n_0594", "n_0057", "manifests-as", "Vanamali-Krishna-rupa"),
+];
+
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { TIERS, TIER_COLOR, NODES, EDGES };
+}
+
+</script>
+<script>
+/* === inlined from shlokas.js === */
+/* Vishnu Sahasranama --- 107 stotra verses
+ *
+ * Source recension: Mahabharata Anushasana-Parva 149, standard Gita-Press /
+ * Sankara-bhashya enumeration. Madhva-recension nama counts match (total 1000
+ * across 107 verses); a small number of sandhi-boundary choices vary.
+ *
+ * Quad-script shape per verse:
+ *   { id, num, range:{from,to}, sanskrit:{dev,iast,kn,hi}, nama_ids:[...] }
+ *
+ * Hindi script == Devanagari, so .hi mirrors .dev verbatim.
+ * IAST and Kannada are derived from .dev via Aksharamukha.
+ *
+ * Note: shloka 101 actually carries namas 1001..1008 in the unified 1000-name
+ * enumeration used by the Bhat corpus --- the running count restarts only
+ * because the published BSV/Gita-Press recensions sometimes display these
+ * post-shloka-100 nama compounds with new ordinals. The nama_ids field on
+ * each verse is the canonical link the viewer uses.
+ *
+ * Commentary fields (artha-anusandhana, guna-anusandhana, Madhva note,
+ * BNK Sharma reference) are populated on the individual nama records in
+ * data.js, not here on the verse.
+ */
+
+const SHLOKAS = [
+  {
+    id: "sl_001", num: 1, range: {from: 1, to: 10},
+    sanskrit: {
+      dev:  "विश्वं विष्णुर्वषट्कारो भूतभव्यभवत्प्रभुः।\nभूतकृद्भूतभृद्भावो भूतात्मा भूतभावनः॥",
+      iast: "viśvaṃ viṣṇurvaṣaṭkāro bhūtabhavyabhavatprabhuḥ|\nbhūtakṛdbhūtabhṛdbhāvo bhūtātmā bhūtabhāvanaḥ||",
+      kn:   "ವಿಶ್ವಂ ವಿಷ್ಣುರ್ವಷಟ್ಕಾರೋ ಭೂತಭವ್ಯಭವತ್ಪ್ರಭುಃ।\nಭೂತಕೃದ್ಭೂತಭೃದ್ಭಾವೋ ಭೂತಾತ್ಮಾ ಭೂತಭಾವನಃ॥",
+      hi:   "विश्वं विष्णुर्वषट्कारो भूतभव्यभवत्प्रभुः।\nभूतकृद्भूतभृद्भावो भूतात्मा भूतभावनः॥",
+    },
+    nama_ids: ["n_0001", "n_0002", "n_0003", "n_0004", "n_0005", "n_0006", "n_0007", "n_0008", "n_0009", "n_0010"],
+  },
+  {
+    id: "sl_002", num: 2, range: {from: 11, to: 20},
+    sanskrit: {
+      dev:  "पूतात्मा परमात्मा च मुक्तानां परमा गतिः।\nअव्ययः पुरुषः साक्षी क्षेत्रज्ञोऽक्षर एव च॥",
+      iast: "pūtātmā paramātmā ca muktānāṃ paramā gatiḥ|\navyayaḥ puruṣaḥ sākṣī kṣetrajño'kṣara eva ca||",
+      kn:   "ಪೂತಾತ್ಮಾ ಪರಮಾತ್ಮಾ ಚ ಮುಕ್ತಾನಾಂ ಪರಮಾ ಗತಿಃ।\nಅವ್ಯಯಃ ಪುರುಷಃ ಸಾಕ್ಷೀ ಕ್ಷೇತ್ರಜ್ಞೋಽಕ್ಷರ ಏವ ಚ॥",
+      hi:   "पूतात्मा परमात्मा च मुक्तानां परमा गतिः।\nअव्ययः पुरुषः साक्षी क्षेत्रज्ञोऽक्षर एव च॥",
+    },
+    nama_ids: ["n_0011", "n_0012", "n_0013", "n_0014", "n_0015", "n_0016", "n_0017", "n_0018", "n_0019", "n_0020"],
+  },
+  {
+    id: "sl_003", num: 3, range: {from: 21, to: 30},
+    sanskrit: {
+      dev:  "योगो योगविदां नेता प्रधानपुरुषेश्वरः।\nनारसिंहवपुः श्रीमान् केशवः पुरुषोत्तमः॥",
+      iast: "yogo yogavidāṃ netā pradhānapuruṣeśvaraḥ|\nnārasiṃhavapuḥ śrīmān keśavaḥ puruṣottamaḥ||",
+      kn:   "ಯೋಗೋ ಯೋಗವಿದಾಂ ನೇತಾ ಪ್ರಧಾನಪುರುಷೇಶ್ವರಃ।\nನಾರಸಿಂಹವಪುಃ ಶ್ರೀಮಾನ್ ಕೇಶವಃ ಪುರುಷೋತ್ತಮಃ॥",
+      hi:   "योगो योगविदां नेता प्रधानपुरुषेश्वरः।\nनारसिंहवपुः श्रीमान् केशवः पुरुषोत्तमः॥",
+    },
+    nama_ids: ["n_0021", "n_0022", "n_0023", "n_0024", "n_0025", "n_0026", "n_0027", "n_0028", "n_0029", "n_0030"],
+  },
+  {
+    id: "sl_004", num: 4, range: {from: 31, to: 40},
+    sanskrit: {
+      dev:  "सर्वः शर्वः शिवः स्थाणुर्भूतादिर्निधिरव्ययः।\nसम्भवो भावनो भर्ता प्रभवः प्रभुरीश्वरः॥",
+      iast: "sarvaḥ śarvaḥ śivaḥ sthāṇurbhūtādirnidhiravyayaḥ|\nsambhavo bhāvano bhartā prabhavaḥ prabhurīśvaraḥ||",
+      kn:   "ಸರ್ವಃ ಶರ್ವಃ ಶಿವಃ ಸ್ಥಾಣುರ್ಭೂತಾದಿರ್ನಿಧಿರವ್ಯಯಃ।\nಸಂಭವೋ ಭಾವನೋ ಭರ್ತಾ ಪ್ರಭವಃ ಪ್ರಭುರೀಶ್ವರಃ॥",
+      hi:   "सर्वः शर्वः शिवः स्थाणुर्भूतादिर्निधिरव्ययः।\nसम्भवो भावनो भर्ता प्रभवः प्रभुरीश्वरः॥",
+    },
+    nama_ids: ["n_0031", "n_0032", "n_0033", "n_0034", "n_0035", "n_0036", "n_0037", "n_0038", "n_0039", "n_0040"],
+  },
+  {
+    id: "sl_005", num: 5, range: {from: 41, to: 50},
+    sanskrit: {
+      dev:  "स्वयम्भूः शम्भुरादित्यः पुष्कराक्षो महास्वनः।\nअनादिनिधनो धाता विधाता धातुरुत्तमः॥",
+      iast: "svayambhūḥ śambhurādityaḥ puṣkarākṣo mahāsvanaḥ|\nanādinidhano dhātā vidhātā dhāturuttamaḥ||",
+      kn:   "ಸ್ವಯಂಭೂಃ ಶಂಭುರಾದಿತ್ಯಃ ಪುಷ್ಕರಾಕ್ಷೋ ಮಹಾಸ್ವನಃ।\nಅನಾದಿನಿಧನೋ ಧಾತಾ ವಿಧಾತಾ ಧಾತುರುತ್ತಮಃ॥",
+      hi:   "स्वयम्भूः शम्भुरादित्यः पुष्कराक्षो महास्वनः।\nअनादिनिधनो धाता विधाता धातुरुत्तमः॥",
+    },
+    nama_ids: ["n_0041", "n_0042", "n_0043", "n_0044", "n_0045", "n_0046", "n_0047", "n_0048", "n_0049", "n_0050"],
+  },
+  {
+    id: "sl_006", num: 6, range: {from: 51, to: 60},
+    sanskrit: {
+      dev:  "अप्रमेयो हृषीकेशः पद्मनाभोऽमरप्रभुः।\nविश्वकर्मा मनुस्त्वष्टा स्थविष्ठः स्थविरो ध्रुवः॥",
+      iast: "aprameyo hṛṣīkeśaḥ padmanābho'maraprabhuḥ|\nviśvakarmā manustvaṣṭā sthaviṣṭhaḥ sthaviro dhruvaḥ||",
+      kn:   "ಅಪ್ರಮೇಯೋ ಹೃಷೀಕೇಶಃ ಪದ್ಮನಾಭೋಽಮರಪ್ರಭುಃ।\nವಿಶ್ವಕರ್ಮಾ ಮನುಸ್ತ್ವಷ್ಟಾ ಸ್ಥವಿಷ್ಠಃ ಸ್ಥವಿರೋ ಧ್ರುವಃ॥",
+      hi:   "अप्रमेयो हृषीकेशः पद्मनाभोऽमरप्रभुः।\nविश्वकर्मा मनुस्त्वष्टा स्थविष्ठः स्थविरो ध्रुवः॥",
+    },
+    nama_ids: ["n_0051", "n_0052", "n_0053", "n_0054", "n_0055", "n_0056", "n_0057", "n_0058", "n_0059", "n_0060"],
+  },
+  {
+    id: "sl_007", num: 7, range: {from: 61, to: 70},
+    sanskrit: {
+      dev:  "अग्राह्यः शाश्वतः कृष्णो लोहिताक्षः प्रतर्दनः।\nप्रभूतस्त्रिककुब्धाम पवित्रं मङ्गलं परम्॥",
+      iast: "agrāhyaḥ śāśvataḥ kṛṣṇo lohitākṣaḥ pratardanaḥ|\nprabhūtastrikakubdhāma pavitraṃ maṅgalaṃ param||",
+      kn:   "ಅಗ್ರಾಹ್ಯಃ ಶಾಶ್ವತಃ ಕೃಷ್ಣೋ ಲೋಹಿತಾಕ್ಷಃ ಪ್ರತರ್ದನಃ।\nಪ್ರಭೂತಸ್ತ್ರಿಕಕುಬ್ಧಾಮ ಪವಿತ್ರಂ ಮಂಗಲಂ ಪರಂ॥",
+      hi:   "अग्राह्यः शाश्वतः कृष्णो लोहिताक्षः प्रतर्दनः।\nप्रभूतस्त्रिककुब्धाम पवित्रं मङ्गलं परम्॥",
+    },
+    nama_ids: ["n_0061", "n_0062", "n_0063", "n_0064", "n_0065", "n_0066", "n_0067", "n_0068", "n_0069", "n_0070"],
+  },
+  {
+    id: "sl_008", num: 8, range: {from: 71, to: 80},
+    sanskrit: {
+      dev:  "ईशानः प्राणदः प्राणो ज्येष्ठः श्रेष्ठः प्रजापतिः।\nहिरण्यगर्भो भूगर्भो माधवो मधुसूदनः॥",
+      iast: "īśānaḥ prāṇadaḥ prāṇo jyeṣṭhaḥ śreṣṭhaḥ prajāpatiḥ|\nhiraṇyagarbho bhūgarbho mādhavo madhusūdanaḥ||",
+      kn:   "ಈಶಾನಃ ಪ್ರಾಣದಃ ಪ್ರಾಣೋ ಜ್ಯೇಷ್ಠಃ ಶ್ರೇಷ್ಠಃ ಪ್ರಜಾಪತಿಃ।\nಹಿರಣ್ಯಗರ್ಭೋ ಭೂಗರ್ಭೋ ಮಾಧವೋ ಮಧುಸೂದನಃ॥",
+      hi:   "ईशानः प्राणदः प्राणो ज्येष्ठः श्रेष्ठः प्रजापतिः।\nहिरण्यगर्भो भूगर्भो माधवो मधुसूदनः॥",
+    },
+    nama_ids: ["n_0071", "n_0072", "n_0073", "n_0074", "n_0075", "n_0076", "n_0077", "n_0078", "n_0079", "n_0080"],
+  },
+  {
+    id: "sl_009", num: 9, range: {from: 81, to: 90},
+    sanskrit: {
+      dev:  "ईश्वरो विक्रमी धन्वी मेधावी विक्रमः क्रमः।\nअनुत्तमो दुराधर्षः कृतज्ञः कृतिरात्मवान्॥",
+      iast: "īśvaro vikramī dhanvī medhāvī vikramaḥ kramaḥ|\nanuttamo durādharṣaḥ kṛtajñaḥ kṛtirātmavān||",
+      kn:   "ಈಶ್ವರೋ ವಿಕ್ರಮೀ ಧನ್ವೀ ಮೇಧಾವೀ ವಿಕ್ರಮಃ ಕ್ರಮಃ।\nಅನುತ್ತಮೋ ದುರಾಧರ್ಷಃ ಕೃತಜ್ಞಃ ಕೃತಿರಾತ್ಮವಾನ್॥",
+      hi:   "ईश्वरो विक्रमी धन्वी मेधावी विक्रमः क्रमः।\nअनुत्तमो दुराधर्षः कृतज्ञः कृतिरात्मवान्॥",
+    },
+    nama_ids: ["n_0081", "n_0082", "n_0083", "n_0084", "n_0085", "n_0086", "n_0087", "n_0088", "n_0089", "n_0090"],
+  },
+  {
+    id: "sl_010", num: 10, range: {from: 91, to: 100},
+    sanskrit: {
+      dev:  "सुरेशः शरणं शर्म विश्वरेताः प्रजाभवः।\nअहः संवत्सरो व्यालः प्रत्ययः सर्वदर्शनः॥",
+      iast: "sureśaḥ śaraṇaṃ śarma viśvaretāḥ prajābhavaḥ|\nahaḥ saṃvatsaro vyālaḥ pratyayaḥ sarvadarśanaḥ||",
+      kn:   "ಸುರೇಶಃ ಶರಣಂ ಶರ್ಮ ವಿಶ್ವರೇತಾಃ ಪ್ರಜಾಭವಃ।\nಅಹಃ ಸಂವತ್ಸರೋ ವ್ಯಾಲಃ ಪ್ರತ್ಯಯಃ ಸರ್ವದರ್ಶನಃ॥",
+      hi:   "सुरेशः शरणं शर्म विश्वरेताः प्रजाभवः।\nअहः संवत्सरो व्यालः प्रत्ययः सर्वदर्शनः॥",
+    },
+    nama_ids: ["n_0091", "n_0092", "n_0093", "n_0094", "n_0095", "n_0096", "n_0097", "n_0098", "n_0099", "n_0100"],
+  },
+  {
+    id: "sl_011", num: 11, range: {from: 101, to: 110},
+    sanskrit: {
+      dev:  "अजः सर्वेश्वरः सिद्धः सिद्धिः सर्वादिरच्युतः।\nवृषाकपिरमेयात्मा सर्वयोगविनिःसृतः॥",
+      iast: "ajaḥ sarveśvaraḥ siddhaḥ siddhiḥ sarvādiracyutaḥ|\nvṛṣākapirameyātmā sarvayogaviniḥsṛtaḥ||",
+      kn:   "ಅಜಃ ಸರ್ವೇಶ್ವರಃ ಸಿದ್ಧಃ ಸಿದ್ಧಿಃ ಸರ್ವಾದಿರಚ್ಯುತಃ।\nವೃಷಾಕಪಿರಮೇಯಾತ್ಮಾ ಸರ್ವಯೋಗವಿನಿಃಸೃತಃ॥",
+      hi:   "अजः सर्वेश्वरः सिद्धः सिद्धिः सर्वादिरच्युतः।\nवृषाकपिरमेयात्मा सर्वयोगविनिःसृतः॥",
+    },
+    nama_ids: ["n_0101", "n_0102", "n_0103", "n_0104", "n_0105", "n_0106", "n_0107", "n_0108", "n_0109", "n_0110"],
+  },
+  {
+    id: "sl_012", num: 12, range: {from: 111, to: 120},
+    sanskrit: {
+      dev:  "वसुर्वसुमनाः सत्यः समात्मा सम्मितः समः।\nअमोघः पुण्डरीकाक्षो वृषकर्मा वृषाकृतिः॥",
+      iast: "vasurvasumanāḥ satyaḥ samātmā sammitaḥ samaḥ|\namoghaḥ puṇḍarīkākṣo vṛṣakarmā vṛṣākṛtiḥ||",
+      kn:   "ವಸುರ್ವಸುಮನಾಃ ಸತ್ಯಃ ಸಮಾತ್ಮಾ ಸಮ್ಮಿತಃ ಸಮಃ।\nಅಮೋಘಃ ಪುಂಡರೀಕಾಕ್ಷೋ ವೃಷಕರ್ಮಾ ವೃಷಾಕೃತಿಃ॥",
+      hi:   "वसुर्वसुमनाः सत्यः समात्मा सम्मितः समः।\nअमोघः पुण्डरीकाक्षो वृषकर्मा वृषाकृतिः॥",
+    },
+    nama_ids: ["n_0111", "n_0112", "n_0113", "n_0114", "n_0115", "n_0116", "n_0117", "n_0118", "n_0119", "n_0120"],
+  },
+  {
+    id: "sl_013", num: 13, range: {from: 121, to: 130},
+    sanskrit: {
+      dev:  "रुद्रो बहुशिरा बभ्रुर्विश्वयोनिः शुचिश्रवाः।\nअमृतः शाश्वतःस्थाणुर्वरारोहो महातपाः॥",
+      iast: "rudro bahuśirā babhrurviśvayoniḥ śuciśravāḥ|\namṛtaḥ śāśvataḥsthāṇurvarāroho mahātapāḥ||",
+      kn:   "ರುದ್ರೋ ಬಹುಶಿರಾ ಬಭ್ರುರ್ವಿಶ್ವಯೋನಿಃ ಶುಚಿಶ್ರವಾಃ।\nಅಮೃತಃ ಶಾಶ್ವತಃಸ್ಥಾಣುರ್ವರಾರೋಹೋ ಮಹಾತಪಾಃ॥",
+      hi:   "रुद्रो बहुशिरा बभ्रुर्विश्वयोनिः शुचिश्रवाः।\nअमृतः शाश्वतःस्थाणुर्वरारोहो महातपाः॥",
+    },
+    nama_ids: ["n_0121", "n_0122", "n_0123", "n_0124", "n_0125", "n_0126", "n_0127", "n_0128", "n_0129", "n_0130"],
+  },
+  {
+    id: "sl_014", num: 14, range: {from: 131, to: 140},
+    sanskrit: {
+      dev:  "सर्वगः सर्वविद्भानुर्विष्वक्सेनो जनार्दनः।\nवेदो वेदविदव्यङ्गो वेदाङ्गो वेदवित् कविः॥",
+      iast: "sarvagaḥ sarvavidbhānurviṣvakseno janārdanaḥ|\nvedo vedavidavyaṅgo vedāṅgo vedavit kaviḥ||",
+      kn:   "ಸರ್ವಗಃ ಸರ್ವವಿದ್ಭಾನುರ್ವಿಷ್ವಕ್ಸೇನೋ ಜನಾರ್ದನಃ।\nವೇದೋ ವೇದವಿದವ್ಯಂಗೋ ವೇದಾಂಗೋ ವೇದವಿತ್ ಕವಿಃ॥",
+      hi:   "सर्वगः सर्वविद्भानुर्विष्वक्सेनो जनार्दनः।\nवेदो वेदविदव्यङ्गो वेदाङ्गो वेदवित् कविः॥",
+    },
+    nama_ids: ["n_0131", "n_0132", "n_0133", "n_0134", "n_0135", "n_0136", "n_0137", "n_0138", "n_0139", "n_0140"],
+  },
+  {
+    id: "sl_015", num: 15, range: {from: 141, to: 150},
+    sanskrit: {
+      dev:  "लोकाध्यक्षः सुराध्यक्षो धर्माध्यक्षः कृताकृतः।\nचतुरात्मा चतुर्व्यूहश्चतुर्दंष्ट्रश्चतुर्भुजः॥",
+      iast: "lokādhyakṣaḥ surādhyakṣo dharmādhyakṣaḥ kṛtākṛtaḥ|\ncaturātmā caturvyūhaścaturdaṃṣṭraścaturbhujaḥ||",
+      kn:   "ಲೋಕಾಧ್ಯಕ್ಷಃ ಸುರಾಧ್ಯಕ್ಷೋ ಧರ್ಮಾಧ್ಯಕ್ಷಃ ಕೃತಾಕೃತಃ।\nಚತುರಾತ್ಮಾ ಚತುರ್ವ್ಯೂಹಶ್ಚತುರ್ದಂಷ್ಟ್ರಶ್ಚತುರ್ಭುಜಃ॥",
+      hi:   "लोकाध्यक्षः सुराध्यक्षो धर्माध्यक्षः कृताकृतः।\nचतुरात्मा चतुर्व्यूहश्चतुर्दंष्ट्रश्चतुर्भुजः॥",
+    },
+    nama_ids: ["n_0141", "n_0142", "n_0143", "n_0144", "n_0145", "n_0146", "n_0147", "n_0148", "n_0149", "n_0150"],
+  },
+  {
+    id: "sl_016", num: 16, range: {from: 151, to: 160},
+    sanskrit: {
+      dev:  "भ्राजिष्णुर्भोजनं भोक्ता सहिष्णुर्जगदादिजः।\nअनघो विजयो जेता विश्वयोनिः पुनर्वसुः॥",
+      iast: "bhrājiṣṇurbhojanaṃ bhoktā sahiṣṇurjagadādijaḥ|\nanagho vijayo jetā viśvayoniḥ punarvasuḥ||",
+      kn:   "ಭ್ರಾಜಿಷ್ಣುರ್ಭೋಜನಂ ಭೋಕ್ತಾ ಸಹಿಷ್ಣುರ್ಜಗದಾದಿಜಃ।\nಅನಘೋ ವಿಜಯೋ ಜೇತಾ ವಿಶ್ವಯೋನಿಃ ಪುನರ್ವಸುಃ॥",
+      hi:   "भ्राजिष्णुर्भोजनं भोक्ता सहिष्णुर्जगदादिजः।\nअनघो विजयो जेता विश्वयोनिः पुनर्वसुः॥",
+    },
+    nama_ids: ["n_0151", "n_0152", "n_0153", "n_0154", "n_0155", "n_0156", "n_0157", "n_0158", "n_0159", "n_0160"],
+  },
+  {
+    id: "sl_017", num: 17, range: {from: 161, to: 170},
+    sanskrit: {
+      dev:  "उपेन्द्रो वामनः प्रांशुरमोघः शुचिरूर्जितः।\nअतीन्द्रः संग्रहः सर्गो धृतात्मा नियमो यमः॥",
+      iast: "upendro vāmanaḥ prāṃśuramoghaḥ śucirūrjitaḥ|\natīndraḥ saṃgrahaḥ sargo dhṛtātmā niyamo yamaḥ||",
+      kn:   "ಉಪೇಂದ್ರೋ ವಾಮನಃ ಪ್ರಾಂಶುರಮೋಘಃ ಶುಚಿರೂರ್ಜಿತಃ।\nಅತೀಂದ್ರಃ ಸಂಗ್ರಹಃ ಸರ್ಗೋ ಧೃತಾತ್ಮಾ ನಿಯಮೋ ಯಮಃ॥",
+      hi:   "उपेन्द्रो वामनः प्रांशुरमोघः शुचिरूर्जितः।\nअतीन्द्रः संग्रहः सर्गो धृतात्मा नियमो यमः॥",
+    },
+    nama_ids: ["n_0161", "n_0162", "n_0163", "n_0164", "n_0165", "n_0166", "n_0167", "n_0168", "n_0169", "n_0170"],
+  },
+  {
+    id: "sl_018", num: 18, range: {from: 171, to: 180},
+    sanskrit: {
+      dev:  "वेद्यो वैद्यः सदायोगी वीरहा माधवो मधुः।\nअतीन्द्रियो महामायो महोत्साहो महाबलः॥",
+      iast: "vedyo vaidyaḥ sadāyogī vīrahā mādhavo madhuḥ|\natīndriyo mahāmāyo mahotsāho mahābalaḥ||",
+      kn:   "ವೇದ್ಯೋ ವೈದ್ಯಃ ಸದಾಯೋಗೀ ವೀರಹಾ ಮಾಧವೋ ಮಧುಃ।\nಅತೀಂದ್ರಿಯೋ ಮಹಾಮಾಯೋ ಮಹೋತ್ಸಾಹೋ ಮಹಾಬಲಃ॥",
+      hi:   "वेद्यो वैद्यः सदायोगी वीरहा माधवो मधुः।\nअतीन्द्रियो महामायो महोत्साहो महाबलः॥",
+    },
+    nama_ids: ["n_0171", "n_0172", "n_0173", "n_0174", "n_0175", "n_0176", "n_0177", "n_0178", "n_0179", "n_0180"],
+  },
+  {
+    id: "sl_019", num: 19, range: {from: 181, to: 190},
+    sanskrit: {
+      dev:  "महाबुद्धिर्महावीर्यो महाशक्तिर्महाद्युतिः।\nअनिर्देश्यवपुः श्रीमानमेयात्मा महाद्रिधृक्॥",
+      iast: "mahābuddhirmahāvīryo mahāśaktirmahādyutiḥ|\nanirdeśyavapuḥ śrīmānameyātmā mahādridhṛk||",
+      kn:   "ಮಹಾಬುದ್ಧಿರ್ಮಹಾವೀರ್ಯೋ ಮಹಾಶಕ್ತಿರ್ಮಹಾದ್ಯುತಿಃ।\nಅನಿರ್ದೇಶ್ಯವಪುಃ ಶ್ರೀಮಾನಮೇಯಾತ್ಮಾ ಮಹಾದ್ರಿಧೃಕ್॥",
+      hi:   "महाबुद्धिर्महावीर्यो महाशक्तिर्महाद्युतिः।\nअनिर्देश्यवपुः श्रीमानमेयात्मा महाद्रिधृक्॥",
+    },
+    nama_ids: ["n_0181", "n_0182", "n_0183", "n_0184", "n_0185", "n_0186", "n_0187", "n_0188", "n_0189", "n_0190"],
+  },
+  {
+    id: "sl_020", num: 20, range: {from: 191, to: 200},
+    sanskrit: {
+      dev:  "महेष्वासो महीभर्ता श्रीनिवासः सतां गतिः।\nअनिरुद्धः सुरानन्दो गोविन्दो गोविदां पतिः॥",
+      iast: "maheṣvāso mahībhartā śrīnivāsaḥ satāṃ gatiḥ|\naniruddhaḥ surānando govindo govidāṃ patiḥ||",
+      kn:   "ಮಹೇಷ್ವಾಸೋ ಮಹೀಭರ್ತಾ ಶ್ರೀನಿವಾಸಃ ಸತಾಂ ಗತಿಃ।\nಅನಿರುದ್ಧಃ ಸುರಾನಂದೋ ಗೋವಿಂದೋ ಗೋವಿದಾಂ ಪತಿಃ॥",
+      hi:   "महेष्वासो महीभर्ता श्रीनिवासः सतां गतिः।\nअनिरुद्धः सुरानन्दो गोविन्दो गोविदां पतिः॥",
+    },
+    nama_ids: ["n_0191", "n_0192", "n_0193", "n_0194", "n_0195", "n_0196", "n_0197", "n_0198", "n_0199", "n_0200"],
+  },
+  {
+    id: "sl_021", num: 21, range: {from: 201, to: 210},
+    sanskrit: {
+      dev:  "मरीचिर्दमनो हंसः सुपर्णो भुजगोत्तमः।\nहिरण्यनाभः सुतपाः पद्मनाभः प्रजापतिः॥",
+      iast: "marīcirdamano haṃsaḥ suparṇo bhujagottamaḥ|\nhiraṇyanābhaḥ sutapāḥ padmanābhaḥ prajāpatiḥ||",
+      kn:   "ಮರೀಚಿರ್ದಮನೋ ಹಂಸಃ ಸುಪರ್ಣೋ ಭುಜಗೋತ್ತಮಃ।\nಹಿರಣ್ಯನಾಭಃ ಸುತಪಾಃ ಪದ್ಮನಾಭಃ ಪ್ರಜಾಪತಿಃ॥",
+      hi:   "मरीचिर्दमनो हंसः सुपर्णो भुजगोत्तमः।\nहिरण्यनाभः सुतपाः पद्मनाभः प्रजापतिः॥",
+    },
+    nama_ids: ["n_0201", "n_0202", "n_0203", "n_0204", "n_0205", "n_0206", "n_0207", "n_0208", "n_0209", "n_0210"],
+  },
+  {
+    id: "sl_022", num: 22, range: {from: 211, to: 220},
+    sanskrit: {
+      dev:  "अमृत्युः सर्वदृक् सिंहः सन्धाता सन्धिमान् स्थिरः।\nअजो दुर्मर्षणः शास्ता विश्रुतात्मा सुरारिहा॥",
+      iast: "amṛtyuḥ sarvadṛk siṃhaḥ sandhātā sandhimān sthiraḥ|\najo durmarṣaṇaḥ śāstā viśrutātmā surārihā||",
+      kn:   "ಅಮೃತ್ಯುಃ ಸರ್ವದೃಕ್ ಸಿಂಹಃ ಸಂಧಾತಾ ಸಂಧಿಮಾನ್ ಸ್ಥಿರಃ।\nಅಜೋ ದುರ್ಮರ್ಷಣಃ ಶಾಸ್ತಾ ವಿಶ್ರುತಾತ್ಮಾ ಸುರಾರಿಹಾ॥",
+      hi:   "अमृत्युः सर्वदृक् सिंहः सन्धाता सन्धिमान् स्थिरः।\nअजो दुर्मर्षणः शास्ता विश्रुतात्मा सुरारिहा॥",
+    },
+    nama_ids: ["n_0211", "n_0212", "n_0213", "n_0214", "n_0215", "n_0216", "n_0217", "n_0218", "n_0219", "n_0220"],
+  },
+  {
+    id: "sl_023", num: 23, range: {from: 221, to: 230},
+    sanskrit: {
+      dev:  "गुरुर्गुरुतमो धाम सत्यः सत्यपराक्रमः।\nनिमिषोऽनिमिषः स्रग्वी वाचस्पतिरुदारधीः॥",
+      iast: "gururgurutamo dhāma satyaḥ satyaparākramaḥ|\nnimiṣo'nimiṣaḥ sragvī vācaspatirudāradhīḥ||",
+      kn:   "ಗುರುರ್ಗುರುತಮೋ ಧಾಮ ಸತ್ಯಃ ಸತ್ಯಪರಾಕ್ರಮಃ।\nನಿಮಿಷೋಽನಿಮಿಷಃ ಸ್ರಗ್ವೀ ವಾಚಸ್ಪತಿರುದಾರಧೀಃ॥",
+      hi:   "गुरुर्गुरुतमो धाम सत्यः सत्यपराक्रमः।\nनिमिषोऽनिमिषः स्रग्वी वाचस्पतिरुदारधीः॥",
+    },
+    nama_ids: ["n_0221", "n_0222", "n_0223", "n_0224", "n_0225", "n_0226", "n_0227", "n_0228", "n_0229", "n_0230"],
+  },
+  {
+    id: "sl_024", num: 24, range: {from: 231, to: 240},
+    sanskrit: {
+      dev:  "अग्रणीर्ग्रामणीः श्रीमान् न्यायो नेता समीरणः।\nसहस्रमूर्धा विश्वात्मा सहस्राक्षः सहस्रपात्॥",
+      iast: "agraṇīrgrāmaṇīḥ śrīmān nyāyo netā samīraṇaḥ|\nsahasramūrdhā viśvātmā sahasrākṣaḥ sahasrapāt||",
+      kn:   "ಅಗ್ರಣೀರ್ಗ್ರಾಮಣೀಃ ಶ್ರೀಮಾನ್ ನ್ಯಾಯೋ ನೇತಾ ಸಮೀರಣಃ।\nಸಹಸ್ರಮೂರ್ಧಾ ವಿಶ್ವಾತ್ಮಾ ಸಹಸ್ರಾಕ್ಷಃ ಸಹಸ್ರಪಾತ್॥",
+      hi:   "अग्रणीर्ग्रामणीः श्रीमान् न्यायो नेता समीरणः।\nसहस्रमूर्धा विश्वात्मा सहस्राक्षः सहस्रपात्॥",
+    },
+    nama_ids: ["n_0231", "n_0232", "n_0233", "n_0234", "n_0235", "n_0236", "n_0237", "n_0238", "n_0239", "n_0240"],
+  },
+  {
+    id: "sl_025", num: 25, range: {from: 241, to: 250},
+    sanskrit: {
+      dev:  "आवर्तनो निवृत्तात्मा संवृतः सम्प्रमर्दनः।\nअहःसंवर्तको वह्निरनिलो धरणीधरः॥",
+      iast: "āvartano nivṛttātmā saṃvṛtaḥ sampramardanaḥ|\nahaḥsaṃvartako vahniranilo dharaṇīdharaḥ||",
+      kn:   "ಆವರ್ತನೋ ನಿವೃತ್ತಾತ್ಮಾ ಸಂವೃತಃ ಸಂಪ್ರಮರ್ದನಃ।\nಅಹಃಸಂವರ್ತಕೋ ವಹ್ನಿರನಿಲೋ ಧರಣೀಧರಃ॥",
+      hi:   "आवर्तनो निवृत्तात्मा संवृतः सम्प्रमर्दनः।\nअहःसंवर्तको वह्निरनिलो धरणीधरः॥",
+    },
+    nama_ids: ["n_0241", "n_0242", "n_0243", "n_0244", "n_0245", "n_0246", "n_0247", "n_0248", "n_0249", "n_0250"],
+  },
+  {
+    id: "sl_026", num: 26, range: {from: 251, to: 260},
+    sanskrit: {
+      dev:  "सुप्रसादः प्रसन्नात्मा विश्वधृग्विश्वभुग्विभुः।\nसत्कर्ता सत्कृतः साधुर्जह्नुर्नारायणो नरः॥",
+      iast: "suprasādaḥ prasannātmā viśvadhṛgviśvabhugvibhuḥ|\nsatkartā satkṛtaḥ sādhurjahnurnārāyaṇo naraḥ||",
+      kn:   "ಸುಪ್ರಸಾದಃ ಪ್ರಸನ್ನಾತ್ಮಾ ವಿಶ್ವಧೃಗ್ವಿಶ್ವಭುಗ್ವಿಭುಃ।\nಸತ್ಕರ್ತಾ ಸತ್ಕೃತಃ ಸಾಧುರ್ಜಹ್ನುರ್ನಾರಾಯಣೋ ನರಃ॥",
+      hi:   "सुप्रसादः प्रसन्नात्मा विश्वधृग्विश्वभुग्विभुः।\nसत्कर्ता सत्कृतः साधुर्जह्नुर्नारायणो नरः॥",
+    },
+    nama_ids: ["n_0251", "n_0252", "n_0253", "n_0254", "n_0255", "n_0256", "n_0257", "n_0258", "n_0259", "n_0260"],
+  },
+  {
+    id: "sl_027", num: 27, range: {from: 261, to: 270},
+    sanskrit: {
+      dev:  "असंख्येयोऽप्रमेयात्मा विशिष्टः शिष्टकृच्छुचिः।\nसिद्धार्थः सिद्धसङ्कल्पः सिद्धिदः सिद्धिसाधनः॥",
+      iast: "asaṃkhyeyo'prameyātmā viśiṣṭaḥ śiṣṭakṛcchuciḥ|\nsiddhārthaḥ siddhasaṅkalpaḥ siddhidaḥ siddhisādhanaḥ||",
+      kn:   "ಅಸಂಖ್ಯೇಯೋಽಪ್ರಮೇಯಾತ್ಮಾ ವಿಶಿಷ್ಟಃ ಶಿಷ್ಟಕೃಚ್ಛುಚಿಃ।\nಸಿದ್ಧಾರ್ಥಃ ಸಿದ್ಧಸಂಕಲ್ಪಃ ಸಿದ್ಧಿದಃ ಸಿದ್ಧಿಸಾಧನಃ॥",
+      hi:   "असंख्येयोऽप्रमेयात्मा विशिष्टः शिष्टकृच्छुचिः।\nसिद्धार्थः सिद्धसङ्कल्पः सिद्धिदः सिद्धिसाधनः॥",
+    },
+    nama_ids: ["n_0261", "n_0262", "n_0263", "n_0264", "n_0265", "n_0266", "n_0267", "n_0268", "n_0269", "n_0270"],
+  },
+  {
+    id: "sl_028", num: 28, range: {from: 271, to: 280},
+    sanskrit: {
+      dev:  "वृषाही वृषभो विष्णुर्वृषपर्वा वृषोदरः।\nवर्धनो वर्धमानश्च विविक्तः श्रुतिसागरः॥",
+      iast: "vṛṣāhī vṛṣabho viṣṇurvṛṣaparvā vṛṣodaraḥ|\nvardhano vardhamānaśca viviktaḥ śrutisāgaraḥ||",
+      kn:   "ವೃಷಾಹೀ ವೃಷಭೋ ವಿಷ್ಣುರ್ವೃಷಪರ್ವಾ ವೃಷೋದರಃ।\nವರ್ಧನೋ ವರ್ಧಮಾನಶ್ಚ ವಿವಿಕ್ತಃ ಶ್ರುತಿಸಾಗರಃ॥",
+      hi:   "वृषाही वृषभो विष्णुर्वृषपर्वा वृषोदरः।\nवर्धनो वर्धमानश्च विविक्तः श्रुतिसागरः॥",
+    },
+    nama_ids: ["n_0271", "n_0272", "n_0273", "n_0274", "n_0275", "n_0276", "n_0277", "n_0278", "n_0279", "n_0280"],
+  },
+  {
+    id: "sl_029", num: 29, range: {from: 281, to: 290},
+    sanskrit: {
+      dev:  "सुभुजो दुर्धरो वाग्मी महेन्द्रो वसुदो वसुः।\nनैकरूपो बृहद्रूपः शिपिविष्टः प्रकाशनः॥",
+      iast: "subhujo durdharo vāgmī mahendro vasudo vasuḥ|\nnaikarūpo bṛhadrūpaḥ śipiviṣṭaḥ prakāśanaḥ||",
+      kn:   "ಸುಭುಜೋ ದುರ್ಧರೋ ವಾಗ್ಮೀ ಮಹೇಂದ್ರೋ ವಸುದೋ ವಸುಃ।\nನೈಕರೂಪೋ ಬೃಹದ್ರೂಪಃ ಶಿಪಿವಿಷ್ಟಃ ಪ್ರಕಾಶನಃ॥",
+      hi:   "सुभुजो दुर्धरो वाग्मी महेन्द्रो वसुदो वसुः।\nनैकरूपो बृहद्रूपः शिपिविष्टः प्रकाशनः॥",
+    },
+    nama_ids: ["n_0281", "n_0282", "n_0283", "n_0284", "n_0285", "n_0286", "n_0287", "n_0288", "n_0289", "n_0290"],
+  },
+  {
+    id: "sl_030", num: 30, range: {from: 291, to: 300},
+    sanskrit: {
+      dev:  "ओजस्तेजोद्युतिधरः प्रकाशात्मा प्रतापनः।\nऋद्धः स्पष्टाक्षरो मन्त्रश्चन्द्रांशुर्भास्करद्युतिः॥",
+      iast: "ojastejodyutidharaḥ prakāśātmā pratāpanaḥ|\nṛddhaḥ spaṣṭākṣaro mantraścandrāṃśurbhāskaradyutiḥ||",
+      kn:   "ಓಜಸ್ತೇಜೋದ್ಯುತಿಧರಃ ಪ್ರಕಾಶಾತ್ಮಾ ಪ್ರತಾಪನಃ।\nಋದ್ಧಃ ಸ್ಪಷ್ಟಾಕ್ಷರೋ ಮಂತ್ರಶ್ಚಂದ್ರಾಂಶುರ್ಭಾಸ್ಕರದ್ಯುತಿಃ॥",
+      hi:   "ओजस्तेजोद्युतिधरः प्रकाशात्मा प्रतापनः।\nऋद्धः स्पष्टाक्षरो मन्त्रश्चन्द्रांशुर्भास्करद्युतिः॥",
+    },
+    nama_ids: ["n_0291", "n_0292", "n_0293", "n_0294", "n_0295", "n_0296", "n_0297", "n_0298", "n_0299", "n_0300"],
+  },
+  {
+    id: "sl_031", num: 31, range: {from: 301, to: 310},
+    sanskrit: {
+      dev:  "अमृतांशूद्भवो भानुः शशबिन्दुः सुरेश्वरः।\nऔषधं जगतः सेतुः सत्यधर्मपराक्रमः॥",
+      iast: "amṛtāṃśūdbhavo bhānuḥ śaśabinduḥ sureśvaraḥ|\nauṣadhaṃ jagataḥ setuḥ satyadharmaparākramaḥ||",
+      kn:   "ಅಮೃತಾಂಶೂದ್ಭವೋ ಭಾನುಃ ಶಶಬಿಂದುಃ ಸುರೇಶ್ವರಃ।\nಔಷಧಂ ಜಗತಃ ಸೇತುಃ ಸತ್ಯಧರ್ಮಪರಾಕ್ರಮಃ॥",
+      hi:   "अमृतांशूद्भवो भानुः शशबिन्दुः सुरेश्वरः।\nऔषधं जगतः सेतुः सत्यधर्मपराक्रमः॥",
+    },
+    nama_ids: ["n_0301", "n_0302", "n_0303", "n_0304", "n_0305", "n_0306", "n_0307", "n_0308", "n_0309", "n_0310"],
+  },
+  {
+    id: "sl_032", num: 32, range: {from: 311, to: 320},
+    sanskrit: {
+      dev:  "भूतभव्यभवन्नाथः पवनः पावनोऽनलः।\nकामहा कामकृत्कान्तः कामः कामप्रदः प्रभुः॥",
+      iast: "bhūtabhavyabhavannāthaḥ pavanaḥ pāvano'nalaḥ|\nkāmahā kāmakṛtkāntaḥ kāmaḥ kāmapradaḥ prabhuḥ||",
+      kn:   "ಭೂತಭವ್ಯಭವನ್ನಾಥಃ ಪವನಃ ಪಾವನೋಽನಲಃ।\nಕಾಮಹಾ ಕಾಮಕೃತ್ಕಾಂತಃ ಕಾಮಃ ಕಾಮಪ್ರದಃ ಪ್ರಭುಃ॥",
+      hi:   "भूतभव्यभवन्नाथः पवनः पावनोऽनलः।\nकामहा कामकृत्कान्तः कामः कामप्रदः प्रभुः॥",
+    },
+    nama_ids: ["n_0311", "n_0312", "n_0313", "n_0314", "n_0315", "n_0316", "n_0317", "n_0318", "n_0319", "n_0320"],
+  },
+  {
+    id: "sl_033", num: 33, range: {from: 321, to: 330},
+    sanskrit: {
+      dev:  "युगादिकृद्युगावर्तो नैकमायो महाशनः।\nअदृश्यो व्यक्तरूपश्च सहस्रजिदनन्तजित्॥",
+      iast: "yugādikṛdyugāvarto naikamāyo mahāśanaḥ|\nadṛśyo vyaktarūpaśca sahasrajidanantajit||",
+      kn:   "ಯುಗಾದಿಕೃದ್ಯುಗಾವರ್ತೋ ನೈಕಮಾಯೋ ಮಹಾಶನಃ।\nಅದೃಶ್ಯೋ ವ್ಯಕ್ತರೂಪಶ್ಚ ಸಹಸ್ರಜಿದನಂತಜಿತ್॥",
+      hi:   "युगादिकृद्युगावर्तो नैकमायो महाशनः।\nअदृश्यो व्यक्तरूपश्च सहस्रजिदनन्तजित्॥",
+    },
+    nama_ids: ["n_0321", "n_0322", "n_0323", "n_0324", "n_0325", "n_0326", "n_0327", "n_0328", "n_0329", "n_0330"],
+  },
+  {
+    id: "sl_034", num: 34, range: {from: 331, to: 340},
+    sanskrit: {
+      dev:  "इष्टोऽविशिष्टः शिष्टेष्टः शिखण्डी नहुषो वृषः।\nक्रोधहा क्रोधकृत्कर्ता विश्वबाहुर्महीधरः॥",
+      iast: "iṣṭo'viśiṣṭaḥ śiṣṭeṣṭaḥ śikhaṇḍī nahuṣo vṛṣaḥ|\nkrodhahā krodhakṛtkartā viśvabāhurmahīdharaḥ||",
+      kn:   "ಇಷ್ಟೋಽವಿಶಿಷ್ಟಃ ಶಿಷ್ಟೇಷ್ಟಃ ಶಿಖಂಡೀ ನಹುಷೋ ವೃಷಃ।\nಕ್ರೋಧಹಾ ಕ್ರೋಧಕೃತ್ಕರ್ತಾ ವಿಶ್ವಬಾಹುರ್ಮಹೀಧರಃ॥",
+      hi:   "इष्टोऽविशिष्टः शिष्टेष्टः शिखण्डी नहुषो वृषः।\nक्रोधहा क्रोधकृत्कर्ता विश्वबाहुर्महीधरः॥",
+    },
+    nama_ids: ["n_0331", "n_0332", "n_0333", "n_0334", "n_0335", "n_0336", "n_0337", "n_0338", "n_0339", "n_0340"],
+  },
+  {
+    id: "sl_035", num: 35, range: {from: 341, to: 350},
+    sanskrit: {
+      dev:  "अच्युतः प्रथितः प्राणः प्राणदो वासवानुजः।\nअपां निधिरधिष्ठानमप्रमत्तः प्रतिष्ठितः॥",
+      iast: "acyutaḥ prathitaḥ prāṇaḥ prāṇado vāsavānujaḥ|\napāṃ nidhiradhiṣṭhānamapramattaḥ pratiṣṭhitaḥ||",
+      kn:   "ಅಚ್ಯುತಃ ಪ್ರಥಿತಃ ಪ್ರಾಣಃ ಪ್ರಾಣದೋ ವಾಸವಾನುಜಃ।\nಅಪಾಂ ನಿಧಿರಧಿಷ್ಠಾನಮಪ್ರಮತ್ತಃ ಪ್ರತಿಷ್ಠಿತಃ॥",
+      hi:   "अच्युतः प्रथितः प्राणः प्राणदो वासवानुजः।\nअपां निधिरधिष्ठानमप्रमत्तः प्रतिष्ठितः॥",
+    },
+    nama_ids: ["n_0341", "n_0342", "n_0343", "n_0344", "n_0345", "n_0346", "n_0347", "n_0348", "n_0349", "n_0350"],
+  },
+  {
+    id: "sl_036", num: 36, range: {from: 351, to: 360},
+    sanskrit: {
+      dev:  "स्कन्दः स्कन्दधरो धुर्यो वरदो वायुवाहनः।\nवासुदेवो बृहद्भानुरादिदेवः पुरन्दरः॥",
+      iast: "skandaḥ skandadharo dhuryo varado vāyuvāhanaḥ|\nvāsudevo bṛhadbhānurādidevaḥ purandaraḥ||",
+      kn:   "ಸ್ಕಂದಃ ಸ್ಕಂದಧರೋ ಧುರ್ಯೋ ವರದೋ ವಾಯುವಾಹನಃ।\nವಾಸುದೇವೋ ಬೃಹದ್ಭಾನುರಾದಿದೇವಃ ಪುರಂದರಃ॥",
+      hi:   "स्कन्दः स्कन्दधरो धुर्यो वरदो वायुवाहनः।\nवासुदेवो बृहद्भानुरादिदेवः पुरन्दरः॥",
+    },
+    nama_ids: ["n_0351", "n_0352", "n_0353", "n_0354", "n_0355", "n_0356", "n_0357", "n_0358", "n_0359", "n_0360"],
+  },
+  {
+    id: "sl_037", num: 37, range: {from: 361, to: 370},
+    sanskrit: {
+      dev:  "अशोकस्तारणस्तारः शूरः शौरिर्जनेश्वरः।\nअनुकूलः शतावर्तः पद्मी पद्मनिभेक्षणः॥",
+      iast: "aśokastāraṇastāraḥ śūraḥ śaurirjaneśvaraḥ|\nanukūlaḥ śatāvartaḥ padmī padmanibhekṣaṇaḥ||",
+      kn:   "ಅಶೋಕಸ್ತಾರಣಸ್ತಾರಃ ಶೂರಃ ಶೌರಿರ್ಜನೇಶ್ವರಃ।\nಅನುಕೂಲಃ ಶತಾವರ್ತಃ ಪದ್ಮೀ ಪದ್ಮನಿಭೇಕ್ಷಣಃ॥",
+      hi:   "अशोकस्तारणस्तारः शूरः शौरिर्जनेश्वरः।\nअनुकूलः शतावर्तः पद्मी पद्मनिभेक्षणः॥",
+    },
+    nama_ids: ["n_0361", "n_0362", "n_0363", "n_0364", "n_0365", "n_0366", "n_0367", "n_0368", "n_0369", "n_0370"],
+  },
+  {
+    id: "sl_038", num: 38, range: {from: 371, to: 380},
+    sanskrit: {
+      dev:  "पद्मनाभोऽरविन्दाक्षः पद्मगर्भः शरीरभृत्।\nमहर्द्धिऋद्धो वृद्धात्मा महाक्षो गरुडध्वजः॥",
+      iast: "padmanābho'ravindākṣaḥ padmagarbhaḥ śarīrabhṛt|\nmaharddhiṛddho vṛddhātmā mahākṣo garuḍadhvajaḥ||",
+      kn:   "ಪದ್ಮನಾಭೋಽರವಿಂದಾಕ್ಷಃ ಪದ್ಮಗರ್ಭಃ ಶರೀರಭೃತ್।\nಮಹರ್ದ್ಧಿಋದ್ಧೋ ವೃದ್ಧಾತ್ಮಾ ಮಹಾಕ್ಷೋ ಗರುಡಧ್ವಜಃ॥",
+      hi:   "पद्मनाभोऽरविन्दाक्षः पद्मगर्भः शरीरभृत्।\nमहर्द्धिऋद्धो वृद्धात्मा महाक्षो गरुडध्वजः॥",
+    },
+    nama_ids: ["n_0371", "n_0372", "n_0373", "n_0374", "n_0375", "n_0376", "n_0377", "n_0378", "n_0379", "n_0380"],
+  },
+  {
+    id: "sl_039", num: 39, range: {from: 381, to: 390},
+    sanskrit: {
+      dev:  "अतुलः शरभो भीमः समयज्ञो हविर्हरिः।\nसर्वलक्षणलक्षण्यो लक्ष्मीवान् समितिञ्जयः॥",
+      iast: "atulaḥ śarabho bhīmaḥ samayajño havirhariḥ|\nsarvalakṣaṇalakṣaṇyo lakṣmīvān samitiñjayaḥ||",
+      kn:   "ಅತುಲಃ ಶರಭೋ ಭೀಮಃ ಸಮಯಜ್ಞೋ ಹವಿರ್ಹರಿಃ।\nಸರ್ವಲಕ್ಷಣಲಕ್ಷಣ್ಯೋ ಲಕ್ಷ್ಮೀವಾನ್ ಸಮಿತಿಂಜಯಃ॥",
+      hi:   "अतुलः शरभो भीमः समयज्ञो हविर्हरिः।\nसर्वलक्षणलक्षण्यो लक्ष्मीवान् समितिञ्जयः॥",
+    },
+    nama_ids: ["n_0381", "n_0382", "n_0383", "n_0384", "n_0385", "n_0386", "n_0387", "n_0388", "n_0389", "n_0390"],
+  },
+  {
+    id: "sl_040", num: 40, range: {from: 391, to: 400},
+    sanskrit: {
+      dev:  "विक्षरो रोहितो मार्गो हेतुर्दामोदरः सहः।\nमहीधरो महाभागो वेगवानमिताशनः॥",
+      iast: "vikṣaro rohito mārgo heturdāmodaraḥ sahaḥ|\nmahīdharo mahābhāgo vegavānamitāśanaḥ||",
+      kn:   "ವಿಕ್ಷರೋ ರೋಹಿತೋ ಮಾರ್ಗೋ ಹೇತುರ್ದಾಮೋದರಃ ಸಹಃ।\nಮಹೀಧರೋ ಮಹಾಭಾಗೋ ವೇಗವಾನಮಿತಾಶನಃ॥",
+      hi:   "विक्षरो रोहितो मार्गो हेतुर्दामोदरः सहः।\nमहीधरो महाभागो वेगवानमिताशनः॥",
+    },
+    nama_ids: ["n_0391", "n_0392", "n_0393", "n_0394", "n_0395", "n_0396", "n_0397", "n_0398", "n_0399", "n_0400"],
+  },
+  {
+    id: "sl_041", num: 41, range: {from: 401, to: 410},
+    sanskrit: {
+      dev:  "उद्भवः क्षोभणो देवः श्रीगर्भः परमेश्वरः।\nकरणं कारणं कर्ता विकर्ता गहनो गुहः॥",
+      iast: "udbhavaḥ kṣobhaṇo devaḥ śrīgarbhaḥ parameśvaraḥ|\nkaraṇaṃ kāraṇaṃ kartā vikartā gahano guhaḥ||",
+      kn:   "ಉದ್ಭವಃ ಕ್ಷೋಭಣೋ ದೇವಃ ಶ್ರೀಗರ್ಭಃ ಪರಮೇಶ್ವರಃ।\nಕರಣಂ ಕಾರಣಂ ಕರ್ತಾ ವಿಕರ್ತಾ ಗಹನೋ ಗುಹಃ॥",
+      hi:   "उद्भवः क्षोभणो देवः श्रीगर्भः परमेश्वरः।\nकरणं कारणं कर्ता विकर्ता गहनो गुहः॥",
+    },
+    nama_ids: ["n_0401", "n_0402", "n_0403", "n_0404", "n_0405", "n_0406", "n_0407", "n_0408", "n_0409", "n_0410"],
+  },
+  {
+    id: "sl_042", num: 42, range: {from: 411, to: 420},
+    sanskrit: {
+      dev:  "व्यवसायो व्यवस्थानः संस्थानः स्थानदो ध्रुवः।\nपरर्द्धिः परमस्पष्टस्तुष्टः पुष्टः शुभेक्षणः॥",
+      iast: "vyavasāyo vyavasthānaḥ saṃsthānaḥ sthānado dhruvaḥ|\npararddhiḥ paramaspaṣṭastuṣṭaḥ puṣṭaḥ śubhekṣaṇaḥ||",
+      kn:   "ವ್ಯವಸಾಯೋ ವ್ಯವಸ್ಥಾನಃ ಸಂಸ್ಥಾನಃ ಸ್ಥಾನದೋ ಧ್ರುವಃ।\nಪರರ್ದ್ಧಿಃ ಪರಮಸ್ಪಷ್ಟಸ್ತುಷ್ಟಃ ಪುಷ್ಟಃ ಶುಭೇಕ್ಷಣಃ॥",
+      hi:   "व्यवसायो व्यवस्थानः संस्थानः स्थानदो ध्रुवः।\nपरर्द्धिः परमस्पष्टस्तुष्टः पुष्टः शुभेक्षणः॥",
+    },
+    nama_ids: ["n_0411", "n_0412", "n_0413", "n_0414", "n_0415", "n_0416", "n_0417", "n_0418", "n_0419", "n_0420"],
+  },
+  {
+    id: "sl_043", num: 43, range: {from: 421, to: 430},
+    sanskrit: {
+      dev:  "रामो विरामो विरतो मार्गो नेयो नयोऽनयः।\nवीरः शक्तिमतां श्रेष्ठो धर्मो धर्मविदुत्तमः॥",
+      iast: "rāmo virāmo virato mārgo neyo nayo'nayaḥ|\nvīraḥ śaktimatāṃ śreṣṭho dharmo dharmaviduttamaḥ||",
+      kn:   "ರಾಮೋ ವಿರಾಮೋ ವಿರತೋ ಮಾರ್ಗೋ ನೇಯೋ ನಯೋಽನಯಃ।\nವೀರಃ ಶಕ್ತಿಮತಾಂ ಶ್ರೇಷ್ಠೋ ಧರ್ಮೋ ಧರ್ಮವಿದುತ್ತಮಃ॥",
+      hi:   "रामो विरामो विरतो मार्गो नेयो नयोऽनयः।\nवीरः शक्तिमतां श्रेष्ठो धर्मो धर्मविदुत्तमः॥",
+    },
+    nama_ids: ["n_0421", "n_0422", "n_0423", "n_0424", "n_0425", "n_0426", "n_0427", "n_0428", "n_0429", "n_0430"],
+  },
+  {
+    id: "sl_044", num: 44, range: {from: 431, to: 440},
+    sanskrit: {
+      dev:  "वैकुण्ठः पुरुषः प्राणः प्राणदः प्रणवः पृथुः।\nहिरण्यगर्भः शत्रुघ्नो व्याप्तो वायुरधोक्षजः॥",
+      iast: "vaikuṇṭhaḥ puruṣaḥ prāṇaḥ prāṇadaḥ praṇavaḥ pṛthuḥ|\nhiraṇyagarbhaḥ śatrughno vyāpto vāyuradhokṣajaḥ||",
+      kn:   "ವೈಕುಂಠಃ ಪುರುಷಃ ಪ್ರಾಣಃ ಪ್ರಾಣದಃ ಪ್ರಣವಃ ಪೃಥುಃ।\nಹಿರಣ್ಯಗರ್ಭಃ ಶತ್ರುಘ್ನೋ ವ್ಯಾಪ್ತೋ ವಾಯುರಧೋಕ್ಷಜಃ॥",
+      hi:   "वैकुण्ठः पुरुषः प्राणः प्राणदः प्रणवः पृथुः।\nहिरण्यगर्भः शत्रुघ्नो व्याप्तो वायुरधोक्षजः॥",
+    },
+    nama_ids: ["n_0431", "n_0432", "n_0433", "n_0434", "n_0435", "n_0436", "n_0437", "n_0438", "n_0439", "n_0440"],
+  },
+  {
+    id: "sl_045", num: 45, range: {from: 441, to: 450},
+    sanskrit: {
+      dev:  "ऋतुः सुदर्शनः कालः परमेष्ठी परिग्रहः।\nउग्रः संवत्सरो दक्षो विश्रामो विश्वदक्षिणः॥",
+      iast: "ṛtuḥ sudarśanaḥ kālaḥ parameṣṭhī parigrahaḥ|\nugraḥ saṃvatsaro dakṣo viśrāmo viśvadakṣiṇaḥ||",
+      kn:   "ಋತುಃ ಸುದರ್ಶನಃ ಕಾಲಃ ಪರಮೇಷ್ಠೀ ಪರಿಗ್ರಹಃ।\nಉಗ್ರಃ ಸಂವತ್ಸರೋ ದಕ್ಷೋ ವಿಶ್ರಾಮೋ ವಿಶ್ವದಕ್ಷಿಣಃ॥",
+      hi:   "ऋतुः सुदर्शनः कालः परमेष्ठी परिग्रहः।\nउग्रः संवत्सरो दक्षो विश्रामो विश्वदक्षिणः॥",
+    },
+    nama_ids: ["n_0441", "n_0442", "n_0443", "n_0444", "n_0445", "n_0446", "n_0447", "n_0448", "n_0449", "n_0450"],
+  },
+  {
+    id: "sl_046", num: 46, range: {from: 451, to: 460},
+    sanskrit: {
+      dev:  "विस्तारः स्थावरस्थाणुः प्रमाणं बीजमव्ययम्।\nअर्थोऽनर्थो महाकोशो महाभोगो महाधनः॥",
+      iast: "vistāraḥ sthāvarasthāṇuḥ pramāṇaṃ bījamavyayam|\nartho'nartho mahākośo mahābhogo mahādhanaḥ||",
+      kn:   "ವಿಸ್ತಾರಃ ಸ್ಥಾವರಸ್ಥಾಣುಃ ಪ್ರಮಾಣಂ ಬೀಜಮವ್ಯಯಂ।\nಅರ್ಥೋಽನರ್ಥೋ ಮಹಾಕೋಶೋ ಮಹಾಭೋಗೋ ಮಹಾಧನಃ॥",
+      hi:   "विस्तारः स्थावरस्थाणुः प्रमाणं बीजमव्ययम्।\nअर्थोऽनर्थो महाकोशो महाभोगो महाधनः॥",
+    },
+    nama_ids: ["n_0451", "n_0452", "n_0453", "n_0454", "n_0455", "n_0456", "n_0457", "n_0458", "n_0459", "n_0460"],
+  },
+  {
+    id: "sl_047", num: 47, range: {from: 461, to: 470},
+    sanskrit: {
+      dev:  "अनिर्विण्णः स्थविष्ठोऽभूर्धर्मयूपो महामखः।\nनक्षत्रनेमिर्नक्षत्री क्षमः क्षामः समीहनः॥",
+      iast: "anirviṇṇaḥ sthaviṣṭho'bhūrdharmayūpo mahāmakhaḥ|\nnakṣatranemirnakṣatrī kṣamaḥ kṣāmaḥ samīhanaḥ||",
+      kn:   "ಅನಿರ್ವಿಣ್ಣಃ ಸ್ಥವಿಷ್ಠೋಽಭೂರ್ಧರ್ಮಯೂಪೋ ಮಹಾಮಖಃ।\nನಕ್ಷತ್ರನೇಮಿರ್ನಕ್ಷತ್ರೀ ಕ್ಷಮಃ ಕ್ಷಾಮಃ ಸಮೀಹನಃ॥",
+      hi:   "अनिर्विण्णः स्थविष्ठोऽभूर्धर्मयूपो महामखः।\nनक्षत्रनेमिर्नक्षत्री क्षमः क्षामः समीहनः॥",
+    },
+    nama_ids: ["n_0461", "n_0462", "n_0463", "n_0464", "n_0465", "n_0466", "n_0467", "n_0468", "n_0469", "n_0470"],
+  },
+  {
+    id: "sl_048", num: 48, range: {from: 471, to: 480},
+    sanskrit: {
+      dev:  "यज्ञ इज्यो महेज्यश्च क्रतुः सत्रं सतां गतिः।\nसर्वदर्शी विमुक्तात्मा सर्वज्ञो ज्ञानमुत्तमम्॥",
+      iast: "yajña ijyo mahejyaśca kratuḥ satraṃ satāṃ gatiḥ|\nsarvadarśī vimuktātmā sarvajño jñānamuttamam||",
+      kn:   "ಯಜ್ಞ ಇಜ್ಯೋ ಮಹೇಜ್ಯಶ್ಚ ಕ್ರತುಃ ಸತ್ರಂ ಸತಾಂ ಗತಿಃ।\nಸರ್ವದರ್ಶೀ ವಿಮುಕ್ತಾತ್ಮಾ ಸರ್ವಜ್ಞೋ ಜ್ಞಾನಮುತ್ತಮಂ॥",
+      hi:   "यज्ञ इज्यो महेज्यश्च क्रतुः सत्रं सतां गतिः।\nसर्वदर्शी विमुक्तात्मा सर्वज्ञो ज्ञानमुत्तमम्॥",
+    },
+    nama_ids: ["n_0471", "n_0472", "n_0473", "n_0474", "n_0475", "n_0476", "n_0477", "n_0478", "n_0479", "n_0480"],
+  },
+  {
+    id: "sl_049", num: 49, range: {from: 481, to: 490},
+    sanskrit: {
+      dev:  "सुव्रतः सुमुखः सूक्ष्मः सुघोषः सुखदः सुहृत्।\nमनोहरो जितक्रोधो वीरबाहुर्विदारणः॥",
+      iast: "suvrataḥ sumukhaḥ sūkṣmaḥ sughoṣaḥ sukhadaḥ suhṛt|\nmanoharo jitakrodho vīrabāhurvidāraṇaḥ||",
+      kn:   "ಸುವ್ರತಃ ಸುಮುಖಃ ಸೂಕ್ಷ್ಮಃ ಸುಘೋಷಃ ಸುಖದಃ ಸುಹೃತ್।\nಮನೋಹರೋ ಜಿತಕ್ರೋಧೋ ವೀರಬಾಹುರ್ವಿದಾರಣಃ॥",
+      hi:   "सुव्रतः सुमुखः सूक्ष्मः सुघोषः सुखदः सुहृत्।\nमनोहरो जितक्रोधो वीरबाहुर्विदारणः॥",
+    },
+    nama_ids: ["n_0481", "n_0482", "n_0483", "n_0484", "n_0485", "n_0486", "n_0487", "n_0488", "n_0489", "n_0490"],
+  },
+  {
+    id: "sl_050", num: 50, range: {from: 491, to: 500},
+    sanskrit: {
+      dev:  "स्वापनः स्ववशो व्यापी नैकात्मा नैककर्मकृत्।\nवत्सरो वत्सलो वत्सी रत्नगर्भो धनेश्वरः॥",
+      iast: "svāpanaḥ svavaśo vyāpī naikātmā naikakarmakṛt|\nvatsaro vatsalo vatsī ratnagarbho dhaneśvaraḥ||",
+      kn:   "ಸ್ವಾಪನಃ ಸ್ವವಶೋ ವ್ಯಾಪೀ ನೈಕಾತ್ಮಾ ನೈಕಕರ್ಮಕೃತ್।\nವತ್ಸರೋ ವತ್ಸಲೋ ವತ್ಸೀ ರತ್ನಗರ್ಭೋ ಧನೇಶ್ವರಃ॥",
+      hi:   "स्वापनः स्ववशो व्यापी नैकात्मा नैककर्मकृत्।\nवत्सरो वत्सलो वत्सी रत्नगर्भो धनेश्वरः॥",
+    },
+    nama_ids: ["n_0491", "n_0492", "n_0493", "n_0494", "n_0495", "n_0496", "n_0497", "n_0498", "n_0499", "n_0500"],
+  },
+  {
+    id: "sl_051", num: 51, range: {from: 501, to: 510},
+    sanskrit: {
+      dev:  "धर्मगुब्धर्मकृद्धर्मी सदसत्क्षरमक्षरम्।\nअविज्ञाता सहस्रांशुर्विधाता कृतलक्षणः॥",
+      iast: "dharmagubdharmakṛddharmī sadasatkṣaramakṣaram|\navijñātā sahasrāṃśurvidhātā kṛtalakṣaṇaḥ||",
+      kn:   "ಧರ್ಮಗುಬ್ಧರ್ಮಕೃದ್ಧರ್ಮೀ ಸದಸತ್ಕ್ಷರಮಕ್ಷರಂ।\nಅವಿಜ್ಞಾತಾ ಸಹಸ್ರಾಂಶುರ್ವಿಧಾತಾ ಕೃತಲಕ್ಷಣಃ॥",
+      hi:   "धर्मगुब्धर्मकृद्धर्मी सदसत्क्षरमक्षरम्।\nअविज्ञाता सहस्रांशुर्विधाता कृतलक्षणः॥",
+    },
+    nama_ids: ["n_0501", "n_0502", "n_0503", "n_0504", "n_0505", "n_0506", "n_0507", "n_0508", "n_0509", "n_0510"],
+  },
+  {
+    id: "sl_052", num: 52, range: {from: 511, to: 520},
+    sanskrit: {
+      dev:  "गभस्तिनेमिः सत्त्वस्थः सिंहो भूतमहेश्वरः।\nआदिदेवो महादेवो देवेशो देवभृद्गुरुः॥",
+      iast: "gabhastinemiḥ sattvasthaḥ siṃho bhūtamaheśvaraḥ|\nādidevo mahādevo deveśo devabhṛdguruḥ||",
+      kn:   "ಗಭಸ್ತಿನೇಮಿಃ ಸತ್ತ್ವಸ್ಥಃ ಸಿಂಹೋ ಭೂತಮಹೇಶ್ವರಃ।\nಆದಿದೇವೋ ಮಹಾದೇವೋ ದೇವೇಶೋ ದೇವಭೃದ್ಗುರುಃ॥",
+      hi:   "गभस्तिनेमिः सत्त्वस्थः सिंहो भूतमहेश्वरः।\nआदिदेवो महादेवो देवेशो देवभृद्गुरुः॥",
+    },
+    nama_ids: ["n_0511", "n_0512", "n_0513", "n_0514", "n_0515", "n_0516", "n_0517", "n_0518", "n_0519", "n_0520"],
+  },
+  {
+    id: "sl_053", num: 53, range: {from: 521, to: 530},
+    sanskrit: {
+      dev:  "उत्तरो गोपतिर्गोप्ता ज्ञानगम्यः पुरातनः।\nशरीरभूतभृद्भोक्ता कपीन्द्रो भूरिदक्षिणः॥",
+      iast: "uttaro gopatirgoptā jñānagamyaḥ purātanaḥ|\nśarīrabhūtabhṛdbhoktā kapīndro bhūridakṣiṇaḥ||",
+      kn:   "ಉತ್ತರೋ ಗೋಪತಿರ್ಗೋಪ್ತಾ ಜ್ಞಾನಗಮ್ಯಃ ಪುರಾತನಃ।\nಶರೀರಭೂತಭೃದ್ಭೋಕ್ತಾ ಕಪೀಂದ್ರೋ ಭೂರಿದಕ್ಷಿಣಃ॥",
+      hi:   "उत्तरो गोपतिर्गोप्ता ज्ञानगम्यः पुरातनः।\nशरीरभूतभृद्भोक्ता कपीन्द्रो भूरिदक्षिणः॥",
+    },
+    nama_ids: ["n_0521", "n_0522", "n_0523", "n_0524", "n_0525", "n_0526", "n_0527", "n_0528", "n_0529", "n_0530"],
+  },
+  {
+    id: "sl_054", num: 54, range: {from: 531, to: 540},
+    sanskrit: {
+      dev:  "सोमपोऽमृतपः सोमः पुरुजित्पुरुसत्तमः।\nविनयो जयः सत्यसन्धो दाशार्हः सात्वतां पतिः॥",
+      iast: "somapo'mṛtapaḥ somaḥ purujitpurusattamaḥ|\nvinayo jayaḥ satyasandho dāśārhaḥ sātvatāṃ patiḥ||",
+      kn:   "ಸೋಮಪೋಽಮೃತಪಃ ಸೋಮಃ ಪುರುಜಿತ್ಪುರುಸತ್ತಮಃ।\nವಿನಯೋ ಜಯಃ ಸತ್ಯಸಂಧೋ ದಾಶಾರ್ಹಃ ಸಾತ್ವತಾಂ ಪತಿಃ॥",
+      hi:   "सोमपोऽमृतपः सोमः पुरुजित्पुरुसत्तमः।\nविनयो जयः सत्यसन्धो दाशार्हः सात्वतां पतिः॥",
+    },
+    nama_ids: ["n_0531", "n_0532", "n_0533", "n_0534", "n_0535", "n_0536", "n_0537", "n_0538", "n_0539", "n_0540"],
+  },
+  {
+    id: "sl_055", num: 55, range: {from: 541, to: 550},
+    sanskrit: {
+      dev:  "जीवो विनयिता साक्षी मुकुन्दोऽमितविक्रमः।\nअम्भोनिधिरनन्तात्मा महोदधिशयोऽन्तकः॥",
+      iast: "jīvo vinayitā sākṣī mukundo'mitavikramaḥ|\nambhonidhiranantātmā mahodadhiśayo'ntakaḥ||",
+      kn:   "ಜೀವೋ ವಿನಯಿತಾ ಸಾಕ್ಷೀ ಮುಕುಂದೋಽಮಿತವಿಕ್ರಮಃ।\nಅಂಭೋನಿಧಿರನಂತಾತ್ಮಾ ಮಹೋದಧಿಶಯೋಽನ್ತಕಃ॥",
+      hi:   "जीवो विनयिता साक्षी मुकुन्दोऽमितविक्रमः।\nअम्भोनिधिरनन्तात्मा महोदधिशयोऽन्तकः॥",
+    },
+    nama_ids: ["n_0541", "n_0542", "n_0543", "n_0544", "n_0545", "n_0546", "n_0547", "n_0548", "n_0549", "n_0550"],
+  },
+  {
+    id: "sl_056", num: 56, range: {from: 551, to: 560},
+    sanskrit: {
+      dev:  "अजो महार्हः स्वाभाव्यो जितामित्रः प्रमोदनः।\nआनन्दो नन्दनो नन्दः सत्यधर्मा त्रिविक्रमः॥",
+      iast: "ajo mahārhaḥ svābhāvyo jitāmitraḥ pramodanaḥ|\nānando nandano nandaḥ satyadharmā trivikramaḥ||",
+      kn:   "ಅಜೋ ಮಹಾರ್ಹಃ ಸ್ವಾಭಾವ್ಯೋ ಜಿತಾಮಿತ್ರಃ ಪ್ರಮೋದನಃ।\nಆನಂದೋ ನಂದನೋ ನಂದಃ ಸತ್ಯಧರ್ಮಾ ತ್ರಿವಿಕ್ರಮಃ॥",
+      hi:   "अजो महार्हः स्वाभाव्यो जितामित्रः प्रमोदनः।\nआनन्दो नन्दनो नन्दः सत्यधर्मा त्रिविक्रमः॥",
+    },
+    nama_ids: ["n_0551", "n_0552", "n_0553", "n_0554", "n_0555", "n_0556", "n_0557", "n_0558", "n_0559", "n_0560"],
+  },
+  {
+    id: "sl_057", num: 57, range: {from: 561, to: 570},
+    sanskrit: {
+      dev:  "महर्षिः कपिलाचार्यः कृतज्ञो मेदिनीपतिः।\nत्रिपदस्त्रिदशाध्यक्षो महाशृङ्गः कृतान्तकृत्॥",
+      iast: "maharṣiḥ kapilācāryaḥ kṛtajño medinīpatiḥ|\ntripadastridaśādhyakṣo mahāśṛṅgaḥ kṛtāntakṛt||",
+      kn:   "ಮಹರ್ಷಿಃ ಕಪಿಲಾಚಾರ್ಯಃ ಕೃತಜ್ಞೋ ಮೇದಿನೀಪತಿಃ।\nತ್ರಿಪದಸ್ತ್ರಿದಶಾಧ್ಯಕ್ಷೋ ಮಹಾಶೃಂಗಃ ಕೃತಾಂತಕೃತ್॥",
+      hi:   "महर्षिः कपिलाचार्यः कृतज्ञो मेदिनीपतिः।\nत्रिपदस्त्रिदशाध्यक्षो महाशृङ्गः कृतान्तकृत्॥",
+    },
+    nama_ids: ["n_0561", "n_0562", "n_0563", "n_0564", "n_0565", "n_0566", "n_0567", "n_0568", "n_0569", "n_0570"],
+  },
+  {
+    id: "sl_058", num: 58, range: {from: 571, to: 580},
+    sanskrit: {
+      dev:  "महावराहो गोविन्दः सुषेणः कनकाङ्गदी।\nगुह्यो गभीरो गहनो गुप्तश्चक्रगदाधरः॥",
+      iast: "mahāvarāho govindaḥ suṣeṇaḥ kanakāṅgadī|\nguhyo gabhīro gahano guptaścakragadādharaḥ||",
+      kn:   "ಮಹಾವರಾಹೋ ಗೋವಿಂದಃ ಸುಷೇಣಃ ಕನಕಾಂಗದೀ।\nಗುಹ್ಯೋ ಗಭೀರೋ ಗಹನೋ ಗುಪ್ತಶ್ಚಕ್ರಗದಾಧರಃ॥",
+      hi:   "महावराहो गोविन्दः सुषेणः कनकाङ्गदी।\nगुह्यो गभीरो गहनो गुप्तश्चक्रगदाधरः॥",
+    },
+    nama_ids: ["n_0571", "n_0572", "n_0573", "n_0574", "n_0575", "n_0576", "n_0577", "n_0578", "n_0579", "n_0580"],
+  },
+  {
+    id: "sl_059", num: 59, range: {from: 581, to: 590},
+    sanskrit: {
+      dev:  "वेधाः स्वाङ्गोऽजितः कृष्णो दृढः सङ्कर्षणोऽच्युतः।\nवरुणो वारुणो वृक्षः पुष्कराक्षो महामनाः॥",
+      iast: "vedhāḥ svāṅgo'jitaḥ kṛṣṇo dṛḍhaḥ saṅkarṣaṇo'cyutaḥ|\nvaruṇo vāruṇo vṛkṣaḥ puṣkarākṣo mahāmanāḥ||",
+      kn:   "ವೇಧಾಃ ಸ್ವಾಂಗೋಽಜಿತಃ ಕೃಷ್ಣೋ ದೃಢಃ ಸಂಕರ್ಷಣೋಽಚ್ಯುತಃ।\nವರುಣೋ ವಾರುಣೋ ವೃಕ್ಷಃ ಪುಷ್ಕರಾಕ್ಷೋ ಮಹಾಮನಾಃ॥",
+      hi:   "वेधाः स्वाङ्गोऽजितः कृष्णो दृढः सङ्कर्षणोऽच्युतः।\nवरुणो वारुणो वृक्षः पुष्कराक्षो महामनाः॥",
+    },
+    nama_ids: ["n_0581", "n_0582", "n_0583", "n_0584", "n_0585", "n_0586", "n_0587", "n_0588", "n_0589", "n_0590"],
+  },
+  {
+    id: "sl_060", num: 60, range: {from: 591, to: 600},
+    sanskrit: {
+      dev:  "भगवान् भगहाऽऽनन्दी वनमाली हलायुधः।\nआदित्यो ज्योतिरादित्यः सहिष्णुर्गतिसत्तमः॥",
+      iast: "bhagavān bhagahā''nandī vanamālī halāyudhaḥ|\nādityo jyotirādityaḥ sahiṣṇurgatisattamaḥ||",
+      kn:   "ಭಗವಾನ್ ಭಗಹಾಽಽನಂದೀ ವನಮಾಲೀ ಹಲಾಯುಧಃ।\nಆದಿತ್ಯೋ ಜ್ಯೋತಿರಾದಿತ್ಯಃ ಸಹಿಷ್ಣುರ್ಗತಿಸತ್ತಮಃ॥",
+      hi:   "भगवान् भगहाऽऽनन्दी वनमाली हलायुधः।\nआदित्यो ज्योतिरादित्यः सहिष्णुर्गतिसत्तमः॥",
+    },
+    nama_ids: ["n_0591", "n_0592", "n_0593", "n_0594", "n_0595", "n_0596", "n_0597", "n_0598", "n_0599", "n_0600"],
+  },
+  {
+    id: "sl_061", num: 61, range: {from: 601, to: 610},
+    sanskrit: {
+      dev:  "सुधन्वा खण्डपरशुर्दारुणो द्रविणप्रदः।\nदिवस्पृक्सर्वदृग्व्यासो वाचस्पतिरयोनिजः॥",
+      iast: "sudhanvā khaṇḍaparaśurdāruṇo draviṇapradaḥ|\ndivaspṛksarvadṛgvyāso vācaspatirayonijaḥ||",
+      kn:   "ಸುಧನ್ವಾ ಖಂಡಪರಶುರ್ದಾರುಣೋ ದ್ರವಿಣಪ್ರದಃ।\nದಿವಸ್ಪೃಕ್ಸರ್ವದೃಗ್ವ್ಯಾಸೋ ವಾಚಸ್ಪತಿರಯೋನಿಜಃ॥",
+      hi:   "सुधन्वा खण्डपरशुर्दारुणो द्रविणप्रदः।\nदिवस्पृक्सर्वदृग्व्यासो वाचस्पतिरयोनिजः॥",
+    },
+    nama_ids: ["n_0601", "n_0602", "n_0603", "n_0604", "n_0605", "n_0606", "n_0607", "n_0608", "n_0609", "n_0610"],
+  },
+  {
+    id: "sl_062", num: 62, range: {from: 611, to: 620},
+    sanskrit: {
+      dev:  "त्रिसामा सामगः साम निर्वाणं भेषजं भिषक्।\nसन्न्यासकृच्छमः शान्तो निष्ठा शान्तिः परायणम्॥",
+      iast: "trisāmā sāmagaḥ sāma nirvāṇaṃ bheṣajaṃ bhiṣak|\nsannyāsakṛcchamaḥ śānto niṣṭhā śāntiḥ parāyaṇam||",
+      kn:   "ತ್ರಿಸಾಮಾ ಸಾಮಗಃ ಸಾಮ ನಿರ್ವಾಣಂ ಭೇಷಜಂ ಭಿಷಕ್।\nಸನ್ನ್ಯಾಸಕೃಚ್ಛಮಃ ಶಾಂತೋ ನಿಷ್ಠಾ ಶಾಂತಿಃ ಪರಾಯಣಂ॥",
+      hi:   "त्रिसामा सामगः साम निर्वाणं भेषजं भिषक्।\nसन्न्यासकृच्छमः शान्तो निष्ठा शान्तिः परायणम्॥",
+    },
+    nama_ids: ["n_0611", "n_0612", "n_0613", "n_0614", "n_0615", "n_0616", "n_0617", "n_0618", "n_0619", "n_0620"],
+  },
+  {
+    id: "sl_063", num: 63, range: {from: 621, to: 630},
+    sanskrit: {
+      dev:  "शुभाङ्गः शान्तिदः स्रष्टा कुमुदः कुवलेशयः।\nगोहितो गोपतिर्गोप्ता वृषभाक्षो वृषप्रियः॥",
+      iast: "śubhāṅgaḥ śāntidaḥ sraṣṭā kumudaḥ kuvaleśayaḥ|\ngohito gopatirgoptā vṛṣabhākṣo vṛṣapriyaḥ||",
+      kn:   "ಶುಭಾಂಗಃ ಶಾಂತಿದಃ ಸ್ರಷ್ಟಾ ಕುಮುದಃ ಕುವಲೇಶಯಃ।\nಗೋಹಿತೋ ಗೋಪತಿರ್ಗೋಪ್ತಾ ವೃಷಭಾಕ್ಷೋ ವೃಷಪ್ರಿಯಃ॥",
+      hi:   "शुभाङ्गः शान्तिदः स्रष्टा कुमुदः कुवलेशयः।\nगोहितो गोपतिर्गोप्ता वृषभाक्षो वृषप्रियः॥",
+    },
+    nama_ids: ["n_0621", "n_0622", "n_0623", "n_0624", "n_0625", "n_0626", "n_0627", "n_0628", "n_0629", "n_0630"],
+  },
+  {
+    id: "sl_064", num: 64, range: {from: 631, to: 640},
+    sanskrit: {
+      dev:  "अनिवर्ती निवृत्तात्मा संक्षेप्ता क्षेमकृच्छिवः।\nश्रीवत्सवक्षाः श्रीवासः श्रीपतिः श्रीमतां वरः॥",
+      iast: "anivartī nivṛttātmā saṃkṣeptā kṣemakṛcchivaḥ|\nśrīvatsavakṣāḥ śrīvāsaḥ śrīpatiḥ śrīmatāṃ varaḥ||",
+      kn:   "ಅನಿವರ್ತೀ ನಿವೃತ್ತಾತ್ಮಾ ಸಂಕ್ಷೇಪ್ತಾ ಕ್ಷೇಮಕೃಚ್ಛಿವಃ।\nಶ್ರೀವತ್ಸವಕ್ಷಾಃ ಶ್ರೀವಾಸಃ ಶ್ರೀಪತಿಃ ಶ್ರೀಮತಾಂ ವರಃ॥",
+      hi:   "अनिवर्ती निवृत्तात्मा संक्षेप्ता क्षेमकृच्छिवः।\nश्रीवत्सवक्षाः श्रीवासः श्रीपतिः श्रीमतां वरः॥",
+    },
+    nama_ids: ["n_0631", "n_0632", "n_0633", "n_0634", "n_0635", "n_0636", "n_0637", "n_0638", "n_0639", "n_0640"],
+  },
+  {
+    id: "sl_065", num: 65, range: {from: 641, to: 650},
+    sanskrit: {
+      dev:  "श्रीदः श्रीशः श्रीनिवासः श्रीनिधिः श्रीविभावनः।\nश्रीधरः श्रीकरः श्रेयः श्रीमान् लोकत्रयाश्रयः॥",
+      iast: "śrīdaḥ śrīśaḥ śrīnivāsaḥ śrīnidhiḥ śrīvibhāvanaḥ|\nśrīdharaḥ śrīkaraḥ śreyaḥ śrīmān lokatrayāśrayaḥ||",
+      kn:   "ಶ್ರೀದಃ ಶ್ರೀಶಃ ಶ್ರೀನಿವಾಸಃ ಶ್ರೀನಿಧಿಃ ಶ್ರೀವಿಭಾವನಃ।\nಶ್ರೀಧರಃ ಶ್ರೀಕರಃ ಶ್ರೇಯಃ ಶ್ರೀಮಾನ್ ಲೋಕತ್ರಯಾಶ್ರಯಃ॥",
+      hi:   "श्रीदः श्रीशः श्रीनिवासः श्रीनिधिः श्रीविभावनः।\nश्रीधरः श्रीकरः श्रेयः श्रीमान् लोकत्रयाश्रयः॥",
+    },
+    nama_ids: ["n_0641", "n_0642", "n_0643", "n_0644", "n_0645", "n_0646", "n_0647", "n_0648", "n_0649", "n_0650"],
+  },
+  {
+    id: "sl_066", num: 66, range: {from: 651, to: 660},
+    sanskrit: {
+      dev:  "स्वक्षः स्वङ्गः शतानन्दो नन्दिर्ज्योतिर्गणेश्वरः।\nविजितात्माविधेयात्मा सत्कीर्तिश्छिन्नसंशयः॥",
+      iast: "svakṣaḥ svaṅgaḥ śatānando nandirjyotirgaṇeśvaraḥ|\nvijitātmāvidheyātmā satkīrtiśchinnasaṃśayaḥ||",
+      kn:   "ಸ್ವಕ್ಷಃ ಸ್ವಂಗಃ ಶತಾನಂದೋ ನಂದಿರ್ಜ್ಯೋತಿರ್ಗಣೇಶ್ವರಃ।\nವಿಜಿತಾತ್ಮಾವಿಧೇಯಾತ್ಮಾ ಸತ್ಕೀರ್ತಿಶ್ಛಿನ್ನಸಂಶಯಃ॥",
+      hi:   "स्वक्षः स्वङ्गः शतानन्दो नन्दिर्ज्योतिर्गणेश्वरः।\nविजितात्माविधेयात्मा सत्कीर्तिश्छिन्नसंशयः॥",
+    },
+    nama_ids: ["n_0651", "n_0652", "n_0653", "n_0654", "n_0655", "n_0656", "n_0657", "n_0658", "n_0659", "n_0660"],
+  },
+  {
+    id: "sl_067", num: 67, range: {from: 661, to: 670},
+    sanskrit: {
+      dev:  "उदीर्णः सर्वतश्चक्षुरनीशः शाश्वतस्थिरः।\nभूशयो भूषणो भूतिर्विशोकः शोकनाशनः॥",
+      iast: "udīrṇaḥ sarvataścakṣuranīśaḥ śāśvatasthiraḥ|\nbhūśayo bhūṣaṇo bhūtirviśokaḥ śokanāśanaḥ||",
+      kn:   "ಉದೀರ್ಣಃ ಸರ್ವತಶ್ಚಕ್ಷುರನೀಶಃ ಶಾಶ್ವತಸ್ಥಿರಃ।\nಭೂಶಯೋ ಭೂಷಣೋ ಭೂತಿರ್ವಿಶೋಕಃ ಶೋಕನಾಶನಃ॥",
+      hi:   "उदीर्णः सर्वतश्चक्षुरनीशः शाश्वतस्थिरः।\nभूशयो भूषणो भूतिर्विशोकः शोकनाशनः॥",
+    },
+    nama_ids: ["n_0661", "n_0662", "n_0663", "n_0664", "n_0665", "n_0666", "n_0667", "n_0668", "n_0669", "n_0670"],
+  },
+  {
+    id: "sl_068", num: 68, range: {from: 671, to: 680},
+    sanskrit: {
+      dev:  "अर्चिष्मानर्चितः कुम्भो विशुद्धात्मा विशोधनः।\nअनिरुद्धोऽप्रतिरथः प्रद्युम्नोऽमितविक्रमः॥",
+      iast: "arciṣmānarcitaḥ kumbho viśuddhātmā viśodhanaḥ|\naniruddho'pratirathaḥ pradyumno'mitavikramaḥ||",
+      kn:   "ಅರ್ಚಿಷ್ಮಾನರ್ಚಿತಃ ಕುಂಭೋ ವಿಶುದ್ಧಾತ್ಮಾ ವಿಶೋಧನಃ।\nಅನಿರುದ್ಧೋಽಪ್ರತಿರಥಃ ಪ್ರದ್ಯುಮ್ನೋಽಮಿತವಿಕ್ರಮಃ॥",
+      hi:   "अर्चिष्मानर्चितः कुम्भो विशुद्धात्मा विशोधनः।\nअनिरुद्धोऽप्रतिरथः प्रद्युम्नोऽमितविक्रमः॥",
+    },
+    nama_ids: ["n_0671", "n_0672", "n_0673", "n_0674", "n_0675", "n_0676", "n_0677", "n_0678", "n_0679", "n_0680"],
+  },
+  {
+    id: "sl_069", num: 69, range: {from: 681, to: 690},
+    sanskrit: {
+      dev:  "कालनेमिनिहा वीरः शौरिः शूरजनेश्वरः।\nत्रिलोकात्मा त्रिलोकेशः केशवः केशिहा हरिः॥",
+      iast: "kālaneminihā vīraḥ śauriḥ śūrajaneśvaraḥ|\ntrilokātmā trilokeśaḥ keśavaḥ keśihā hariḥ||",
+      kn:   "ಕಾಲನೇಮಿನಿಹಾ ವೀರಃ ಶೌರಿಃ ಶೂರಜನೇಶ್ವರಃ।\nತ್ರಿಲೋಕಾತ್ಮಾ ತ್ರಿಲೋಕೇಶಃ ಕೇಶವಃ ಕೇಶಿಹಾ ಹರಿಃ॥",
+      hi:   "कालनेमिनिहा वीरः शौरिः शूरजनेश्वरः।\nत्रिलोकात्मा त्रिलोकेशः केशवः केशिहा हरिः॥",
+    },
+    nama_ids: ["n_0681", "n_0682", "n_0683", "n_0684", "n_0685", "n_0686", "n_0687", "n_0688", "n_0689", "n_0690"],
+  },
+  {
+    id: "sl_070", num: 70, range: {from: 691, to: 700},
+    sanskrit: {
+      dev:  "कामदेवः कामपालः कामी कान्तः कृतागमः।\nअनिर्देश्यवपुर्विष्णुर्वीरोऽनन्तो धनञ्जयः॥",
+      iast: "kāmadevaḥ kāmapālaḥ kāmī kāntaḥ kṛtāgamaḥ|\nanirdeśyavapurviṣṇurvīro'nanto dhanañjayaḥ||",
+      kn:   "ಕಾಮದೇವಃ ಕಾಮಪಾಲಃ ಕಾಮೀ ಕಾಂತಃ ಕೃತಾಗಮಃ।\nಅನಿರ್ದೇಶ್ಯವಪುರ್ವಿಷ್ಣುರ್ವೀರೋಽನಂತೋ ಧನಂಜಯಃ॥",
+      hi:   "कामदेवः कामपालः कामी कान्तः कृतागमः।\nअनिर्देश्यवपुर्विष्णुर्वीरोऽनन्तो धनञ्जयः॥",
+    },
+    nama_ids: ["n_0691", "n_0692", "n_0693", "n_0694", "n_0695", "n_0696", "n_0697", "n_0698", "n_0699", "n_0700"],
+  },
+  {
+    id: "sl_071", num: 71, range: {from: 701, to: 710},
+    sanskrit: {
+      dev:  "ब्रह्मण्यो ब्रह्मकृद् ब्रह्मा ब्रह्म ब्रह्मविवर्धनः।\nब्रह्मविद् ब्राह्मणो ब्रह्मी ब्रह्मज्ञो ब्राह्मणप्रियः॥",
+      iast: "brahmaṇyo brahmakṛd brahmā brahma brahmavivardhanaḥ|\nbrahmavid brāhmaṇo brahmī brahmajño brāhmaṇapriyaḥ||",
+      kn:   "ಬ್ರಹ್ಮಣ್ಯೋ ಬ್ರಹ್ಮಕೃದ್ ಬ್ರಹ್ಮಾ ಬ್ರಹ್ಮ ಬ್ರಹ್ಮವಿವರ್ಧನಃ।\nಬ್ರಹ್ಮವಿದ್ ಬ್ರಾಹ್ಮಣೋ ಬ್ರಹ್ಮೀ ಬ್ರಹ್ಮಜ್ಞೋ ಬ್ರಾಹ್ಮಣಪ್ರಿಯಃ॥",
+      hi:   "ब्रह्मण्यो ब्रह्मकृद् ब्रह्मा ब्रह्म ब्रह्मविवर्धनः।\nब्रह्मविद् ब्राह्मणो ब्रह्मी ब्रह्मज्ञो ब्राह्मणप्रियः॥",
+    },
+    nama_ids: ["n_0701", "n_0702", "n_0703", "n_0704", "n_0705", "n_0706", "n_0707", "n_0708", "n_0709", "n_0710"],
+  },
+  {
+    id: "sl_072", num: 72, range: {from: 711, to: 720},
+    sanskrit: {
+      dev:  "महाक्रमो महाकर्मा महातेजा महोरगः।\nमहाक्रतुर्महायज्वा महायज्ञो महाहविः॥",
+      iast: "mahākramo mahākarmā mahātejā mahoragaḥ|\nmahākraturmahāyajvā mahāyajño mahāhaviḥ||",
+      kn:   "ಮಹಾಕ್ರಮೋ ಮಹಾಕರ್ಮಾ ಮಹಾತೇಜಾ ಮಹೋರಗಃ।\nಮಹಾಕ್ರತುರ್ಮಹಾಯಜ್ವಾ ಮಹಾಯಜ್ಞೋ ಮಹಾಹವಿಃ॥",
+      hi:   "महाक्रमो महाकर्मा महातेजा महोरगः।\nमहाक्रतुर्महायज्वा महायज्ञो महाहविः॥",
+    },
+    nama_ids: ["n_0711", "n_0712", "n_0713", "n_0714", "n_0715", "n_0716", "n_0717", "n_0718", "n_0719", "n_0720"],
+  },
+  {
+    id: "sl_073", num: 73, range: {from: 721, to: 730},
+    sanskrit: {
+      dev:  "स्तव्यः स्तवप्रियः स्तोत्रं स्तुतिः स्तोता रणप्रियः।\nपूर्णः पूरयिता पुण्यः पुण्यकीर्तिरनामयः॥",
+      iast: "stavyaḥ stavapriyaḥ stotraṃ stutiḥ stotā raṇapriyaḥ|\npūrṇaḥ pūrayitā puṇyaḥ puṇyakīrtiranāmayaḥ||",
+      kn:   "ಸ್ತವ್ಯಃ ಸ್ತವಪ್ರಿಯಃ ಸ್ತೋತ್ರಂ ಸ್ತುತಿಃ ಸ್ತೋತಾ ರಣಪ್ರಿಯಃ।\nಪೂರ್ಣಃ ಪೂರಯಿತಾ ಪುಣ್ಯಃ ಪುಣ್ಯಕೀರ್ತಿರನಾಮಯಃ॥",
+      hi:   "स्तव्यः स्तवप्रियः स्तोत्रं स्तुतिः स्तोता रणप्रियः।\nपूर्णः पूरयिता पुण्यः पुण्यकीर्तिरनामयः॥",
+    },
+    nama_ids: ["n_0721", "n_0722", "n_0723", "n_0724", "n_0725", "n_0726", "n_0727", "n_0728", "n_0729", "n_0730"],
+  },
+  {
+    id: "sl_074", num: 74, range: {from: 731, to: 740},
+    sanskrit: {
+      dev:  "मनोजवस्तीर्थकरो वसुरेता वसुप्रदः।\nवसुप्रदो वासुदेवो वसुर्वसुमना हविः॥",
+      iast: "manojavastīrthakaro vasuretā vasupradaḥ|\nvasuprado vāsudevo vasurvasumanā haviḥ||",
+      kn:   "ಮನೋಜವಸ್ತೀರ್ಥಕರೋ ವಸುರೇತಾ ವಸುಪ್ರದಃ।\nವಸುಪ್ರದೋ ವಾಸುದೇವೋ ವಸುರ್ವಸುಮನಾ ಹವಿಃ॥",
+      hi:   "मनोजवस्तीर्थकरो वसुरेता वसुप्रदः।\nवसुप्रदो वासुदेवो वसुर्वसुमना हविः॥",
+    },
+    nama_ids: ["n_0731", "n_0732", "n_0733", "n_0734", "n_0735", "n_0736", "n_0737", "n_0738", "n_0739", "n_0740"],
+  },
+  {
+    id: "sl_075", num: 75, range: {from: 741, to: 750},
+    sanskrit: {
+      dev:  "सद्गतिः सत्कृतिः सत्ता सद्भूतिः सत्परायणः।\nशूरसेनो यदुश्रेष्ठः सन्निवासः सुयामुनः॥",
+      iast: "sadgatiḥ satkṛtiḥ sattā sadbhūtiḥ satparāyaṇaḥ|\nśūraseno yaduśreṣṭhaḥ sannivāsaḥ suyāmunaḥ||",
+      kn:   "ಸದ್ಗತಿಃ ಸತ್ಕೃತಿಃ ಸತ್ತಾ ಸದ್ಭೂತಿಃ ಸತ್ಪರಾಯಣಃ।\nಶೂರಸೇನೋ ಯದುಶ್ರೇಷ್ಠಃ ಸನ್ನಿವಾಸಃ ಸುಯಾಮುನಃ॥",
+      hi:   "सद्गतिः सत्कृतिः सत्ता सद्भूतिः सत्परायणः।\nशूरसेनो यदुश्रेष्ठः सन्निवासः सुयामुनः॥",
+    },
+    nama_ids: ["n_0741", "n_0742", "n_0743", "n_0744", "n_0745", "n_0746", "n_0747", "n_0748", "n_0749", "n_0750"],
+  },
+  {
+    id: "sl_076", num: 76, range: {from: 751, to: 760},
+    sanskrit: {
+      dev:  "भूतावासो वासुदेवः सर्वासुनिलयोऽनलः।\nदर्पहा दर्पदो दृप्तो दुर्धरोऽथापराजितः॥",
+      iast: "bhūtāvāso vāsudevaḥ sarvāsunilayo'nalaḥ|\ndarpahā darpado dṛpto durdharo'thāparājitaḥ||",
+      kn:   "ಭೂತಾವಾಸೋ ವಾಸುದೇವಃ ಸರ್ವಾಸುನಿಲಯೋಽನಲಃ।\nದರ್ಪಹಾ ದರ್ಪದೋ ದೃಪ್ತೋ ದುರ್ಧರೋಽಥಾಪರಾಜಿತಃ॥",
+      hi:   "भूतावासो वासुदेवः सर्वासुनिलयोऽनलः।\nदर्पहा दर्पदो दृप्तो दुर्धरोऽथापराजितः॥",
+    },
+    nama_ids: ["n_0751", "n_0752", "n_0753", "n_0754", "n_0755", "n_0756", "n_0757", "n_0758", "n_0759", "n_0760"],
+  },
+  {
+    id: "sl_077", num: 77, range: {from: 761, to: 770},
+    sanskrit: {
+      dev:  "विश्वमूर्तिर्महामूर्तिर्दीप्तमूर्तिरमूर्तिमान्।\nअनेकमूर्तिरव्यक्तः शतमूर्तिः शताननः॥",
+      iast: "viśvamūrtirmahāmūrtirdīptamūrtiramūrtimān|\nanekamūrtiravyaktaḥ śatamūrtiḥ śatānanaḥ||",
+      kn:   "ವಿಶ್ವಮೂರ್ತಿರ್ಮಹಾಮೂರ್ತಿರ್ದೀಪ್ತಮೂರ್ತಿರಮೂರ್ತಿಮಾನ್।\nಅನೇಕಮೂರ್ತಿರವ್ಯಕ್ತಃ ಶತಮೂರ್ತಿಃ ಶತಾನನಃ॥",
+      hi:   "विश्वमूर्तिर्महामूर्तिर्दीप्तमूर्तिरमूर्तिमान्।\nअनेकमूर्तिरव्यक्तः शतमूर्तिः शताननः॥",
+    },
+    nama_ids: ["n_0761", "n_0762", "n_0763", "n_0764", "n_0765", "n_0766", "n_0767", "n_0768", "n_0769", "n_0770"],
+  },
+  {
+    id: "sl_078", num: 78, range: {from: 771, to: 780},
+    sanskrit: {
+      dev:  "एको नैकः सवः कः किं यत्तत् पदमनुत्तमम्।\nलोकबन्धुर्लोकनाथो माधवो भक्तवत्सलः॥",
+      iast: "eko naikaḥ savaḥ kaḥ kiṃ yattat padamanuttamam|\nlokabandhurlokanātho mādhavo bhaktavatsalaḥ||",
+      kn:   "ಏಕೋ ನೈಕಃ ಸವಃ ಕಃ ಕಿಂ ಯತ್ತತ್ ಪದಮನುತ್ತಮಂ।\nಲೋಕಬಂಧುರ್ಲೋಕನಾಥೋ ಮಾಧವೋ ಭಕ್ತವತ್ಸಲಃ॥",
+      hi:   "एको नैकः सवः कः किं यत्तत् पदमनुत्तमम्।\nलोकबन्धुर्लोकनाथो माधवो भक्तवत्सलः॥",
+    },
+    nama_ids: ["n_0771", "n_0772", "n_0773", "n_0774", "n_0775", "n_0776", "n_0777", "n_0778", "n_0779", "n_0780"],
+  },
+  {
+    id: "sl_079", num: 79, range: {from: 781, to: 790},
+    sanskrit: {
+      dev:  "सुवर्णवर्णो हेमाङ्गो वराङ्गश्चन्दनाङ्गदी।\nवीरहा विषमः शून्यो घृताशीरचलश्चलः॥",
+      iast: "suvarṇavarṇo hemāṅgo varāṅgaścandanāṅgadī|\nvīrahā viṣamaḥ śūnyo ghṛtāśīracalaścalaḥ||",
+      kn:   "ಸುವರ್ಣವರ್ಣೋ ಹೇಮಾಂಗೋ ವರಾಂಗಶ್ಚಂದನಾಂಗದೀ।\nವೀರಹಾ ವಿಷಮಃ ಶೂನ್ಯೋ ಘೃತಾಶೀರಚಲಶ್ಚಲಃ॥",
+      hi:   "सुवर्णवर्णो हेमाङ्गो वराङ्गश्चन्दनाङ्गदी।\nवीरहा विषमः शून्यो घृताशीरचलश्चलः॥",
+    },
+    nama_ids: ["n_0781", "n_0782", "n_0783", "n_0784", "n_0785", "n_0786", "n_0787", "n_0788", "n_0789", "n_0790"],
+  },
+  {
+    id: "sl_080", num: 80, range: {from: 791, to: 800},
+    sanskrit: {
+      dev:  "अमानी मानदो मान्यो लोकस्वामी त्रिलोकधृक्।\nसुमेधा मेधजो धन्यः सत्यमेधा धराधरः॥",
+      iast: "amānī mānado mānyo lokasvāmī trilokadhṛk|\nsumedhā medhajo dhanyaḥ satyamedhā dharādharaḥ||",
+      kn:   "ಅಮಾನೀ ಮಾನದೋ ಮಾನ್ಯೋ ಲೋಕಸ್ವಾಮೀ ತ್ರಿಲೋಕಧೃಕ್।\nಸುಮೇಧಾ ಮೇಧಜೋ ಧನ್ಯಃ ಸತ್ಯಮೇಧಾ ಧರಾಧರಃ॥",
+      hi:   "अमानी मानदो मान्यो लोकस्वामी त्रिलोकधृक्।\nसुमेधा मेधजो धन्यः सत्यमेधा धराधरः॥",
+    },
+    nama_ids: ["n_0791", "n_0792", "n_0793", "n_0794", "n_0795", "n_0796", "n_0797", "n_0798", "n_0799", "n_0800"],
+  },
+  {
+    id: "sl_081", num: 81, range: {from: 801, to: 810},
+    sanskrit: {
+      dev:  "तेजोवृषो द्युतिधरः सर्वशस्त्रभृतां वरः।\nप्रग्रहो निग्रहो व्यग्रो नैकशृङ्गो गदाग्रजः॥",
+      iast: "tejovṛṣo dyutidharaḥ sarvaśastrabhṛtāṃ varaḥ|\npragraho nigraho vyagro naikaśṛṅgo gadāgrajaḥ||",
+      kn:   "ತೇಜೋವೃಷೋ ದ್ಯುತಿಧರಃ ಸರ್ವಶಸ್ತ್ರಭೃತಾಂ ವರಃ।\nಪ್ರಗ್ರಹೋ ನಿಗ್ರಹೋ ವ್ಯಗ್ರೋ ನೈಕಶೃಂಗೋ ಗದಾಗ್ರಜಃ॥",
+      hi:   "तेजोवृषो द्युतिधरः सर्वशस्त्रभृतां वरः।\nप्रग्रहो निग्रहो व्यग्रो नैकशृङ्गो गदाग्रजः॥",
+    },
+    nama_ids: ["n_0801", "n_0802", "n_0803", "n_0804", "n_0805", "n_0806", "n_0807", "n_0808", "n_0809", "n_0810"],
+  },
+  {
+    id: "sl_082", num: 82, range: {from: 811, to: 820},
+    sanskrit: {
+      dev:  "चतुर्मूर्तिश्चतुर्बाहुश्चतुर्व्यूहश्चतुर्गतिः।\nचतुरात्मा चतुर्भावश्चतुर्वेदविदेकपात्॥",
+      iast: "caturmūrtiścaturbāhuścaturvyūhaścaturgatiḥ|\ncaturātmā caturbhāvaścaturvedavidekapāt||",
+      kn:   "ಚತುರ್ಮೂರ್ತಿಶ್ಚತುರ್ಬಾಹುಶ್ಚತುರ್ವ್ಯೂಹಶ್ಚತುರ್ಗತಿಃ।\nಚತುರಾತ್ಮಾ ಚತುರ್ಭಾವಶ್ಚತುರ್ವೇದವಿದೇಕಪಾತ್॥",
+      hi:   "चतुर्मूर्तिश्चतुर्बाहुश्चतुर्व्यूहश्चतुर्गतिः।\nचतुरात्मा चतुर्भावश्चतुर्वेदविदेकपात्॥",
+    },
+    nama_ids: ["n_0811", "n_0812", "n_0813", "n_0814", "n_0815", "n_0816", "n_0817", "n_0818", "n_0819", "n_0820"],
+  },
+  {
+    id: "sl_083", num: 83, range: {from: 821, to: 830},
+    sanskrit: {
+      dev:  "समावर्तोऽनिवृत्तात्मा दुर्जयो दुरतिक्रमः।\nदुर्लभो दुर्गमो दुर्गो दुरावासो दुरारिहा॥",
+      iast: "samāvarto'nivṛttātmā durjayo duratikramaḥ|\ndurlabho durgamo durgo durāvāso durārihā||",
+      kn:   "ಸಮಾವರ್ತೋಽನಿವೃತ್ತಾತ್ಮಾ ದುರ್ಜಯೋ ದುರತಿಕ್ರಮಃ।\nದುರ್ಲಭೋ ದುರ್ಗಮೋ ದುರ್ಗೋ ದುರಾವಾಸೋ ದುರಾರಿಹಾ॥",
+      hi:   "समावर्तोऽनिवृत्तात्मा दुर्जयो दुरतिक्रमः।\nदुर्लभो दुर्गमो दुर्गो दुरावासो दुरारिहा॥",
+    },
+    nama_ids: ["n_0821", "n_0822", "n_0823", "n_0824", "n_0825", "n_0826", "n_0827", "n_0828", "n_0829", "n_0830"],
+  },
+  {
+    id: "sl_084", num: 84, range: {from: 831, to: 840},
+    sanskrit: {
+      dev:  "शुभाङ्गो लोकसारङ्गः सुतन्तुस्तन्तुवर्धनः।\nइन्द्रकर्मा महाकर्मा कृतकर्मा कृतागमः॥",
+      iast: "śubhāṅgo lokasāraṅgaḥ sutantustantuvardhanaḥ|\nindrakarmā mahākarmā kṛtakarmā kṛtāgamaḥ||",
+      kn:   "ಶುಭಾಂಗೋ ಲೋಕಸಾರಂಗಃ ಸುತಂತುಸ್ತಂತುವರ್ಧನಃ।\nಇಂದ್ರಕರ್ಮಾ ಮಹಾಕರ್ಮಾ ಕೃತಕರ್ಮಾ ಕೃತಾಗಮಃ॥",
+      hi:   "शुभाङ्गो लोकसारङ्गः सुतन्तुस्तन्तुवर्धनः।\nइन्द्रकर्मा महाकर्मा कृतकर्मा कृतागमः॥",
+    },
+    nama_ids: ["n_0831", "n_0832", "n_0833", "n_0834", "n_0835", "n_0836", "n_0837", "n_0838", "n_0839", "n_0840"],
+  },
+  {
+    id: "sl_085", num: 85, range: {from: 841, to: 850},
+    sanskrit: {
+      dev:  "उद्भवः सुन्दरः सुन्दो रत्ननाभः सुलोचनः।\nअर्को वाजसनः शृङ्गी जयन्तः सर्वविज्जयी॥",
+      iast: "udbhavaḥ sundaraḥ sundo ratnanābhaḥ sulocanaḥ|\narko vājasanaḥ śṛṅgī jayantaḥ sarvavijjayī||",
+      kn:   "ಉದ್ಭವಃ ಸುಂದರಃ ಸುಂದೋ ರತ್ನನಾಭಃ ಸುಲೋಚನಃ।\nಅರ್ಕೋ ವಾಜಸನಃ ಶೃಂಗೀ ಜಯಂತಃ ಸರ್ವವಿಜ್ಜಯೀ॥",
+      hi:   "उद्भवः सुन्दरः सुन्दो रत्ननाभः सुलोचनः।\nअर्को वाजसनः शृङ्गी जयन्तः सर्वविज्जयी॥",
+    },
+    nama_ids: ["n_0841", "n_0842", "n_0843", "n_0844", "n_0845", "n_0846", "n_0847", "n_0848", "n_0849", "n_0850"],
+  },
+  {
+    id: "sl_086", num: 86, range: {from: 851, to: 860},
+    sanskrit: {
+      dev:  "सुवर्णबिन्दुरक्षोभ्यः सर्ववागीश्वरेश्वरः।\nमहाह्रदो महागर्तो महाभूतो महानिधिः॥",
+      iast: "suvarṇabindurakṣobhyaḥ sarvavāgīśvareśvaraḥ|\nmahāhrado mahāgarto mahābhūto mahānidhiḥ||",
+      kn:   "ಸುವರ್ಣಬಿಂದುರಕ್ಷೋಭ್ಯಃ ಸರ್ವವಾಗೀಶ್ವರೇಶ್ವರಃ।\nಮಹಾಹ್ರದೋ ಮಹಾಗರ್ತೋ ಮಹಾಭೂತೋ ಮಹಾನಿಧಿಃ॥",
+      hi:   "सुवर्णबिन्दुरक्षोभ्यः सर्ववागीश्वरेश्वरः।\nमहाह्रदो महागर्तो महाभूतो महानिधिः॥",
+    },
+    nama_ids: ["n_0851", "n_0852", "n_0853", "n_0854", "n_0855", "n_0856", "n_0857", "n_0858", "n_0859", "n_0860"],
+  },
+  {
+    id: "sl_087", num: 87, range: {from: 861, to: 870},
+    sanskrit: {
+      dev:  "कुमुदः कुन्दरः कुन्दः पर्जन्यः पावनोऽनिलः।\nअमृताशोऽमृतवपुः सर्वज्ञः सर्वतोमुखः॥",
+      iast: "kumudaḥ kundaraḥ kundaḥ parjanyaḥ pāvano'nilaḥ|\namṛtāśo'mṛtavapuḥ sarvajñaḥ sarvatomukhaḥ||",
+      kn:   "ಕುಮುದಃ ಕುಂದರಃ ಕುಂದಃ ಪರ್ಜನ್ಯಃ ಪಾವನೋಽನಿಲಃ।\nಅಮೃತಾಶೋಽಮೃತವಪುಃ ಸರ್ವಜ್ಞಃ ಸರ್ವತೋಮುಖಃ॥",
+      hi:   "कुमुदः कुन्दरः कुन्दः पर्जन्यः पावनोऽनिलः।\nअमृताशोऽमृतवपुः सर्वज्ञः सर्वतोमुखः॥",
+    },
+    nama_ids: ["n_0861", "n_0862", "n_0863", "n_0864", "n_0865", "n_0866", "n_0867", "n_0868", "n_0869", "n_0870"],
+  },
+  {
+    id: "sl_088", num: 88, range: {from: 871, to: 880},
+    sanskrit: {
+      dev:  "सुलभः सुव्रतः सिद्धः शत्रुजिच्छत्रुतापनः।\nन्यग्रोधोऽदुम्बरोऽश्वत्थश्चाणूरान्ध्रनिषूदनः॥",
+      iast: "sulabhaḥ suvrataḥ siddhaḥ śatrujicchatrutāpanaḥ|\nnyagrodho'dumbaro'śvatthaścāṇūrāndhraniṣūdanaḥ||",
+      kn:   "ಸುಲಭಃ ಸುವ್ರತಃ ಸಿದ್ಧಃ ಶತ್ರುಜಿಚ್ಛತ್ರುತಾಪನಃ।\nನ್ಯಗ್ರೋಧೋಽದುಂಬರೋಽಶ್ವತ್ಥಶ್ಚಾಣೂರಾಂಧ್ರನಿಷೂದನಃ॥",
+      hi:   "सुलभः सुव्रतः सिद्धः शत्रुजिच्छत्रुतापनः।\nन्यग्रोधोऽदुम्बरोऽश्वत्थश्चाणूरान्ध्रनिषूदनः॥",
+    },
+    nama_ids: ["n_0871", "n_0872", "n_0873", "n_0874", "n_0875", "n_0876", "n_0877", "n_0878", "n_0879", "n_0880"],
+  },
+  {
+    id: "sl_089", num: 89, range: {from: 881, to: 890},
+    sanskrit: {
+      dev:  "सहस्रार्चिः सप्तजिह्वः सप्तैधाः सप्तवाहनः।\nअमूर्तिरनघोऽचिन्त्यो भयकृद्भयनाशनः॥",
+      iast: "sahasrārciḥ saptajihvaḥ saptaidhāḥ saptavāhanaḥ|\namūrtiranagho'cintyo bhayakṛdbhayanāśanaḥ||",
+      kn:   "ಸಹಸ್ರಾರ್ಚಿಃ ಸಪ್ತಜಿಹ್ವಃ ಸಪ್ತೈಧಾಃ ಸಪ್ತವಾಹನಃ।\nಅಮೂರ್ತಿರನಘೋಽಚಿಂತ್ಯೋ ಭಯಕೃದ್ಭಯನಾಶನಃ॥",
+      hi:   "सहस्रार्चिः सप्तजिह्वः सप्तैधाः सप्तवाहनः।\nअमूर्तिरनघोऽचिन्त्यो भयकृद्भयनाशनः॥",
+    },
+    nama_ids: ["n_0881", "n_0882", "n_0883", "n_0884", "n_0885", "n_0886", "n_0887", "n_0888", "n_0889", "n_0890"],
+  },
+  {
+    id: "sl_090", num: 90, range: {from: 891, to: 900},
+    sanskrit: {
+      dev:  "अणुर्बृहत्कृशः स्थूलो गुणभृन्निर्गुणो महान्।\nअधृतः स्वधृतः स्वास्यः प्राग्वंशो वंशवर्धनः॥",
+      iast: "aṇurbṛhatkṛśaḥ sthūlo guṇabhṛnnirguṇo mahān|\nadhṛtaḥ svadhṛtaḥ svāsyaḥ prāgvaṃśo vaṃśavardhanaḥ||",
+      kn:   "ಅಣುರ್ಬೃಹತ್ಕೃಶಃ ಸ್ಥೂಲೋ ಗುಣಭೃನ್ನಿರ್ಗುಣೋ ಮಹಾನ್।\nಅಧೃತಃ ಸ್ವಧೃತಃ ಸ್ವಾಸ್ಯಃ ಪ್ರಾಗ್ವಂಶೋ ವಂಶವರ್ಧನಃ॥",
+      hi:   "अणुर्बृहत्कृशः स्थूलो गुणभृन्निर्गुणो महान्।\nअधृतः स्वधृतः स्वास्यः प्राग्वंशो वंशवर्धनः॥",
+    },
+    nama_ids: ["n_0891", "n_0892", "n_0893", "n_0894", "n_0895", "n_0896", "n_0897", "n_0898", "n_0899", "n_0900"],
+  },
+  {
+    id: "sl_091", num: 91, range: {from: 901, to: 910},
+    sanskrit: {
+      dev:  "भारभृत् कथितो योगी योगीशः सर्वकामदः।\nआश्रमः श्रमणः क्षामः सुपर्णो वायुवाहनः॥",
+      iast: "bhārabhṛt kathito yogī yogīśaḥ sarvakāmadaḥ|\nāśramaḥ śramaṇaḥ kṣāmaḥ suparṇo vāyuvāhanaḥ||",
+      kn:   "ಭಾರಭೃತ್ ಕಥಿತೋ ಯೋಗೀ ಯೋಗೀಶಃ ಸರ್ವಕಾಮದಃ।\nಆಶ್ರಮಃ ಶ್ರಮಣಃ ಕ್ಷಾಮಃ ಸುಪರ್ಣೋ ವಾಯುವಾಹನಃ॥",
+      hi:   "भारभृत् कथितो योगी योगीशः सर्वकामदः।\nआश्रमः श्रमणः क्षामः सुपर्णो वायुवाहनः॥",
+    },
+    nama_ids: ["n_0901", "n_0902", "n_0903", "n_0904", "n_0905", "n_0906", "n_0907", "n_0908", "n_0909", "n_0910"],
+  },
+  {
+    id: "sl_092", num: 92, range: {from: 911, to: 920},
+    sanskrit: {
+      dev:  "धनुर्धरो धनुर्वेदो दण्डो दमयिता दमः।\nअपराजितः सर्वसहो नियन्ता नियमो यमः॥",
+      iast: "dhanurdharo dhanurvedo daṇḍo damayitā damaḥ|\naparājitaḥ sarvasaho niyantā niyamo yamaḥ||",
+      kn:   "ಧನುರ್ಧರೋ ಧನುರ್ವೇದೋ ದಂಡೋ ದಮಯಿತಾ ದಮಃ।\nಅಪರಾಜಿತಃ ಸರ್ವಸಹೋ ನಿಯಂತಾ ನಿಯಮೋ ಯಮಃ॥",
+      hi:   "धनुर्धरो धनुर्वेदो दण्डो दमयिता दमः।\nअपराजितः सर्वसहो नियन्ता नियमो यमः॥",
+    },
+    nama_ids: ["n_0911", "n_0912", "n_0913", "n_0914", "n_0915", "n_0916", "n_0917", "n_0918", "n_0919", "n_0920"],
+  },
+  {
+    id: "sl_093", num: 93, range: {from: 921, to: 930},
+    sanskrit: {
+      dev:  "सत्त्ववान् सात्त्विकः सत्यः सत्यधर्मपरायणः।\nअभिप्रायः प्रियार्होऽर्हः प्रियकृत्प्रीतिवर्धनः॥",
+      iast: "sattvavān sāttvikaḥ satyaḥ satyadharmaparāyaṇaḥ|\nabhiprāyaḥ priyārho'rhaḥ priyakṛtprītivardhanaḥ||",
+      kn:   "ಸತ್ತ್ವವಾನ್ ಸಾತ್ತ್ವಿಕಃ ಸತ್ಯಃ ಸತ್ಯಧರ್ಮಪರಾಯಣಃ।\nಅಭಿಪ್ರಾಯಃ ಪ್ರಿಯಾರ್ಹೋಽರ್ಹಃ ಪ್ರಿಯಕೃತ್ಪ್ರೀತಿವರ್ಧನಃ॥",
+      hi:   "सत्त्ववान् सात्त्विकः सत्यः सत्यधर्मपरायणः।\nअभिप्रायः प्रियार्होऽर्हः प्रियकृत्प्रीतिवर्धनः॥",
+    },
+    nama_ids: ["n_0921", "n_0922", "n_0923", "n_0924", "n_0925", "n_0926", "n_0927", "n_0928", "n_0929", "n_0930"],
+  },
+  {
+    id: "sl_094", num: 94, range: {from: 931, to: 940},
+    sanskrit: {
+      dev:  "विहायसगतिर्ज्योतिः सुरुचिर्हुतभुग्विभुः।\nरविर्विरोचनः सूर्यः सविता रविलोचनः॥",
+      iast: "vihāyasagatirjyotiḥ surucirhutabhugvibhuḥ|\nravirvirocanaḥ sūryaḥ savitā ravilocanaḥ||",
+      kn:   "ವಿಹಾಯಸಗತಿರ್ಜ್ಯೋತಿಃ ಸುರುಚಿರ್ಹುತಭುಗ್ವಿಭುಃ।\nರವಿರ್ವಿರೋಚನಃ ಸೂರ್ಯಃ ಸವಿತಾ ರವಿಲೋಚನಃ॥",
+      hi:   "विहायसगतिर्ज्योतिः सुरुचिर्हुतभुग्विभुः।\nरविर्विरोचनः सूर्यः सविता रविलोचनः॥",
+    },
+    nama_ids: ["n_0931", "n_0932", "n_0933", "n_0934", "n_0935", "n_0936", "n_0937", "n_0938", "n_0939", "n_0940"],
+  },
+  {
+    id: "sl_095", num: 95, range: {from: 941, to: 950},
+    sanskrit: {
+      dev:  "अनन्तो हुतभुग्भोक्ता सुखदो नैकजोऽग्रजः।\nअनिर्विण्णः सदामर्षी लोकाधिष्ठानमद्भुतः॥",
+      iast: "ananto hutabhugbhoktā sukhado naikajo'grajaḥ|\nanirviṇṇaḥ sadāmarṣī lokādhiṣṭhānamadbhutaḥ||",
+      kn:   "ಅನಂತೋ ಹುತಭುಗ್ಭೋಕ್ತಾ ಸುಖದೋ ನೈಕಜೋಽಗ್ರಜಃ।\nಅನಿರ್ವಿಣ್ಣಃ ಸದಾಮರ್ಷೀ ಲೋಕಾಧಿಷ್ಠಾನಮದ್ಭುತಃ॥",
+      hi:   "अनन्तो हुतभुग्भोक्ता सुखदो नैकजोऽग्रजः।\nअनिर्विण्णः सदामर्षी लोकाधिष्ठानमद्भुतः॥",
+    },
+    nama_ids: ["n_0941", "n_0942", "n_0943", "n_0944", "n_0945", "n_0946", "n_0947", "n_0948", "n_0949", "n_0950"],
+  },
+  {
+    id: "sl_096", num: 96, range: {from: 951, to: 960},
+    sanskrit: {
+      dev:  "सनात्सनातनतमः कपिलः कपिरव्ययः।\nस्वस्तिदः स्वस्तिकृत्स्वस्ति स्वस्तिभुक्स्वस्तिदक्षिणः॥",
+      iast: "sanātsanātanatamaḥ kapilaḥ kapiravyayaḥ|\nsvastidaḥ svastikṛtsvasti svastibhuksvastidakṣiṇaḥ||",
+      kn:   "ಸನಾತ್ಸನಾತನತಮಃ ಕಪಿಲಃ ಕಪಿರವ್ಯಯಃ।\nಸ್ವಸ್ತಿದಃ ಸ್ವಸ್ತಿಕೃತ್ಸ್ವಸ್ತಿ ಸ್ವಸ್ತಿಭುಕ್ಸ್ವಸ್ತಿದಕ್ಷಿಣಃ॥",
+      hi:   "सनात्सनातनतमः कपिलः कपिरव्ययः।\nस्वस्तिदः स्वस्तिकृत्स्वस्ति स्वस्तिभुक्स्वस्तिदक्षिणः॥",
+    },
+    nama_ids: ["n_0951", "n_0952", "n_0953", "n_0954", "n_0955", "n_0956", "n_0957", "n_0958", "n_0959", "n_0960"],
+  },
+  {
+    id: "sl_097", num: 97, range: {from: 961, to: 970},
+    sanskrit: {
+      dev:  "अरौद्रः कुण्डली चक्री विक्रम्यूर्जितशासनः।\nशब्दातिगः शब्दसहः शिशिरः शर्वरीकरः॥",
+      iast: "araudraḥ kuṇḍalī cakrī vikramyūrjitaśāsanaḥ|\nśabdātigaḥ śabdasahaḥ śiśiraḥ śarvarīkaraḥ||",
+      kn:   "ಅರೌದ್ರಃ ಕುಂಡಲೀ ಚಕ್ರೀ ವಿಕ್ರಮ್ಯೂರ್ಜಿತಶಾಸನಃ।\nಶಬ್ದಾತಿಗಃ ಶಬ್ದಸಹಃ ಶಿಶಿರಃ ಶರ್ವರೀಕರಃ॥",
+      hi:   "अरौद्रः कुण्डली चक्री विक्रम्यूर्जितशासनः।\nशब्दातिगः शब्दसहः शिशिरः शर्वरीकरः॥",
+    },
+    nama_ids: ["n_0961", "n_0962", "n_0963", "n_0964", "n_0965", "n_0966", "n_0967", "n_0968", "n_0969", "n_0970"],
+  },
+  {
+    id: "sl_098", num: 98, range: {from: 971, to: 980},
+    sanskrit: {
+      dev:  "अक्रूरः पेशलो दक्षो दक्षिणः क्षमिणां वरः।\nविद्वत्तमो वीतभयः पुण्यश्रवणकीर्तनः॥",
+      iast: "akrūraḥ peśalo dakṣo dakṣiṇaḥ kṣamiṇāṃ varaḥ|\nvidvattamo vītabhayaḥ puṇyaśravaṇakīrtanaḥ||",
+      kn:   "ಅಕ್ರೂರಃ ಪೇಶಲೋ ದಕ್ಷೋ ದಕ್ಷಿಣಃ ಕ್ಷಮಿಣಾಂ ವರಃ।\nವಿದ್ವತ್ತಮೋ ವೀತಭಯಃ ಪುಣ್ಯಶ್ರವಣಕೀರ್ತನಃ॥",
+      hi:   "अक्रूरः पेशलो दक्षो दक्षिणः क्षमिणां वरः।\nविद्वत्तमो वीतभयः पुण्यश्रवणकीर्तनः॥",
+    },
+    nama_ids: ["n_0971", "n_0972", "n_0973", "n_0974", "n_0975", "n_0976", "n_0977", "n_0978", "n_0979", "n_0980"],
+  },
+  {
+    id: "sl_099", num: 99, range: {from: 981, to: 990},
+    sanskrit: {
+      dev:  "उत्तारणो दुष्कृतिहा पुण्यो दुःस्वप्ननाशनः।\nवीरहा रक्षणः सन्तो जीवनः पर्यवस्थितः॥",
+      iast: "uttāraṇo duṣkṛtihā puṇyo duḥsvapnanāśanaḥ|\nvīrahā rakṣaṇaḥ santo jīvanaḥ paryavasthitaḥ||",
+      kn:   "ಉತ್ತಾರಣೋ ದುಷ್ಕೃತಿಹಾ ಪುಣ್ಯೋ ದುಃಸ್ವಪ್ನನಾಶನಃ।\nವೀರಹಾ ರಕ್ಷಣಃ ಸಂತೋ ಜೀವನಃ ಪರ್ಯವಸ್ಥಿತಃ॥",
+      hi:   "उत्तारणो दुष्कृतिहा पुण्यो दुःस्वप्ननाशनः।\nवीरहा रक्षणः सन्तो जीवनः पर्यवस्थितः॥",
+    },
+    nama_ids: ["n_0981", "n_0982", "n_0983", "n_0984", "n_0985", "n_0986", "n_0987", "n_0988", "n_0989", "n_0990"],
+  },
+  {
+    id: "sl_100", num: 100, range: {from: 991, to: 1000},
+    sanskrit: {
+      dev:  "अनन्तरूपोऽनन्तश्रीर्जितमन्युर्भयापहः।\nचतुरश्रो गभीरात्मा विदिशो व्यादिशो दिशः॥",
+      iast: "anantarūpo'nantaśrīrjitamanyurbhayāpahaḥ|\ncaturaśro gabhīrātmā vidiśo vyādiśo diśaḥ||",
+      kn:   "ಅನಂತರೂಪೋಽನಂತಶ್ರೀರ್ಜಿತಮನ್ಯುರ್ಭಯಾಪಹಃ।\nಚತುರಶ್ರೋ ಗಭೀರಾತ್ಮಾ ವಿದಿಶೋ ವ್ಯಾದಿಶೋ ದಿಶಃ॥",
+      hi:   "अनन्तरूपोऽनन्तश्रीर्जितमन्युर्भयापहः।\nचतुरश्रो गभीरात्मा विदिशो व्यादिशो दिशः॥",
+    },
+    nama_ids: ["n_0991", "n_0992", "n_0993", "n_0994", "n_0995", "n_0996", "n_0997", "n_0998", "n_0999", "n_1000"],
+  },
+  {
+    id: "sl_101", num: 101, range: {from: 1001, to: 1010},
+    sanskrit: {
+      dev:  "अनादिर्भूर्भुवो लक्ष्मीः सुवीरो रुचिराङ्गदः।\nजननो जनजन्मादिर्भीमो भीमपराक्रमः॥",
+      iast: "anādirbhūrbhuvo lakṣmīḥ suvīro rucirāṅgadaḥ|\njanano janajanmādirbhīmo bhīmaparākramaḥ||",
+      kn:   "ಅನಾದಿರ್ಭೂರ್ಭುವೋ ಲಕ್ಷ್ಮೀಃ ಸುವೀರೋ ರುಚಿರಾಂಗದಃ।\nಜನನೋ ಜನಜನ್ಮಾದಿರ್ಭೀಮೋ ಭೀಮಪರಾಕ್ರಮಃ॥",
+      hi:   "अनादिर्भूर्भुवो लक्ष्मीः सुवीरो रुचिराङ्गदः।\nजननो जनजन्मादिर्भीमो भीमपराक्रमः॥",
+    },
+    nama_ids: ["n_1001", "n_1002", "n_1003", "n_1004", "n_1005", "n_1006", "n_1007", "n_1008", "n_1009", "n_1010"],
+  },
+  {
+    id: "sl_102", num: 102, range: {from: 1011, to: 1020},
+    sanskrit: {
+      dev:  "आधारनिलयोऽधाता पुष्पहासः प्रजागरः।\nऊर्ध्वगः सत्पथाचारः प्राणदः प्रणवः पणः॥",
+      iast: "ādhāranilayo'dhātā puṣpahāsaḥ prajāgaraḥ|\nūrdhvagaḥ satpathācāraḥ prāṇadaḥ praṇavaḥ paṇaḥ||",
+      kn:   "ಆಧಾರನಿಲಯೋಽಧಾತಾ ಪುಷ್ಪಹಾಸಃ ಪ್ರಜಾಗರಃ।\nಊರ್ಧ್ವಗಃ ಸತ್ಪಥಾಚಾರಃ ಪ್ರಾಣದಃ ಪ್ರಣವಃ ಪಣಃ॥",
+      hi:   "आधारनिलयोऽधाता पुष्पहासः प्रजागरः।\nऊर्ध्वगः सत्पथाचारः प्राणदः प्रणवः पणः॥",
+    },
+    nama_ids: ["n_1011", "n_1012", "n_1013", "n_1014", "n_1015", "n_1016", "n_1017", "n_1018", "n_1019", "n_1020"],
+  },
+  {
+    id: "sl_103", num: 103, range: {from: 1021, to: 1030},
+    sanskrit: {
+      dev:  "प्रमाणं प्राणनिलयः प्राणभृत्प्राणजीवनः।\nतत्त्वं तत्त्वविदेकात्मा जन्ममृत्युजरातिगः॥",
+      iast: "pramāṇaṃ prāṇanilayaḥ prāṇabhṛtprāṇajīvanaḥ|\ntattvaṃ tattvavidekātmā janmamṛtyujarātigaḥ||",
+      kn:   "ಪ್ರಮಾಣಂ ಪ್ರಾಣನಿಲಯಃ ಪ್ರಾಣಭೃತ್ಪ್ರಾಣಜೀವನಃ।\nತತ್ತ್ವಂ ತತ್ತ್ವವಿದೇಕಾತ್ಮಾ ಜನ್ಮಮೃತ್ಯುಜರಾತಿಗಃ॥",
+      hi:   "प्रमाणं प्राणनिलयः प्राणभृत्प्राणजीवनः।\nतत्त्वं तत्त्वविदेकात्मा जन्ममृत्युजरातिगः॥",
+    },
+    nama_ids: ["n_1021", "n_1022", "n_1023", "n_1024", "n_1025", "n_1026", "n_1027", "n_1028", "n_1029", "n_1030"],
+  },
+  {
+    id: "sl_104", num: 104, range: {from: 1031, to: 1040},
+    sanskrit: {
+      dev:  "भूर्भुवःस्वस्तरुस्तारः सविता प्रपितामहः।\nयज्ञो यज्ञपतिर्यज्वा यज्ञाङ्गो यज्ञवाहनः॥",
+      iast: "bhūrbhuvaḥsvastarustāraḥ savitā prapitāmahaḥ|\nyajño yajñapatiryajvā yajñāṅgo yajñavāhanaḥ||",
+      kn:   "ಭೂರ್ಭುವಃಸ್ವಸ್ತರುಸ್ತಾರಃ ಸವಿತಾ ಪ್ರಪಿತಾಮಹಃ।\nಯಜ್ಞೋ ಯಜ್ಞಪತಿರ್ಯಜ್ವಾ ಯಜ್ಞಾಂಗೋ ಯಜ್ಞವಾಹನಃ॥",
+      hi:   "भूर्भुवःस्वस्तरुस्तारः सविता प्रपितामहः।\nयज्ञो यज्ञपतिर्यज्वा यज्ञाङ्गो यज्ञवाहनः॥",
+    },
+    nama_ids: ["n_1031", "n_1032", "n_1033", "n_1034", "n_1035", "n_1036", "n_1037", "n_1038", "n_1039", "n_1040"],
+  },
+  {
+    id: "sl_105", num: 105, range: {from: 1041, to: 1050},
+    sanskrit: {
+      dev:  "यज्ञभृद्यज्ञकृद्यज्ञी यज्ञभुग्यज्ञसाधनः।\nयज्ञान्तकृद्यज्ञगुह्यमन्नमन्नाद एव च॥",
+      iast: "yajñabhṛdyajñakṛdyajñī yajñabhugyajñasādhanaḥ|\nyajñāntakṛdyajñaguhyamannamannāda eva ca||",
+      kn:   "ಯಜ್ಞಭೃದ್ಯಜ್ಞಕೃದ್ಯಜ್ಞೀ ಯಜ್ಞಭುಗ್ಯಜ್ಞಸಾಧನಃ।\nಯಜ್ಞಾಂತಕೃದ್ಯಜ್ಞಗುಹ್ಯಮನ್ನಮನ್ನಾದ ಏವ ಚ॥",
+      hi:   "यज्ञभृद्यज्ञकृद्यज्ञी यज्ञभुग्यज्ञसाधनः।\nयज्ञान्तकृद्यज्ञगुह्यमन्नमन्नाद एव च॥",
+    },
+    nama_ids: ["n_1041", "n_1042", "n_1043", "n_1044", "n_1045", "n_1046", "n_1047", "n_1048", "n_1049", "n_1050"],
+  },
+  {
+    id: "sl_106", num: 106, range: {from: 1051, to: 1060},
+    sanskrit: {
+      dev:  "आत्मयोनिः स्वयञ्जातो वैखानः सामगायनः।\nदेवकीनन्दनः स्रष्टा क्षितीशः पापनाशनः॥",
+      iast: "ātmayoniḥ svayañjāto vaikhānaḥ sāmagāyanaḥ|\ndevakīnandanaḥ sraṣṭā kṣitīśaḥ pāpanāśanaḥ||",
+      kn:   "ಆತ್ಮಯೋನಿಃ ಸ್ವಯಂಜಾತೋ ವೈಖಾನಃ ಸಾಮಗಾಯನಃ।\nದೇವಕೀನಂದನಃ ಸ್ರಷ್ಟಾ ಕ್ಷಿತೀಶಃ ಪಾಪನಾಶನಃ॥",
+      hi:   "आत्मयोनिः स्वयञ्जातो वैखानः सामगायनः।\nदेवकीनन्दनः स्रष्टा क्षितीशः पापनाशनः॥",
+    },
+    nama_ids: ["n_1051", "n_1052", "n_1053", "n_1054", "n_1055", "n_1056", "n_1057", "n_1058", "n_1059", "n_1060"],
+  },
+  {
+    id: "sl_107", num: 107, range: {from: 1061, to: 1070},
+    sanskrit: {
+      dev:  "शङ्खभृन्नन्दकी चक्री शार्ङ्गधन्वा गदाधरः।\nरथाङ्गपाणिरक्षोभ्यः सर्वप्रहरणायुधः॥",
+      iast: "śaṅkhabhṛnnandakī cakrī śārṅgadhanvā gadādharaḥ|\nrathāṅgapāṇirakṣobhyaḥ sarvapraharaṇāyudhaḥ||",
+      kn:   "ಶಂಖಭೃನ್ನಂದಕೀ ಚಕ್ರೀ ಶಾರ್ಙ್ಗಧನ್ವಾ ಗದಾಧರಃ।\nರಥಾಂಗಪಾಣಿರಕ್ಷೋಭ್ಯಃ ಸರ್ವಪ್ರಹರಣಾಯುಧಃ॥",
+      hi:   "शङ्खभृन्नन्दकी चक्री शार्ङ्गधन्वा गदाधरः।\nरथाङ्गपाणिरक्षोभ्यः सर्वप्रहरणायुधः॥",
+    },
+    nama_ids: ["n_1061", "n_1062", "n_1063", "n_1064", "n_1065", "n_1066", "n_1067", "n_1068", "n_1069", "n_1070"],
+  },
+];
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { SHLOKAS };
+}
+
+</script>
+<script>
+/* === inlined from concepts.js === */
+/* Vishnu Sahasranama --- attribute-graph overlay (Proposal A)
+ *
+ * Concepts are the divine attributes that the namas predicate. Each concept
+ * gathers the namas in data.js that emphasize it; tier groupings provide a
+ * top-down browse.
+ *
+ * Schema per concept:
+ *   { id, tier,
+ *     en, dev, kn, hi,              -- canonical labels
+ *     title: {en,dev,kn,hi},
+ *     note:  {en,dev,kn,hi},
+ *     nama_ids: ['n_0xxx', ...] }   -- back-link to data.js NODES
+ *
+ * The bidirectional traversal: each nama in data.js has a tags array, each
+ * concept here has a nama_ids array. The viewer maintains both indices.
+ */
+
+const CTIERS = [
+  { id: "para_tattva", en: "Para-tattva", dev: "पर-तत्त्व", kn: "ಪರ-ತತ್ತ್ವ", hi: "पर-तत्त्व", gloss: "The supreme reality — Hari/Vishnu/Narayana as sarvottama" },
+  { id: "svarupa_guna", en: "Sva-rupa guna", dev: "स्व-रूप-गुण", kn: "ಸ್ವ-ರೂಪ-ಗುಣ", hi: "स्व-रूप-गुण", gloss: "Essential attributes — sat, cit, ananda, jnana, bala, aiśvarya" },
+  { id: "lila_guna", en: "Lila-guna", dev: "लीला-गुण", kn: "ಲೀಲಾ-ಗುಣ", hi: "लीला-गुण", gloss: "Cosmic-play attributes — srshti, sthiti, samhara, avatara" },
+  { id: "karunya_guna", en: "Karunya-guna", dev: "कारुण्य-गुण", kn: "ಕಾರುಣ್ಯ-ಗುಣ", hi: "कारुण्य-गुण", gloss: "Mercy attributes — vatsalya, akhilaghaharitva, sharanagati" },
+  { id: "bhakta_sambandha", en: "Bhakta-sambandha", dev: "भक्त-सम्बन्ध", kn: "ಭಕ್ತ-ಸಂಬಂಧ", hi: "भक्त-सम्बन्ध", gloss: "Devotee-relation attributes — bhakta-priya, bhakta-vatsala" },
+  { id: "mokshaprada", en: "Moksha-prada", dev: "मोक्ष-प्रद", kn: "ಮೋಕ್ಷ-ಪ್ರದ", hi: "मोक्ष-प्रद", gloss: "Liberation-bestowing attributes — mukti-prada, taratamya-niyamaka" },
+];
+
+const CONCEPTS = [
+  {
+    id: "c_hari_sarvottamatva", tier: "para_tattva",
+    en: "Hari-sarvottamatva", dev: "हरि-सर्वोत्तमत्व", kn: "ಹರಿ-ಸರ್ವೋತ್ತಮತ್ವ", hi: "हरि-सर्वोत्तमत्व",
+    title: { en: "Hari's absolute supremacy", dev: "हरेः सर्वोत्तमत्वम्", kn: "ಹರಿಯ ಸರ್ವೋತ್ತಮತ್ವ", hi: "हरि की सर्वोत्तमता" },
+    note:  { en: "The foundational Madhva axiom: Hari is the highest, no one equal or superior. Every other being - jiva, devata, even Lakshmi - is strictly subordinate. The pancha-bheda system starts here.", dev: "मध्व-सिद्धान्तस्य आधार-शिला: हरिः सर्वोत्कृष्टः, न तस्य समः न अधिकः। सर्वम् इतरत् - जीवाः देवताः लक्ष्मीरपि - तत्-परतन्त्रम्। पञ्च-भेद-व्यवस्था अत एव प्रारभते।", kn: "ಮಧ್ವ-ಸಿದ್ಧಾಂತದ ಆಧಾರ-ಶಿಲೆ: ಹರಿಯು ಸರ್ವೋತ್ಕೃಷ್ಟ, ಅವನಿಗೆ ಸಮಾನನಿಲ್ಲ ಅಧಿಕನಿಲ್ಲ. ಎಲ್ಲ ಇತರ - ಜೀವಗಳು, ದೇವತೆಗಳು, ಲಕ್ಷ್ಮಿಯೂ - ಅವನ ಪರತಂತ್ರ. ಪಂಚ-ಭೇದ-ವ್ಯವಸ್ಥೆ ಇದರಿಂದಲೇ ಪ್ರಾರಂಭ.", hi: "मध्व-सिद्धान्त की आधार-शिला: हरि सर्वोत्कृष्ट हैं, उनके समान या अधिक कोई नहीं। बाकी सब - जीव, देवता, लक्ष्मी भी - उनके परतन्त्र हैं। पञ्च-भेद यहीं से शुरू होता है।" },
+    nama_ids: ["n_0001", "n_0012", "n_0024", "n_0049", "n_0245", "n_0337", "n_0552", "n_0591", "n_0650", "n_0656", "n_0659", "n_0702", "n_0991", "n_1068"],
+  },
+  {
+    id: "c_sarva_vyapakatva", tier: "para_tattva",
+    en: "Sarva-vyapakatva", dev: "सर्व-व्यापकत्व", kn: "ಸರ್ವ-ವ್ಯಾಪಕತ್ವ", hi: "सर्व-व्यापकत्व",
+    title: { en: "All-pervasiveness", dev: "सर्व-व्यापकत्वम्", kn: "ಸರ್ವ-ವ್ಯಾಪಕತ್ವ", hi: "सर्वव्यापकता" },
+    note:  { en: "Hari pervades all space, time, and being. The verse-opening Vishvam asserts cosmic scope; Trivikrama's three strides enact the same truth as cosmic gesture.", dev: "हरिः देश-काल-वस्तुषु सर्वत्र व्याप्तः। श्लोक-आरम्भे 'विश्वम्' इति शब्देन सर्व-व्याप्ति-निर्देशः; त्रिविक्रमस्य त्रिभिः पादैः क्रान्तिः तस्यैव कर्म-रूपम्।", kn: "ಹರಿ ದೇಶ-ಕಾಲ-ವಸ್ತುಗಳಲ್ಲಿ ಸರ್ವತ್ರ ವ್ಯಾಪ್ತ. ಶ್ಲೋಕದ ಆರಂಭದಲ್ಲಿ 'ವಿಶ್ವಂ' ಶಬ್ದದಿಂದ ಸರ್ವ-ವ್ಯಾಪ್ತಿ-ನಿರ್ದೇಶ; ತ್ರಿವಿಕ್ರಮನ ಮೂರು ಹೆಜ್ಜೆಗಳ ಆಕ್ರಮಣ ಅದೇ ಸತ್ಯದ ಕರ್ಮ-ರೂಪ.", hi: "हरि देश, काल और वस्तु में सर्वत्र व्याप्त हैं। श्लोक के आरम्भ में 'विश्वं' शब्द से सर्व-व्याप्ति का निर्देश; त्रिविक्रम के तीन पगों से क्रान्ति उसी सत्य की क्रिया-रूप।" },
+    nama_ids: ["n_0001", "n_0530"],
+  },
+  {
+    id: "c_antaryamitva", tier: "para_tattva",
+    en: "Antaryamitva", dev: "अन्तर्यामित्व", kn: "ಅಂತರ್ಯಾಮಿತ್ವ", hi: "अन्तर्यामित्व",
+    title: { en: "Indwelling (the in-dweller-relation)", dev: "अन्तर्यामित्वम्", kn: "ಅಂತರ್ಯಾಮಿತ್ವ", hi: "अन्तर्यामित्व" },
+    note:  { en: "Hari dwells inside every being as the inner witness and ordainer. The name Vishnu itself encodes this (visheh - to enter). Madhva makes antaryamitva ontologically distinct from svarupa-aikya - Hari is IN every jiva but never identical with it.", dev: "हरिः प्रत्येक-भूते अन्तर्यामि-रूपेण साक्षि-नियन्तृ-तया वसति। 'विष्णुः' इति नामैव विशि-धातु-मूलं तदर्थम्। मध्व-मते अन्तर्यामित्वं स्वरूप-ऐक्यात् भिन्नम् - हरिः प्रत्येक-जीवे अस्ति, न तु तेन तादात्म्येन।", kn: "ಹರಿ ಪ್ರತಿ ಭೂತದಲ್ಲಿ ಅಂತರ್ಯಾಮಿ-ರೂಪದಿಂದ ಸಾಕ್ಷಿ-ನಿಯಂತೃ-ರೂಪದಲ್ಲಿ ವಾಸಿಸುತ್ತಾನೆ. 'ವಿಷ್ಣು' ಎಂಬ ನಾಮವೇ ವಿಶಿ-ಧಾತು-ಮೂಲ. ಮಧ್ವ-ಮತದಲ್ಲಿ ಅಂತರ್ಯಾಮಿತ್ವ ಸ್ವರೂಪ-ಐಕ್ಯದಿಂದ ಭಿನ್ನ — ಹರಿ ಪ್ರತಿ ಜೀವದಲ್ಲಿ ಇದ್ದಾನೆ, ಆದರೆ ಅದರೊಂದಿಗೆ ತಾದಾತ್ಮ್ಯವಲ್ಲ.", hi: "हरि हर भूत में अन्तर्यामी रूप से साक्षी-नियन्ता के रूप में बसते हैं। 'विष्णु' नाम स्वयं विश्-धातु-मूलक है। मध्व मत में अन्तर्यामित्व स्वरूप-ऐक्य से भिन्न है - हरि हर जीव में हैं पर उसके साथ तादात्म्य नहीं।" },
+    nama_ids: ["n_0002", "n_0007", "n_0052", "n_0245"],
+  },
+  {
+    id: "c_jiva_isvara_bheda", tier: "para_tattva",
+    en: "Jiva-Isvara-bheda", dev: "जीव-ईश्वर-भेद", kn: "ಜೀವ-ಈಶ್ವರ-ಭೇದ", hi: "जीव-ईश्वर-भेद",
+    title: { en: "The eternal distinction of jiva and Isvara", dev: "जीव-ईश्वरयोः शाश्वत-भेदः", kn: "ಜೀವ-ಈಶ್ವರಗಳ ಶಾಶ್ವತ-ಭೇದ", hi: "जीव-ईश्वर का शाश्वत भेद" },
+    note:  { en: "First of the five canonical bhedas (jiva-isvara, jiva-jiva, jada-isvara, jada-jiva, jada-jada). For Madhva, jivas are eternally distinct from Hari - never identical, never merging, even in mukti. The 'Paramatma' name itself implies a 'param' (other) atma.", dev: "पञ्च-भेदेषु प्रथमः (जीव-ईश्वर, जीव-जीव, जड-ईश्वर, जड-जीव, जड-जड)। मध्व-मते जीवाः हरेः नित्यं भिन्नाः - न ऐक्यम्, न लयः, मुक्तावपि। 'परमात्मन्' इति नाम-स्व-अर्थः एव 'परम्' (अन्यम्) आत्मानं सूचयति।", kn: "ಪಂಚ-ಭೇದಗಳಲ್ಲಿ ಮೊದಲನೆಯದು. ಮಧ್ವ-ಮತದಲ್ಲಿ ಜೀವಗಳು ಹರಿಯಿಂದ ನಿತ್ಯ ಭಿನ್ನ — ಐಕ್ಯವಿಲ್ಲ, ಲಯವಿಲ್ಲ, ಮುಕ್ತಿಯಲ್ಲಿಯೂ. 'ಪರಮಾತ್ಮಾ' ಎಂಬ ನಾಮವೇ 'ಪರಮ್' (ಅನ್ಯ) ಆತ್ಮವನ್ನು ಸೂಚಿಸುತ್ತದೆ.", hi: "पञ्च-भेदों में प्रथम। मध्व मत में जीव हरि से नित्य भिन्न हैं - न ऐक्य, न लय, मुक्ति में भी। 'परमात्मा' नाम स्वयं 'परम्' (अन्य) आत्मा को सूचित करता है।" },
+    nama_ids: ["n_0012"],
+  },
+  {
+    id: "c_kala_niyamakatva", tier: "para_tattva",
+    en: "Kala-niyamakatva", dev: "काल-नियामकत्व", kn: "ಕಾಲ-ನಿಯಾಮಕತ್ವ", hi: "काल-नियामकत्व",
+    title: { en: "Time-sovereignty", dev: "काल-नियामकत्वम्", kn: "ಕಾಲ-ನಿಯಾಮಕತ್ವ", hi: "काल-नियामकत्व" },
+    note:  { en: "Hari is master of past, future, and present. The compound 'bhuta-bhavya-bhavat-prabhuh' compresses this into one name. The Gita 8.4 anchor: adhibhutam ksaro bhavah.", dev: "हरिः भूत-भविष्यत्-वर्तमानानां प्रभुः। 'भूत-भव्य-भवत्-प्रभुः' इति समासेन एक-नामतया प्रतिपादितम्। गीता ८।४ - 'अधिभूतं क्षरो भावः'।", kn: "ಹರಿ ಭೂತ-ಭವಿಷ್ಯತ್-ವರ್ತಮಾನಗಳ ಪ್ರಭು. 'ಭೂತ-ಭವ್ಯ-ಭವತ್-ಪ್ರಭುಃ' ಎಂಬ ಸಮಾಸದಿಂದ ಒಂದು ನಾಮವಾಗಿ ಪ್ರತಿಪಾದಿತ.", hi: "हरि भूत, भविष्य और वर्तमान के प्रभु हैं। 'भूत-भव्य-भवत्-प्रभुः' समास से एक नाम में पिरोया गया है।" },
+    nama_ids: ["n_0004"],
+  },
+  {
+    id: "c_yajna_svarupa", tier: "svarupa_guna",
+    en: "Yajna-svarupa", dev: "यज्ञ-स्वरूप", kn: "ಯಜ್ಞ-ಸ್ವರೂಪ", hi: "यज्ञ-स्वरूप",
+    title: { en: "Sacrifice-as-self", dev: "यज्ञ-स्वरूपम्", kn: "ಯಜ್ಞ-ಸ್ವರೂಪ", hi: "यज्ञ-स्वरूप" },
+    note:  { en: "Hari is the Vedic-sacrificial act itself - its hetu, ashraya, and phala. The Vashatkara name asserts this at verse 1; Yajna at position 471 closes the loop. Cf. BG 4.24 brahmarpanam brahma havih.", dev: "हरिः वैदिक-यज्ञ-स्वरूपः - हेतुः, आश्रयः, फलं च। प्रथम-श्लोके वषट्कार-नाम्ना उद्घोषितम्; ४७१-स्थाने यज्ञ-नाम्ना समापितम्। गीता ४।२४ - 'ब्रह्मार्पणं ब्रह्म हविः'।", kn: "ಹರಿಯು ವೈದಿಕ-ಯಜ್ಞ-ಸ್ವರೂಪ - ಹೇತು, ಆಶ್ರಯ, ಫಲ. ಮೊದಲ ಶ್ಲೋಕದಲ್ಲಿ ವಷಟ್ಕಾರ ನಾಮದಿಂದ ಘೋಷಿತ; ೪೭೧ರಲ್ಲಿ ಯಜ್ಞ ನಾಮದಿಂದ ಸಮಾಪ್ತಿ.", hi: "हरि वैदिक यज्ञ-स्वरूप हैं - हेतु, आश्रय, फल। पहले श्लोक में 'वषट्कार' नाम से, और ४७१ में 'यज्ञ' नाम से।" },
+    nama_ids: ["n_0003", "n_0471"],
+  },
+  {
+    id: "c_sat_svarupa", tier: "svarupa_guna",
+    en: "Sat-cit-ananda svarupa", dev: "सच्चिदानन्द-स्वरूप", kn: "ಸಚ್ಚಿದಾನಂದ-ಸ್ವರೂಪ", hi: "सच्चिदानन्द-स्वरूप",
+    title: { en: "Existence-Consciousness-Bliss as essential nature", dev: "सच्चिदानन्द-स्वरूपम्", kn: "ಸಚ್ಚಿದಾನಂದ-ಸ್ವರೂಪ", hi: "सच्चिदानन्द-स्वरूप" },
+    note:  { en: "Hari is the canonical Taittiriya 2.7 sat-cit-ananda Brahman. Putatma names the suddha-svabhava; Aksharah names sat; Anandah at position 557 names ananda; mantra at 300 names cit-svarupa.", dev: "हरिः तैत्तिरीयोपनिषद् २।७-स्थः सच्चिदानन्द-ब्रह्म-स्वरूपः। पूतात्म-नाम्ना शुद्ध-स्वभावम्; अक्षर-नाम्ना सत्; आनन्द-नाम्ना (५५७) आनन्दम्; मन्त्र-नाम्ना (३००) चित्।", kn: "ಹರಿ ತೈತ್ತಿರೀಯ ೨।೭ರ ಸಚ್ಚಿದಾನಂದ-ಬ್ರಹ್ಮ-ಸ್ವರೂಪ. ಪೂತಾತ್ಮ-ನಾಮದಿಂದ ಶುದ್ಧ-ಸ್ವಭಾವ; ಅಕ್ಷರ-ನಾಮದಿಂದ ಸತ್; ಆನಂದ-ನಾಮದಿಂದ (೫೫೭) ಆನಂದ.", hi: "हरि तैत्तिरीय २।७ के सच्चिदानन्द ब्रह्म-स्वरूप हैं। पूतात्मा से शुद्ध-स्वभाव; अक्षर से सत्; आनन्द (५५७) से आनन्द।" },
+    nama_ids: ["n_0011", "n_0016", "n_0300", "n_0557", "n_0591", "n_0986"],
+  },
+  {
+    id: "c_atma_svarupa", tier: "svarupa_guna",
+    en: "Atma-svarupa", dev: "आत्म-स्वरूप", kn: "ಆತ್ಮ-ಸ್ವರೂಪ", hi: "आत्म-स्वरूप",
+    title: { en: "Self-essence", dev: "आत्म-स्वरूपम्", kn: "ಆತ್ಮ-ಸ್ವರೂಪ", hi: "आत्म-स्वरूप" },
+    note:  { en: "Hari as the inner essence of every being's atman. Distinct from antaryamitva (which is the dwelling-relation) - here it is the very being-of-essence.", dev: "हरिः प्रत्येक-भूतस्य आत्मनः अन्तःस्थ-स्वरूपम्। अन्तर्यामित्वात् (वासि-सम्बन्धात्) भिन्नम् - इदं सत्ता-स्वरूपम्।", kn: "ಹರಿ ಪ್ರತಿ ಭೂತದ ಆತ್ಮನ ಅಂತಃಸ್ಥ-ಸ್ವರೂಪ. ಅಂತರ್ಯಾಮಿತ್ವದಿಂದ (ವಾಸಿ-ಸಂಬಂಧದಿಂದ) ಭಿನ್ನ — ಇದು ಸತ್ತಾ-ಸ್ವರೂಪ.", hi: "हरि हर भूत के आत्मा का अन्तःस्थ स्वरूप। अन्तर्यामित्व (वासी-सम्बन्ध) से भिन्न - यह सत्ता-स्वरूप है।" },
+    nama_ids: ["n_0007", "n_0986"],
+  },
+  {
+    id: "c_srshti_kartrtva", tier: "lila_guna",
+    en: "Srshti-kartrtva", dev: "सृष्टि-कर्तृत्व", kn: "ಸೃಷ್ಟಿ-ಕರ್ತೃತ್ವ", hi: "सृष्टि-कर्तृत्व",
+    title: { en: "Creator-agency", dev: "सृष्टि-कर्तृत्वम्", kn: "ಸೃಷ್ಟಿ-ಕರ್ತೃತ್ವ", hi: "सृष्टि-कर्तृत्व" },
+    note:  { en: "Hari's role as creator of all beings - the first of the srshti-sthiti-samhara trika. Bhutakrt (5), Bhutabhavana (8), Padmanabha (48) are the proper names; the cosmogonic image is the lotus-from-navel.", dev: "सृष्टि-स्थिति-संहार-त्रिकस्य प्रथमम्। भूतकृत् (५), भूतभावन (८), पद्मनाभ (४८) इति नाम-स्वरूपाणि; नाभि-कमल-उद्भव-ब्रह्मा इति प्रतीकम्।", kn: "ಸೃಷ್ಟಿ-ಸ್ಥಿತಿ-ಸಂಹಾರ-ತ್ರಿಕದ ಮೊದಲನೇ. ಭೂತಕೃತ್ (೫), ಭೂತಭಾವನ (೮), ಪದ್ಮನಾಭ (೪೮) ನಾಮಗಳು; ನಾಭಿ-ಕಮಲದಿಂದ ಬ್ರಹ್ಮನ ಉದ್ಭವ ಪ್ರತೀಕ.", hi: "सृष्टि-स्थिति-संहार-त्रिक का प्रथम। भूतकृत् (५), भूतभावन (८), पद्मनाभ (४८) नामस्वरूप; नाभि-कमल से ब्रह्मा का उद्भव प्रतीक।" },
+    nama_ids: ["n_0005", "n_0008", "n_0048"],
+  },
+  {
+    id: "c_sthiti_kartrtva", tier: "lila_guna",
+    en: "Sthiti-kartrtva", dev: "स्थिति-कर्तृत्व", kn: "ಸ್ಥಿತಿ-ಕರ್ತೃತ್ವ", hi: "स्थिति-कर्तृत्व",
+    title: { en: "Sustainer-agency", dev: "स्थिति-कर्तृत्वम्", kn: "ಸ್ಥಿತಿ-ಕರ್ತೃತ್ವ", hi: "स्थिति-कर्तृत्व" },
+    note:  { en: "Hari's role as sustainer - the bhrt-root (bear/maintain) names. Bhutabhrt (6) is the proper name in the opening verse.", dev: "सृष्टि-स्थिति-संहार-त्रिकस्य द्वितीयम्। भूतभृत् (६) इति प्रथम-श्लोक-स्थं नाम।", kn: "ಸೃಷ್ಟಿ-ಸ್ಥಿತಿ-ಸಂಹಾರ-ತ್ರಿಕದ ಎರಡನೆಯದು. ಭೂತಭೃತ್ (೬) ಪ್ರಥಮ-ಶ್ಲೋಕದ ನಾಮ.", hi: "सृष्टि-स्थिति-संहार-त्रिक का द्वितीय। भूतभृत् (६) प्रथम श्लोक में।" },
+    nama_ids: ["n_0006"],
+  },
+  {
+    id: "c_avatara_rupa", tier: "lila_guna",
+    en: "Avatara-rupa", dev: "अवतार-रूप", kn: "ಅವತಾರ-ರೂಪ", hi: "अवतार-रूप",
+    title: { en: "Forms-of-descent", dev: "अवतार-रूपाणि", kn: "ಅವತಾರ-ರೂಪಗಳು", hi: "अवतार-रूप" },
+    note:  { en: "The dasa-avatara plus Krishna and Narasimha as the proper-name forms in this corpus. Madhva: avataras are not karma-baddha bodies but iccha-prakata svarupa-aikya manifestations of Hari himself.", dev: "दशावताराः कृष्ण-नारसिंहाभ्यां सह। मध्व-मते अवताराः न कर्म-बद्धाः शरीराः; इच्छा-प्रकटाः स्वरूप-ऐक्येन हरेरेव।", kn: "ದಶಾವತಾರಗಳು ಜೊತೆಗೆ ಕೃಷ್ಣ-ನಾರಸಿಂಹಗಳು. ಮಧ್ವ-ಮತದಲ್ಲಿ ಅವತಾರಗಳು ಕರ್ಮ-ಬದ್ಧ ಶರೀರಗಳಲ್ಲ; ಇಚ್ಛಾ-ಪ್ರಕಟ ಸ್ವರೂಪ-ಐಕ್ಯದಿಂದ ಹರಿಯ.", hi: "दशावतार सहित कृष्ण-नारसिंह। मध्व मत में अवतार कर्म-बद्ध शरीर नहीं; इच्छा-प्रकट स्वरूप-ऐक्य से हरि के स्वयं।" },
+    nama_ids: ["n_0057", "n_0073", "n_0126", "n_0215", "n_0220", "n_0260", "n_0337", "n_0490", "n_0530", "n_0594", "n_0963", "n_1066"],
+  },
+  {
+    id: "c_karunya", tier: "karunya_guna",
+    en: "Karunya", dev: "कारुण्य", kn: "ಕಾರುಣ್ಯ", hi: "कारुण्य",
+    title: { en: "Compassion/mercy", dev: "कारुण्यम्", kn: "ಕಾರುಣ್ಯ", hi: "कारुण्य" },
+    note:  { en: "The mercy-attribute. Hari-nama itself encodes papa-harana; vatsalya in shloka 78. Karunya is the bridge from sva-rupa-guna into bhakta-sambandha.", dev: "कारुण्य-गुणः। हरि-नामैव पाप-हरण-वाची; भक्त-वत्सलता ७८-श्लोके। स्वरूप-गुणतः भक्त-सम्बन्ध-गुण-पर्यन्तं सेतुः।", kn: "ಕಾರುಣ್ಯ-ಗುಣ. ಹರಿ-ನಾಮವೇ ಪಾಪ-ಹರಣ-ವಾಚಿ; ಭಕ್ತ-ವತ್ಸಲತೆ ೭೮-ಶ್ಲೋಕದಲ್ಲಿ. ಸ್ವರೂಪ-ಗುಣದಿಂದ ಭಕ್ತ-ಸಂಬಂಧ-ಗುಣದವರೆಗೆ ಸೇತು.", hi: "कारुण्य-गुण। हरि-नाम स्वयं पाप-हरण-वाची; भक्त-वत्सलता ७८-श्लोक में।" },
+    nama_ids: ["n_0008", "n_0074", "n_0126", "n_0641", "n_0656", "n_0073"],
+  },
+  {
+    id: "c_bhakta_vatsala", tier: "bhakta_sambandha",
+    en: "Bhakta-vatsala", dev: "भक्त-वत्सल", kn: "ಭಕ್ತ-ವತ್ಸಲ", hi: "भक्त-वत्सल",
+    title: { en: "Devotee-affection", dev: "भक्त-वत्सलत्वम्", kn: "ಭಕ್ತ-ವತ್ಸಲತ್ವ", hi: "भक्त-वत्सलत्व" },
+    note:  { en: "Specific tenderness toward devotees - vatsalya is mother-cow-for-calf love. For Madhva, this is svabhava-sidha (essential), not contingent.", dev: "भक्तेषु विशिष्ट-स्नेहः - मातु-धेनु-वत्स-वत् वत्सलता। मध्व-मते इदं स्वभाव-सिद्धम्, न प्रासङ्गिकम्।", kn: "ಭಕ್ತರಲ್ಲಿ ವಿಶಿಷ್ಟ-ಸ್ನೇಹ — ಮಾತೃ-ಧೇನು-ವತ್ಸದಂತೆ ವತ್ಸಲತೆ. ಮಧ್ವ-ಮತದಲ್ಲಿ ಇದು ಸ್ವಭಾವ-ಸಿದ್ಧ, ಪ್ರಾಸಂಗಿಕವಲ್ಲ.", hi: "भक्तों में विशिष्ट स्नेह - मातृ-धेनु-वत्स के समान वत्सलता। मध्व मत में यह स्वभाव-सिद्ध है, प्रासङ्गिक नहीं।" },
+    nama_ids: ["n_0057", "n_0197", "n_0215", "n_0490", "n_0594", "n_0777", "n_0780"],
+  },
+  {
+    id: "c_lakshmi_sambandha", tier: "para_tattva",
+    en: "Lakshmi-sambandha", dev: "लक्ष्मी-सम्बन्ध", kn: "ಲಕ್ಷ್ಮೀ-ಸಂಬಂಧ", hi: "लक्ष्मी-सम्बन्ध",
+    title: { en: "The Lakshmi-relation", dev: "लक्ष्मी-सम्बन्धः", kn: "ಲಕ್ಷ್ಮೀ-ಸಂಬಂಧ", hi: "लक्ष्मी-सम्बन्ध" },
+    note:  { en: "The eternal Sri-Vishnu mithuna. For Madhva, Lakshmi is the highest jiva - the kuta-stha akshara of BG 15.16 - eternally subordinate to Hari but supreme above all other jivas.", dev: "नित्य-श्री-विष्णु-मिथुन-तत्त्वम्। मध्व-मते लक्ष्मीः उच्चतमं जीव-तत्त्वम्, गीता १५।१६-स्थः कूटस्थ अक्षरः, हरेः नित्य-परतन्त्रा अथ च सर्व-इतर-जीवेभ्यः उत्तमा।", kn: "ನಿತ್ಯ-ಶ್ರೀ-ವಿಷ್ಣು-ಮಿಥುನ-ತತ್ತ್ವ. ಮಧ್ವ-ಮತದಲ್ಲಿ ಲಕ್ಷ್ಮೀ ಉಚ್ಚತಮ ಜೀವ-ತತ್ತ್ವ, ಗೀತಾ ೧೫।೧೬ರ ಕೂಟಸ್ಥ ಅಕ್ಷರ, ಹರಿಯ ನಿತ್ಯ-ಪರತಂತ್ರಾ ಆದರೆ ಉಳಿದೆಲ್ಲ ಜೀವಗಳಿಗಿಂತ ಉತ್ತಮ.", hi: "नित्य श्री-विष्णु मिथुन-तत्त्व। मध्व मत में लक्ष्मी उच्चतम जीव-तत्त्व, गीता १५।१६ का कूटस्थ अक्षर, हरि के नित्य-परतन्त्र पर बाकी सब जीवों से उत्तम।" },
+    nama_ids: ["n_0643"],
+  },
+  {
+    id: "c_moksha_prada", tier: "mokshaprada",
+    en: "Moksha-prada", dev: "मोक्ष-प्रद", kn: "ಮೋಕ್ಷ-ಪ್ರದ", hi: "मोक्ष-प्रद",
+    title: { en: "Liberation-bestowing", dev: "मोक्ष-प्रदत्वम्", kn: "ಮೋಕ್ಷ-ಪ್ರದತ್ವ", hi: "मोक्ष-प्रदत्व" },
+    note:  { en: "Hari is the sole-cause of mukti. Mukunda (515), Muktanam-parama-gatih (13), and Hari himself (656) are the proper-name forms. For Madhva, mukti has tāratamya - sālokya, sāmīpya, sārūpya, sāyujya - all granted by Hari.", dev: "हरिः मुक्तेः एक-कारणम्। मुकुन्द (५१५), मुक्तानां परमा गतिः (१३), हरिः (६५६) - नाम-स्वरूपाणि। मध्व-मते मुक्तौ तारतम्यम् - सालोक्य-सामीप्य-सारूप्य-सायुज्य - सर्वाः हरि-प्रसादात्।", kn: "ಹರಿ ಮುಕ್ತಿಯ ಏಕ-ಕಾರಣ. ಮುಕುಂದ (೫೧೫), ಮುಕ್ತಾನಾಂ ಪರಮಾ ಗತಿಃ (೧೩), ಹರಿ (೬೫೬) ನಾಮ-ಸ್ವರೂಪಗಳು. ಮಧ್ವ-ಮತದಲ್ಲಿ ಮುಕ್ತಿಯಲ್ಲಿ ತಾರತಮ್ಯ — ಎಲ್ಲ ಹರಿ-ಪ್ರಸಾದದಿಂದ.", hi: "हरि मुक्ति के एकमात्र कारण। मुकुन्द (५१५), मुक्तानां परमा गतिः (१३), हरि (६५६) नाम-स्वरूप। मध्व मत में मुक्ति में तारतम्य।" },
+    nama_ids: ["n_0013", "n_0515", "n_0656", "n_0886", "n_0986"],
+  },
+];
+
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { CTIERS, CONCEPTS };
+}
+
+</script>
+<script>
+/* === inlined from positions.js === */
+/* positions.js — hand-laid map coordinates for the concept-overlay map view.
+ *
+ * Phase 1 stub: empty map. The viewer falls back to an auto-layout when
+ * KG_POSITIONS is empty.
+ *
+ * Phase 2: hand-place each of the ~15 concepts and ~50 nāmas in a tier-banded
+ * 1000×1500 SVG canvas. Pattern mirrors gita-concept-kg/positions.js.
+ */
+
+const KG_POSITIONS = {};
+const KG_TIER_BANDS = [];
+// const KG_SHOW_EDGE_TYPES = new Set(['is-a','manifests-as']);  // optional filter
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { KG_POSITIONS, KG_TIER_BANDS };
+}
+
+</script>
+<script>
+/* ============================================================================
+   State + UI strings
+   ============================================================================ */
+const state = { lang:'en', view:'shlokas', focusId:null, conceptId:null, q:'' };
+
+const UI = {
+  pos:           { en:'Position',   dev:'स्थानम्',   kn:'ಸ್ಥಾನ',     hi:'स्थान' },
+  artha:         { en:'Artha',      dev:'अर्थः',     kn:'ಅರ್ಥ',      hi:'अर्थ' },
+  guna:          { en:'Guṇa',       dev:'गुणः',      kn:'ಗುಣ',       hi:'गुण' },
+  madhvaPrefix:  { en:'Mādhva',     dev:'माध्व',     kn:'ಮಾಧ್ವ',     hi:'माध्व' },
+  shlokaSrc:     { en:'In verse',   dev:'श्लोके',    kn:'ಶ್ಲೋಕದಲ್ಲಿ', hi:'श्लोक में' },
+  conceptsLbl:   { en:'Concepts',   dev:'सम्मताः',   kn:'ಪರಿಕಲ್ಪನೆಗಳು', hi:'सम्मत' },
+  namasLbl:      { en:'Nāmas',      dev:'नामानि',    kn:'ನಾಮಗಳು',     hi:'नाम' },
+  noMatch:       { en:'No matches.', dev:'न सम्मतम्।', kn:'ಯಾವುದೂ ಸಿಗಲಿಲ್ಲ.', hi:'कुछ नहीं मिला।' },
+  shlokas:       { en:'shlokas',    dev:'श्लोकाः',   kn:'ಶ್ಲೋಕಗಳು',   hi:'श्लोक' },
+  namas:         { en:'nāmas',      dev:'नामानि',    kn:'ನಾಮಗಳು',     hi:'नाम' },
+  concepts:      { en:'concepts',   dev:'सम्मताः',   kn:'ಪರಿಕಲ್ಪನೆಗಳು', hi:'सम्मत' },
+  navShlokas:    { en:'Shlokas',    dev:'श्लोकाः',   kn:'ಶ್ಲೋಕಗಳು',   hi:'श्लोक' },
+  navAttributes: { en:'Attributes', dev:'गुणाः',     kn:'ಗುಣಗಳು',     hi:'गुण' },
+  searchPh:      { en:'Search verses, nāmas, concepts…',
+                   dev:'श्लोकान्, नामानि, सम्मतान् अन्विष्यतु…',
+                   kn:'ಶ್ಲೋಕಗಳು, ನಾಮಗಳು, ಪರಿಕಲ್ಪನೆಗಳನ್ನು ಹುಡುಕಿ…',
+                   hi:'श्लोक, नाम, सम्मत खोजें…' },
+};
+function ui(key){ const r = UI[key]; return r ? (r[state.lang] || r.en) : key; }
+
+/* ============================================================================
+   Indices
+   ============================================================================ */
+const NAMA_BY_ID    = Object.fromEntries(NODES.map(n => [n.id, n]));
+const SHLOKA_BY_ID  = Object.fromEntries(SHLOKAS.map(s => [s.id, s]));
+const CONCEPT_BY_ID = Object.fromEntries(CONCEPTS.map(c => [c.id, c]));
+const TIER_BY_ID    = Object.fromEntries(TIERS.map(t => [t.id, t]));
+const CTIER_BY_ID   = Object.fromEntries(CTIERS.map(t => [t.id, t]));
+
+// Build sl_xxx → [namas in that shloka], using each nama's shloka_id field
+const NAMAS_BY_SHLOKA = {};
+NODES.forEach(n => {
+  if (!NAMAS_BY_SHLOKA[n.shloka_id]) NAMAS_BY_SHLOKA[n.shloka_id] = [];
+  NAMAS_BY_SHLOKA[n.shloka_id].push(n);
+});
+Object.values(NAMAS_BY_SHLOKA).forEach(arr => arr.sort((a,b) => a.position - b.position));
+
+// Concept → namas index (use the concept's own nama_ids list)
+function namasForConcept(c){
+  return c.nama_ids.map(id => NAMA_BY_ID[id]).filter(Boolean);
+}
+
+/* ============================================================================
+   Helpers
+   ============================================================================ */
+function setLang(lang){
+  state.lang = lang;
+  document.body.classList.remove('lang-en','lang-dev','lang-kn','lang-hi');
+  document.body.classList.add('lang-'+lang);
+  document.querySelectorAll('#lang-tabs button').forEach(b => {
+    b.classList.toggle('on', b.dataset.lang === lang);
+  });
+  const qEl = document.getElementById('q');
+  if (qEl) qEl.placeholder = ui('searchPh');
+  document.querySelectorAll('#view-tabs button[data-view]').forEach(b => {
+    const k = b.dataset.view === 'shlokas' ? 'navShlokas' : 'navAttributes';
+    b.textContent = ui(k);
+  });
+  render();
+}
+
+function setView(v, opts){
+  state.view = v;
+  if (opts && opts.focusId)   state.focusId   = opts.focusId;
+  if (opts && opts.conceptId) state.conceptId = opts.conceptId;
+  document.querySelectorAll('#view-tabs button').forEach(b => {
+    b.classList.toggle('on', b.dataset.view === v || (v === 'focus' && b.dataset.view === 'shlokas') || (v === 'concept' && b.dataset.view === 'attributes'));
+  });
+  document.getElementById('view-shlokas').hidden    = v !== 'shlokas';
+  document.getElementById('view-focus').hidden      = v !== 'focus';
+  document.getElementById('view-attributes').hidden = v !== 'attributes';
+  document.getElementById('view-concept').hidden    = v !== 'concept';
+  document.getElementById('search-bar').hidden      = false;
+  window.scrollTo({top:0, behavior:'instant'});
+  render();
+}
+
+function labelOf(obj, fieldChain){
+  // obj is a NAMA: obj.name = {iast, dev, kn, hi}
+  // obj is a CONCEPT: obj.en/dev/kn/hi directly
+  const f = fieldChain ? obj[fieldChain] : obj;
+  if (state.lang === 'iast') state.lang = 'en';
+  if (state.lang === 'dev') return f.dev || f.en;
+  if (state.lang === 'kn')  return f.kn  || f.en;
+  if (state.lang === 'hi')  return f.hi  || f.dev || f.en;
+  // EN: nāmas use iast, concepts use en
+  return f.iast || f.en || f.dev;
+}
+
+function getActive(field){
+  if (field == null) return '';
+  if (typeof field === 'string') return field;
+  if (typeof field === 'object'){
+    if (state.lang === 'en') return field.en || field.dev || '';
+    return field[state.lang] || field.en || field.dev || '';
+  }
+  return String(field);
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function highlight(s, q){
+  if (!q) return escapeHtml(s);
+  const idx = s.toLowerCase().indexOf(q.toLowerCase());
+  if (idx < 0) return escapeHtml(s);
+  return escapeHtml(s.slice(0, idx)) + '<span class="hl">' + escapeHtml(s.slice(idx, idx+q.length)) + '</span>' + escapeHtml(s.slice(idx+q.length));
+}
+
+function shlokaScript(s){
+  // Pick which script to show for the verse body
+  return state.lang === 'dev' ? s.sanskrit.dev
+       : state.lang === 'kn'  ? s.sanskrit.kn
+       : state.lang === 'hi'  ? s.sanskrit.hi
+       :                        s.sanskrit.iast;
+}
+
+/* ============================================================================
+   SHLOKAS view (default)
+   ============================================================================ */
+function renderShlokas(){
+  const root = document.getElementById('view-shlokas');
+  const q = state.q.trim().toLowerCase();
+
+  const matchedShlokas = SHLOKAS.filter(s => {
+    if (!q) return true;
+    const hay = [
+      s.sanskrit.dev, s.sanskrit.iast, s.sanskrit.kn, s.sanskrit.hi,
+      ...(NAMAS_BY_SHLOKA[s.id] || []).flatMap(n => [
+        n.name.iast, n.name.dev, n.name.kn, n.name.hi,
+        getActive(n.artha), getActive(n.guna),
+      ]),
+    ].join(' ').toLowerCase();
+    return hay.includes(q);
+  });
+
+  if (!matchedShlokas.length){
+    root.innerHTML = '<div style="padding:40px 20px;text-align:center;color:var(--ink-fade)">' + escapeHtml(ui('noMatch')) + '</div>';
+    return;
+  }
+
+  let html = '';
+  matchedShlokas.forEach(s => {
+    const namas = NAMAS_BY_SHLOKA[s.id] || [];
+    html += '<article class="shloka-card">';
+    html += '  <div class="num">' + escapeHtml(ui('shlokas').slice(0,5).toUpperCase()) + ' ' + s.num + '</div>';
+    html += '  <div class="verse">' + escapeHtml(shlokaScript(s)) + '</div>';
+    if (namas.length){
+      html += '  <div class="chips">';
+      namas.forEach(n => {
+        html += '<span class="chip" data-id="' + n.id + '">' + escapeHtml(labelOf(n, 'name')) + '</span>';
+      });
+      html += '  </div>';
+    }
+    html += '</article>';
+  });
+  root.innerHTML = html;
+}
+
+/* ============================================================================
+   FOCUS (single nāma)
+   ============================================================================ */
+function renderFocus(){
+  const root = document.getElementById('view-focus');
+  const id = state.focusId || NODES[0].id;
+  const n = NAMA_BY_ID[id];
+  if (!n){ root.innerHTML = '<div style="padding:20px">Not found.</div>'; return; }
+  const tier = TIER_BY_ID[n.tier];
+  const tierLab = tier ? (tier[state.lang === 'en' ? 'en' : state.lang] || tier.en) : n.tier;
+  const sh = SHLOKA_BY_ID[n.shloka_id];
+
+  let html = '<article class="focus-card">';
+  html += '  <span class="tier-badge" style="color:var(--t-' + n.tier + ')">';
+  html += '    <style>.focus-card .tier-badge::before{background:var(--t-' + n.tier + ')}</style>';
+  html += '    ' + escapeHtml(tierLab) + '<span class="pos">· ' + escapeHtml(ui('pos')) + ' ' + n.position + '</span>';
+  html += '  </span>';
+  html += '  <h1>' + escapeHtml(labelOf(n, 'name')) + '</h1>';
+
+  html += '  <div class="section"><div class="label">' + escapeHtml(ui('artha')) + '</div>';
+  html += '    <div class="body">' + escapeHtml(getActive(n.artha)) + '</div></div>';
+
+  html += '  <div class="section"><div class="label">' + escapeHtml(ui('guna')) + '</div>';
+  html += '    <div class="body">' + escapeHtml(getActive(n.guna)) + '</div></div>';
+
+  if (n.madhva){
+    html += '  <div class="madhva"><span class="madhva-prefix">' + escapeHtml(ui('madhvaPrefix')) + ' · </span>' + escapeHtml(getActive(n.madhva)) + '</div>';
+  }
+
+  if (sh){
+    html += '  <div class="focus-shloka">';
+    html += '    <div class="shloka-script">' + escapeHtml(shlokaScript(sh)) + '</div>';
+    html += '    <div class="shloka-ref">' + escapeHtml(ui('shlokaSrc')) + ' ' + sh.num + '</div>';
+    html += '  </div>';
+  }
+
+  if (n.tags && n.tags.length){
+    html += '  <div class="section"><div class="label">' + escapeHtml(ui('conceptsLbl')) + '</div>';
+    html += '    <div class="tags-list">';
+    n.tags.forEach(cid => {
+      const c = CONCEPT_BY_ID[cid];
+      const lab = c ? labelOf(c) : cid;
+      html += '<span class="tag" data-concept-id="' + cid + '">' + escapeHtml(lab) + '</span>';
+    });
+    html += '    </div></div>';
+  }
+
+  html += '</article>';
+  root.innerHTML = html;
+}
+
+/* ============================================================================
+   ATTRIBUTES (concept browse)
+   ============================================================================ */
+function renderAttributes(){
+  const root = document.getElementById('view-attributes');
+  const q = state.q.trim().toLowerCase();
+  const matches = (c) => {
+    if (!q) return true;
+    const hay = [c.en, c.dev, c.kn, c.hi, getActive(c.title), getActive(c.note)].join(' ').toLowerCase();
+    return hay.includes(q);
+  };
+
+  let html = '';
+  let total = 0;
+  CTIERS.forEach(tier => {
+    const cs = CONCEPTS.filter(c => c.tier === tier.id && matches(c));
+    if (!cs.length) return;
+    total += cs.length;
+    const tlab = tier[state.lang === 'en' ? 'en' : state.lang] || tier.en;
+    html += '<section class="tier-section">';
+    html += '  <div class="tier-head">';
+    html += '    <span class="tier-dot" style="background:var(--t-' + tier.id + ')"></span>';
+    html += '    <span class="tier-name">' + escapeHtml(tlab) + '</span>';
+    html += '    <span class="tier-gloss">' + escapeHtml(tier.gloss) + '</span>';
+    html += '    <span class="tier-count">' + cs.length + '</span>';
+    html += '  </div>';
+    html += '</section>';
+    html += '<ul class="entry-list">';
+    cs.forEach(c => {
+      const lab = labelOf(c);
+      html += '<li data-concept-id="' + c.id + '">';
+      html += '  <div><div class="label">' + highlight(lab, q) + '</div>';
+      html += '       <div class="sub">' + escapeHtml(getActive(c.title)) + '</div></div>';
+      html += '  <div class="count">' + c.nama_ids.length + ' ' + escapeHtml(ui('namas')) + '</div>';
+      html += '</li>';
+    });
+    html += '</ul>';
+  });
+  if (!total) html = '<div style="padding:40px 20px;text-align:center;color:var(--ink-fade)">' + escapeHtml(ui('noMatch')) + '</div>';
+  root.innerHTML = html;
+}
+
+/* ============================================================================
+   CONCEPT FOCUS
+   ============================================================================ */
+function renderConcept(){
+  const root = document.getElementById('view-concept');
+  const id = state.conceptId || CONCEPTS[0].id;
+  const c = CONCEPT_BY_ID[id];
+  if (!c){ root.innerHTML = '<div style="padding:20px">Not found.</div>'; return; }
+  const tier = CTIER_BY_ID[c.tier];
+  const tierLab = tier ? (tier[state.lang === 'en' ? 'en' : state.lang] || tier.en) : c.tier;
+
+  let html = '<article class="concept-focus">';
+  html += '  <span class="tier-badge" style="color:var(--t-' + c.tier + ')">';
+  html += '    <style>.concept-focus .tier-badge::before{background:var(--t-' + c.tier + ')}</style>';
+  html += '    ' + escapeHtml(tierLab);
+  html += '  </span>';
+  html += '  <h1>' + escapeHtml(labelOf(c)) + '</h1>';
+  html += '  <div class="subtitle">' + escapeHtml(getActive(c.title)) + '</div>';
+  html += '  <p class="note">' + escapeHtml(getActive(c.note)) + '</p>';
+  html += '</article>';
+
+  const ns = namasForConcept(c);
+  if (ns.length){
+    html += '<section class="tier-section">';
+    html += '  <div class="tier-head">';
+    html += '    <span class="tier-name">' + escapeHtml(ui('namasLbl')) + '</span>';
+    html += '    <span class="tier-count">' + ns.length + '</span>';
+    html += '  </div></section>';
+    html += '<ul class="entry-list">';
+    ns.forEach(n => {
+      const sh = SHLOKA_BY_ID[n.shloka_id];
+      html += '<li data-id="' + n.id + '">';
+      html += '  <div><div class="label">' + escapeHtml(labelOf(n, 'name')) + '</div>';
+      html += '       <div class="sub">' + escapeHtml(ui('pos')) + ' ' + n.position + (sh ? ' · ' + ui('shlokaSrc') + ' ' + sh.num : '') + '</div></div>';
+      html += '  <div class="count">→</div>';
+      html += '</li>';
+    });
+    html += '</ul>';
+  }
+  root.innerHTML = html;
+}
+
+/* ============================================================================
+   Dispatch
+   ============================================================================ */
+function render(){
+  if (state.view === 'shlokas') renderShlokas();
+  else if (state.view === 'focus') renderFocus();
+  else if (state.view === 'attributes') renderAttributes();
+  else if (state.view === 'concept') renderConcept();
+
+  const f = document.getElementById('stats');
+  if (f) f.textContent = SHLOKAS.length + ' ' + ui('shlokas') + ' · ' + NODES.length + ' ' + ui('namas') + ' · ' + CONCEPTS.length + ' ' + ui('concepts');
+}
+
+/* ============================================================================
+   Wiring
+   ============================================================================ */
+document.getElementById('lang-tabs').addEventListener('click', ev => {
+  const b = ev.target.closest('button[data-lang]'); if (b) setLang(b.dataset.lang);
+});
+document.getElementById('view-tabs').addEventListener('click', ev => {
+  const b = ev.target.closest('button[data-view]');
+  if (!b) return;
+  setView(b.dataset.view);
+});
+document.getElementById('q').addEventListener('input', ev => {
+  state.q = ev.target.value;
+  if (state.view === 'focus') setView('shlokas');
+  else if (state.view === 'concept') setView('attributes');
+  else render();
+});
+
+// Delegated clicks: chips, list items, tags
+document.addEventListener('click', ev => {
+  const chip = ev.target.closest('.chip[data-id], li[data-id]');
+  if (chip){ setView('focus', {focusId: chip.dataset.id}); return; }
+  const cli = ev.target.closest('li[data-concept-id], .tag[data-concept-id]');
+  if (cli){ setView('concept', {conceptId: cli.dataset.conceptId}); return; }
+});
+
+render();
+</script>
+</body>
+</html>

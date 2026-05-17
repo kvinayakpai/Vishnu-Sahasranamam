@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.log
+*.tmp
+.DS_Store
+.idea/
+.vscode/
+_ocr_spike/*.png
+_ocr_spike/*.pdf
+.git/
+_build_shlokas.py
+_build_data.py
