@@ -101,7 +101,7 @@ SHLOKAS.forEach(s => {
 });
 
 // 10: aggregate counts (advisory only — exact targets may shift)
-const expect = { shlokas: 107, namas: 50, concepts: 15 };
+const expect = { shlokas: 107, namas: 1000, concepts: 59 };
 const actual = { shlokas: SHLOKAS.length, namas: NODES.length, concepts: CONCEPTS.length };
 ['shlokas','namas','concepts'].forEach(k => {
   if (actual[k] !== expect[k]) warnings.push(`count ${k}: expected ${expect[k]}, got ${actual[k]}`);
