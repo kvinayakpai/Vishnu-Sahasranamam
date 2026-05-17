@@ -281,6 +281,12 @@ const UI = {
   concepts:      { en:'concepts',   dev:'सम्मताः',   kn:'ಪರಿಕಲ್ಪನೆಗಳು', hi:'सम्मत' },
   navShlokas:    { en:'Shlokas',    dev:'श्लोकाः',   kn:'ಶ್ಲೋಕಗಳು',   hi:'श्लोक' },
   navAttributes: { en:'Attributes', dev:'गुणाः',     kn:'ಗುಣಗಳು',     hi:'गुण' },
+  navMap:        { en:'Map',        dev:'मण्डलम्',   kn:'ನಕ್ಷೆ',       hi:'मानचित्र' },
+  brandName:     { en:'Viṣṇu-<em>sahasranāma</em> · KG',
+                   dev:'विष्णु-<em>सहस्रनाम</em> · ज्ञानजाल',
+                   kn:'ವಿಷ್ಣು-<em>ಸಹಸ್ರನಾಮ</em> · ಜ್ಞಾನಜಾಲ',
+                   hi:'विष्णु-<em>सहस्रनाम</em> · ज्ञानकोश' },
+  brandCrumb:    { en:'Mādhva',     dev:'माध्व',     kn:'ಮಾಧ್ವ',      hi:'माध्व' },
   searchPh:      { en:'Search verses, nāmas, concepts…',
                    dev:'श्लोकान्, नामानि, सम्मतान् अन्विष्यतु…',
                    kn:'ಶ್ಲೋಕಗಳು, ನಾಮಗಳು, ಪರಿಕಲ್ಪನೆಗಳನ್ನು ಹುಡುಕಿ…',
@@ -323,9 +329,14 @@ function setLang(lang){
   const qEl = document.getElementById('q');
   if (qEl) qEl.placeholder = ui('searchPh');
   document.querySelectorAll('#view-tabs button[data-view]').forEach(b => {
-    const k = b.dataset.view === 'shlokas' ? 'navShlokas' : 'navAttributes';
-    b.textContent = ui(k);
+    const v = b.dataset.view;
+    const k = v === 'shlokas' ? 'navShlokas' : v === 'attributes' ? 'navAttributes' : v === 'map' ? 'navMap' : null;
+    if (k) b.textContent = ui(k);
   });
+  const nameEl = document.querySelector('.brand .name');
+  if (nameEl) nameEl.innerHTML = ui('brandName');
+  const crumbEl = document.querySelector('.brand .crumb');
+  if (crumbEl) crumbEl.textContent = ui('brandCrumb');
   render();
 }
 
