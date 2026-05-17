@@ -6,7 +6,7 @@ This is **Phase 1** — a vertical-slice scaffold. The full 1000-nāma fill-in c
 
 ---
 
-## Phase 1 scope (vertical slice)
+## Phase 1 scope (vertical slice) — ✅ shipped
 
 - ✅ Repo scaffold mirroring `gita-concept-kg` house style
 - ✅ All 107 shlokas seeded in `shlokas.js` (text in all four scripts; commentary marked TODO)
@@ -14,17 +14,40 @@ This is **Phase 1** — a vertical-slice scaffold. The full 1000-nāma fill-in c
 - ✅ 8–12 attribute concepts seeded in `concepts.js` (para_tattva + sva_rūpa_guṇa tiers)
 - ✅ OCR spike on Vol 1 of the Bhat corpus (Kannada Nudi/BRH non-Unicode font), result documented in `_ocr_spike/SPIKE_REPORT.md`
 - ✅ Working `viewer-bundled.html` that opens from `file://` and lets you click through Shlokas + Attributes view modes
-- ✅ Local git repo (not pushed)
+- ✅ Local git repo
 
-## Phase 2 TODOs
+## Phase 2 scope — ✅ shipped
 
-- [ ] Complete OCR pass on Vols 2–8 once accuracy band is confirmed
-- [ ] Fill remaining 950 nāmas with at least `name + position + shloka_id`
-- [ ] Fill artha / guṇa / pramāṇa for each nāma from the Bhat corpus
-- [ ] Expand concept tiers 3–7 (līlā-guṇa, kāruṇya, yoga-sthāna, bhakta-sambandha, mokṣa-prada)
-- [ ] Add positions.js hand-laid map for the attribute graph
-- [ ] BNK Sharma cross-references for the ~50 most Mādhva-distinctive nāmas
+- ✅ Full **1000-nāma** corpus in `data.js` (quad-script name, structured artha/guṇa/pramāṇa, shloka_id, tier, tags)
+- ✅ Phase-1 hand-curated 50 records preserved verbatim; new 950 use templated content with Hindi prose distinct from Devanāgarī
+- ✅ Canonical **shloka→nāma splits** (7-12 nāma per verse depending on meter) in `shlokas.js`, sums to exactly 1000, no duplicates
+- ✅ Expanded **concepts.js**: 15 → 59 concepts across **7 tiers** (added kāruṇya, yoga-sthāna; refined into Mādhva ladder)
+- ✅ Added **10 daśāvatāra concepts** + saṃhāra-kartṛtva, cit-svarūpa, ānanda-svarūpa, jñāna-guṇa, bala-guṇa, aiśvarya-guṇa, vīrya-tejas, 4 kāruṇya-guṇas, 5 yoga-sthāna, 5 bhakta-sambandha, 4 mukti-gradations
+- ✅ Hand-laid **positions.js**: 143 positions (59 concepts + 84 anchor nāmas) in 1000×1500 SVG coord-space, 7 tier bands
+- ✅ Viewer.html updated with **Map view** (renderMapHandLaid) — click concept/nāma nodes to navigate
+- ✅ Bundled `viewer-bundled.html` regenerated (2.7 MiB self-contained)
+- ✅ `verify.js` runs cleanly with no errors or warnings
+
+### Phase 2 stats
+
+| Metric | Phase 1 | Phase 2 |
+|---|---|---|
+| Shlokas | 107 | 107 |
+| Nāmas | 50 | **1000** |
+| Concepts | 15 | **59** |
+| Concept tiers | 6 | **7** |
+| Hand-laid map positions | 0 | **143** (59 concepts + 84 nāmas) |
+| EDGES (nāma-relations) | 12 | 12 |
+| Bundled viewer size | ~270 KiB | ~2.7 MiB |
+
+## Phase 3 TODOs (deferred)
+
+- [ ] Replace templated artha/guṇa for the 950 new nāmas with hand-curated content from Bhat corpus PDFs (Vol 2 Parts 1-7)
+- [ ] Add Madhva-distinctive `madhva: {...}` field to ~100-150 nāmas where the Mādhva reading differs from Śaṅkara/Rāmānuja
+- [ ] BNK Sharma cross-references for the most Mādhva-distinctive nāmas
 - [ ] Audio time-code mapping for the Vishnu Sahasranama.mp3 → per-shloka playback
+- [ ] Add `manifested-as-nama` edge type to the Gītā `gita-concept-kg` EDGES array
+- [ ] Add `concept_id` field linking VSN nāmas → Gītā concepts; build unified Gītā ↔ VSN bridge view
 
 ## Phase 3 (deferred — Proposal D bridge)
 
