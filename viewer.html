@@ -139,6 +139,39 @@ body.lang-kn  .focus-card h1{font-family:'Tiro Kannada',serif;font-size:30px}
   border-radius:0 6px 6px 0;margin-top:14px;
 }
 .focus-card .madhva .madhva-prefix{font-weight:600;color:var(--t-para_tattva)}
+.focus-card .bhat-private{
+  margin-top:14px;padding:10px 12px;
+  border:1px dashed var(--ink-fade);background:var(--paper-2);
+  border-radius:6px;color:var(--ink-soft);
+}
+.focus-card .bhat-private .bhat-head{
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-fade);margin-bottom:6px;font-weight:600;
+}
+.focus-card .bhat-private .bhat-notice{
+  font-size:10px;color:var(--ink-fade);font-style:italic;
+  margin-bottom:8px;line-height:1.4;
+}
+.focus-card .bhat-private .bhat-section{margin-top:8px}
+.focus-card .bhat-private .bhat-section-label{
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-fade);margin-bottom:3px;
+}
+.focus-card .bhat-private .bhat-body{
+  font-size:13px;line-height:1.5;color:var(--ink);white-space:pre-wrap;
+}
+.focus-card .bhat-private .bhat-pramana{
+  font-size:12px;line-height:1.45;color:var(--ink-soft);
+  margin-top:6px;padding-left:10px;border-left:2px solid var(--rule);
+}
+.focus-card .bhat-private .bhat-pramana .pramana-item{margin:3px 0}
+.focus-card .bhat-private .bhat-source{
+  font-size:10px;color:var(--ink-fade);margin-top:8px;
+  text-align:right;letter-spacing:.04em;
+}
+body.lang-kn .focus-card .bhat-private .bhat-body{font-family:'Tiro Kannada',serif}
+body.lang-kn .focus-card .bhat-private .bhat-pramana{font-family:'Tiro Kannada',serif}
+
 .focus-card .focus-shloka{
   margin:14px 0 0;padding:10px 14px;
   border-left:3px solid var(--rule);
@@ -273,6 +306,8 @@ footer{
 
 <footer><span id="stats"></span></footer>
 
+<!-- Optional private companion content. Loads only if present locally (gitignored); falls back silently for public use. -->
+<script src="bhat_kn_private.js" onerror="window.BHAT_KN_PRIVATE = null;"></script>
 <script src="data.js"></script>
 <script src="shlokas.js"></script>
 <script src="concepts.js"></script>
@@ -288,6 +323,18 @@ const UI = {
   artha:         { en:'Artha',      dev:'अर्थः',     kn:'ಅರ್ಥ',      hi:'अर्थ' },
   guna:          { en:'Guṇa',       dev:'गुणः',      kn:'ಗುಣ',       hi:'गुण' },
   madhvaPrefix:  { en:'Mādhva',     dev:'माध्व',     kn:'ಮಾಧ್ವ',     hi:'माध्व' },
+  bhatHead:      { en:'Bhat commentary (private)',
+                   dev:'भट्ट-व्याख्यानम् (निजी)',
+                   kn:'ಭಟ್ಟ ವ್ಯಾಖ್ಯಾನ (ಖಾಸಗಿ)',
+                   hi:'भट्ट टीका (निजी)' },
+  bhatNotice:    { en:'Personal study only — full source-grounded commentary loaded from local file, not for redistribution.',
+                   dev:'निजाध्ययनार्थम् एव — पूर्ण-स्रोतमूल-व्याख्यानं स्थानिक-कोशात् लोड्यते, न प्रसारणार्थम्।',
+                   kn:'ಖಾಸಗಿ ಅಧ್ಯಯನಕ್ಕೆ ಮಾತ್ರ — ಪೂರ್ಣ ಮೂಲಾಧಾರಿತ ವ್ಯಾಖ್ಯಾನ ಸ್ಥಳೀಯ ಫೈಲ್‌ನಿಂದ ಲೋಡ್ ಆಗಿದೆ, ಪುನರ್‌ವಿತರಣೆಗೆ ಅಲ್ಲ.',
+                   hi:'व्यक्तिगत अध्ययन हेतु — पूर्ण स्रोत-आधारित टीका स्थानीय फ़ाइल से लोड, पुनर्वितरण हेतु नहीं।' },
+  bhatArtha:     { en:'Artha (full)',    dev:'अर्थः (पूर्णः)',    kn:'ಅರ್ಥ (ಪೂರ್ಣ)',    hi:'अर्थ (पूर्ण)' },
+  bhatGuna:      { en:'Guṇa (full)',     dev:'गुणः (पूर्णः)',     kn:'ಗುಣ (ಪೂರ್ಣ)',     hi:'गुण (पूर्ण)' },
+  bhatPramana:   { en:'Pramāṇa',         dev:'प्रमाणानि',         kn:'ಪ್ರಮಾಣ',          hi:'प्रमाण' },
+  bhatSource:    { en:'Source',          dev:'स्रोतः',            kn:'ಮೂಲ',             hi:'स्रोत' },
   shlokaSrc:     { en:'In verse',   dev:'श्लोके',    kn:'ಶ್ಲೋಕದಲ್ಲಿ', hi:'श्लोक में' },
   conceptsLbl:   { en:'Concepts',   dev:'सम्मताः',   kn:'ಪರಿಕಲ್ಪನೆಗಳು', hi:'सम्मत' },
   gitaConcepts:  { en:'In the Gītā',  dev:'गीतायाम्',   kn:'ಗೀತೆಯಲ್ಲಿ',   hi:'गीता में' },
@@ -509,6 +556,40 @@ function renderFocus(){
 
   html += '  <div class="section"><div class="label">' + escapeHtml(ui('guna')) + '</div>';
   html += '    <div class="body">' + escapeHtml(getActive(n.guna)) + '</div></div>';
+
+  // Optional private Bhat commentary — only renders if bhat_kn_private.js is loaded locally.
+  if (typeof window !== 'undefined' && window.BHAT_KN_PRIVATE && window.BHAT_KN_PRIVATE[n.id]){
+    const bp = window.BHAT_KN_PRIVATE[n.id];
+    html += '  <aside class="bhat-private" aria-label="Private Bhat commentary">';
+    html += '    <div class="bhat-head">' + escapeHtml(ui('bhatHead')) + '</div>';
+    html += '    <div class="bhat-notice">' + escapeHtml(ui('bhatNotice')) + '</div>';
+    if (bp.artha_full){
+      html += '    <div class="bhat-section">';
+      html += '      <div class="bhat-section-label">' + escapeHtml(ui('bhatArtha')) + '</div>';
+      html += '      <div class="bhat-body">' + escapeHtml(bp.artha_full) + '</div>';
+      html += '    </div>';
+    }
+    if (bp.guna_full){
+      html += '    <div class="bhat-section">';
+      html += '      <div class="bhat-section-label">' + escapeHtml(ui('bhatGuna')) + '</div>';
+      html += '      <div class="bhat-body">' + escapeHtml(bp.guna_full) + '</div>';
+      html += '    </div>';
+    }
+    if (Array.isArray(bp.pramana_kn) && bp.pramana_kn.length){
+      html += '    <div class="bhat-section">';
+      html += '      <div class="bhat-section-label">' + escapeHtml(ui('bhatPramana')) + '</div>';
+      html += '      <div class="bhat-pramana">';
+      bp.pramana_kn.forEach(function(pq){
+        if (pq) html += '<div class="pramana-item">' + escapeHtml(pq) + '</div>';
+      });
+      html += '      </div>';
+      html += '    </div>';
+    }
+    if (bp.source_page){
+      html += '    <div class="bhat-source">' + escapeHtml(ui('bhatSource')) + ': ' + escapeHtml(bp.source_page) + '</div>';
+    }
+    html += '  </aside>';
+  }
 
   if (n.madhva){
     html += '  <div class="madhva"><span class="madhva-prefix">' + escapeHtml(ui('madhvaPrefix')) + ' · </span>' + escapeHtml(getActive(n.madhva)) + '</div>';
