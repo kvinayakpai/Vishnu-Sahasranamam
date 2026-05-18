@@ -10,3 +10,12 @@ _ocr_spike/*.pdf
 .git/
 _build_shlokas.py
 _build_data.py
+
+# Private companion content — NOT for redistribution.
+# Maintainer-only OCR'd commentary from Bhat Vol 1-2 (Vidyabharati Memorial Trust).
+bhat_kn_private.js
+viewer-bundled-private.html
+
+# Local OCR/PDF caches (do not commit large binary artifacts)
+_pdf_cache/
+_ocr_raw/
