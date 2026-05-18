@@ -19,3 +19,4 @@ viewer-bundled-private.html
 # Local OCR/PDF caches (do not commit large binary artifacts)
 _pdf_cache/
 _ocr_raw/
+_bhat_extraction/
