@@ -43,6 +43,32 @@ const CTIER_BY_ID   = Object.fromEntries(CTIERS.map(t => [t.id, t]));
 const errors = [];
 const warnings = [];
 
+// Optional private Bhat commentary — file is gitignored and may be absent.
+// In public clones this is reported as 'not loaded'.
+let BHAT_PRIVATE = null;
+try {
+  const bhatPath = path.join(__dirname, 'bhat_kn_private.js');
+  if (fs.existsSync(bhatPath)) {
+    const sandbox = { window: {} };
+    const code = fs.readFileSync(bhatPath, 'utf8');
+    new Function('window', code)(sandbox.window);
+    BHAT_PRIVATE = sandbox.window.BHAT_KN_PRIVATE || null;
+  }
+} catch (e) {
+  // Soft-fail only: private file is optional and never gates verify.
+  warnings.push('bhat_kn_private.js present but failed to load: ' + e.message);
+}
+
+// If private file is loaded, validate that its keys are real nāma ids — but
+// never error if absent.
+if (BHAT_PRIVATE) {
+  Object.keys(BHAT_PRIVATE).forEach(id => {
+    if (!Object.prototype.hasOwnProperty.call(NAMA_BY_ID, id)) {
+      warnings.push('bhat_kn_private.js entry ' + id + ' has no matching nāma in data.js');
+    }
+  });
+}
+
 function uniqIds(arr, name){
   const ids = arr.map(x => x.id);
   const seen = new Set(); const dupes = [];
@@ -115,6 +141,12 @@ console.log('  EDGES:   ' + (EDGES ? EDGES.length : 0) + ' nāma-relations');
 console.log('  SHLOKAS: ' + SHLOKAS.length + ' verses');
 console.log('  CTIERS:  ' + CTIERS.length);
 console.log('  CONCEPTS:' + CONCEPTS.length + ' attribute-graph nodes');
+if (BHAT_PRIVATE) {
+  const total = Object.keys(BHAT_PRIVATE).length;
+  console.log('  BHAT_KN_PRIVATE: ' + total + ' private entries loaded (local maintainer file)');
+} else {
+  console.log('  BHAT_KN_PRIVATE: not loaded (public clone — expected)');
+}
 console.log('');
 if (warnings.length){
   console.log('Warnings (' + warnings.length + '):');
