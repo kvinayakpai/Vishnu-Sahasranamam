@@ -99,6 +99,55 @@ Complementary corpus — `Philosophy of Madhwa` folder (id `11xWDuAIMRMyL7XSn5bY
 
 For the stotra text itself (the 107 shlokas), public Devanāgarī Sanskrit editions are used (Mahābhārata Anuśāsana-Parva 149, common online recensions). Devanāgarī → IAST and Devanāgarī → Kannada are mechanical (deterministic transliteration table); the Hindi script form re-uses the Devanāgarī text (the Hindi script *is* Devanāgarī).
 
+## Content provenance — public vs private companion
+
+The data layer in this public repo is split into two strata, and the viewer is
+wired to consume both — but only the first is ever published.
+
+**Public stratum (in this repo).** The `data.js` shipped here contains, for
+each of the 1000 nāmas:
+
+- canonical Sanskrit/Devanāgarī name + IAST + Kannada + Hindi script form
+- shloka anchor (`shloka_id` linking back to `shlokas.js`)
+- tier classification + concept tags (linking into `concepts.js`)
+- **Phase-1 hand-curated `artha` / `guṇa` / `madhva` prose** for ~50 anchor
+  nāmas — these are short, summary-style scholar's-paraphrase entries written
+  in the maintainer's own words from a Mādhva-tradition reading
+- **Phase-2 templated `artha` / `guṇa` prose** for the remaining ~950 nāmas
+  — these are short structural placeholders generated from the etymology +
+  shloka anchor, **not** lifted from any copyrighted source
+
+The 107 shloka texts themselves are from common online Devanāgarī recensions
+of Mahābhārata Anuśāsana-Parva 149 (Mahābhārata is in the public domain).
+
+**Private companion (gitignored, maintainer-only).** A separate file,
+`bhat_kn_private.js`, lives outside this repo on the maintainer's machine.
+It carries the full source-grounded Mādhva commentary OCR'd from S. Vijayendra
+Ramanath Bhat's 8-volume Kannada commentary corpus (Vol 1 + Vol 2 Parts 1–7,
+2018–2024). **Vidyabharati Memorial Trust (R), Shivamogga holds copyright on
+those volumes.** That content is for the maintainer's personal study and is
+not redistributed.
+
+The viewer (`viewer.html` / `index.html`) loads `bhat_kn_private.js` via an
+optional `<script src=…  onerror=…>` tag — if the file is absent (which is the
+default for every public clone), the loader silently sets the global to
+`null` and the focus card renders only the public Phase-1/2 content. If the
+file is present locally, the focus card additionally renders a clearly-marked
+dashed block AFTER the public artha/guṇa, with a 'Personal study only — not
+for redistribution' header.
+
+`build-bundle.py --private` produces a separate self-contained
+`viewer-bundled-private.html` that inlines the private file; the default
+`python3 build-bundle.py` invocation only produces the public
+`viewer-bundled.html` and never touches the private file. Both
+`bhat_kn_private.js` and `viewer-bundled-private.html` are listed in
+`.gitignore`.
+
+`verify.js` will load the private file if it's present (and warn on any
+nāma-id mismatch), but never errors on its absence — a public-clone run
+prints `BHAT_KN_PRIVATE: not loaded (public clone — expected)` and exits
+clean.
+
 ## Build
 
 ```sh
