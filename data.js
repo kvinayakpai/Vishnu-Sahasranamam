@@ -1,3 +1,7 @@
+/* Source: https://sites.google.com/view/srivishnusahasranama/
+ * Commentary: S. Vijayendra Ramanath Bhat, 7-vol Kannada corpus
+ * © Vidyabharati Memorial Trust (R), Shivamogga — personal study only
+ */
 /* Vishnu Sahasranama --- Knowledge Graph data layer
  *
  * Phase 1 vertical slice: ~50 hand-curated namas spanning the 107 verses,
@@ -61,9 +65,6 @@ const NODES = [
     "tags": [
       "c_hari_sarvottamatva",
       "c_sarva_vyapakatva"
-    ],
-    "gita_concept_ids": [
-      "brahman"
     ]
   },
   {
@@ -92,18 +93,7 @@ const NODES = [
     "tags": [
       "c_hari_sarvottamatva",
       "c_antaryamitva"
-    ],
-    "gita_concept_ids": [
-      "brahman",
-      "sarvottamatva",
-      "antaryamin"
-    ],
-    "madhva": {
-      "en": "The name 'Vishnu' for Madhva is not a generic divinity-label but the specific eka-paramatma; Shiva, Brahma etc. are all his abhimani-devatas.",
-      "dev": "मध्व-मते 'विष्णुः' इति शब्दः सामान्य-देवता-वाचकः न; एक-परमात्मनः अनन्यार्थः। शिवादयः अस्य अभिमानि-देवताः।",
-      "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ 'ವಿಷ್ಣು' ಎಂಬುದು ಸಾಮಾನ್ಯ ದೇವತಾ-ವಾಚಕವಲ್ಲ; ಏಕ-ಪರಮಾತ್ಮನ ಅನನ್ಯ ನಾಮ. ಶಿವಾದಿಗಳು ಅವನ ಅಭಿಮಾನಿ-ದೇವತೆಗಳು.",
-      "hi": "माध्वाचार्य के अनुसार, इस नाम का तात्पर्य है — माध्व-सम्प्रदाय में यह नाम हरि के सर्वोत्तमत्व को रेखांकित करता है। माध्व-सम्प्रदाय में ‘विष्णुः’ का यह आशय विशेष रूप से प्रसिद्ध है।"
-    }
+    ]
   },
   {
     "id": "n_0003",
@@ -239,10 +229,6 @@ const NODES = [
     "tags": [
       "c_antaryamitva",
       "c_atma_svarupa"
-    ],
-    "gita_concept_ids": [
-      "paramatman",
-      "antaryamin"
     ]
   },
   {
@@ -388,16 +374,7 @@ const NODES = [
     "tags": [
       "c_hari_sarvottamatva",
       "c_jiva_isvara_bheda"
-    ],
-    "gita_concept_ids": [
-      "paramatman"
-    ],
-    "madhva": {
-      "en": "Madhva-vaisistya: 'paramatman' is not jiva-paramatma-aikya as Advaita reads; it names the eternally distinct supreme Self.",
-      "dev": "मध्व-वैशिष्ट्यम् - 'परमात्मा' न जीव-परमात्म-ऐक्यम्; नित्य-भिन्नः परम-आत्मा एव।",
-      "kn": "ಮಧ್ವ-ವೈಶಿಷ್ಟ್ಯ — 'ಪರಮಾತ್ಮಾ' ಜೀವ-ಪರಮಾತ್ಮ-ಐಕ್ಯವಲ್ಲ; ನಿತ್ಯ-ಭಿನ್ನ ಪರಮ-ಆತ್ಮನೇ.",
-      "hi": "माध्वाचार्य के अनुसार, इस नाम का तात्पर्य है — माध्व-सम्प्रदाय में यह नाम हरि के सर्वोत्तमत्व को रेखांकित करता है। माध्व-सम्प्रदाय में ‘परमात्मा’ का यह आशय विशेष रूप से प्रसिद्ध है।"
-    }
+    ]
   },
   {
     "id": "n_0013",
@@ -424,10 +401,6 @@ const NODES = [
     },
     "tags": [
       "c_moksha_prada"
-    ],
-    "gita_concept_ids": [
-      "moksha",
-      "paramagati"
     ]
   },
   {
@@ -493,10 +466,7 @@ const NODES = [
         "text": "sākṣī — śloka 2-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "paramatman"
-    ]
+    "tags": []
   },
   {
     "id": "n_0016",
@@ -523,9 +493,6 @@ const NODES = [
     },
     "tags": [
       "c_sat_svarupa"
-    ],
-    "gita_concept_ids": [
-      "akshara_purusha"
     ]
   },
   {
@@ -557,10 +524,7 @@ const NODES = [
         "text": "akṣaraḥ — śloka 2-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "akshara_purusha"
-    ]
+    "tags": []
   },
   {
     "id": "n_0018",
@@ -593,9 +557,6 @@ const NODES = [
     ],
     "tags": [
       "c_atma_svarupa"
-    ],
-    "gita_concept_ids": [
-      "dhyana_yoga"
     ]
   },
   {
@@ -694,10 +655,6 @@ const NODES = [
     ],
     "tags": [
       "c_avatara_narasimha"
-    ],
-    "gita_concept_ids": [
-      "avatara",
-      "vibhuti"
     ]
   },
   {
@@ -789,18 +746,7 @@ const NODES = [
     },
     "tags": [
       "c_hari_sarvottamatva"
-    ],
-    "gita_concept_ids": [
-      "purushottama",
-      "sarvottamatva",
-      "sarva_dharman_parityajya"
-    ],
-    "madhva": {
-      "en": "For Madhva, Purushottama strictly = Hari, NOT jiva-paramatma-aikya as Advaita reads.",
-      "dev": "मध्व-मते पुरुषोत्तमः = हरिः एव; न अद्वैतोक्तं जीव-परमात्म-ऐक्यम्।",
-      "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ ಪುರುಷೋತ್ತಮ = ಹರಿಯೇ; ಅದ್ವೈತೋಕ್ತ ಜೀವ-ಪರಮಾತ್ಮ-ಐಕ್ಯವಲ್ಲ.",
-      "hi": "माध्वाचार्य के अनुसार, इस नाम का तात्पर्य है — माध्व-सम्प्रदाय में यह नाम हरि के सर्वोत्तमत्व को रेखांकित करता है। माध्व-सम्प्रदाय में ‘पुरुषोत्तमः’ का यह आशय विशेष रूप से प्रसिद्ध है।"
-    }
+    ]
   },
   {
     "id": "n_0025",
@@ -1523,10 +1469,7 @@ const NODES = [
         "text": "hṛṣīkeśaḥ — śloka 6-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "antaryamin"
-    ]
+    "tags": []
   },
   {
     "id": "n_0048",
@@ -1820,16 +1763,7 @@ const NODES = [
     },
     "tags": [
       "c_avatara_rupa"
-    ],
-    "gita_concept_ids": [
-      "avatara"
-    ],
-    "madhva": {
-      "en": "For Madhva, Krishna is svayam-bhagavan, not an avatara of Vishnu but Vishnu himself in human form.",
-      "dev": "मध्व-मते कृष्णः स्वयं-भगवान्; न तु विष्णोः अवतारः, अपि तु विष्णुरेव मानुष-रूपेण।",
-      "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ ಕೃಷ್ಣ ಸ್ವಯಂ-ಭಗವಾನ್; ವಿಷ್ಣುವಿನ ಅವತಾರವಲ್ಲ, ವಿಷ್ಣುವೇ ಮಾನುಷ-ರೂಪದಲ್ಲಿ.",
-      "hi": "माध्वाचार्य के अनुसार, इस नाम का तात्पर्य है — माध्व के मत में, कृष्ण स्वयं भगवान् हैं, विष्णु के अवतार मात्र नहीं अपितु मानुष-रूप में स्वयं विष्णु हैं। माध्व-सम्प्रदाय में ‘कृष्णः’ का यह आशय विशेष रूप से प्रसिद्ध है।"
-    }
+    ]
   },
   {
     "id": "n_0058",
@@ -2725,10 +2659,7 @@ const NODES = [
         "text": "śaraṇam — śloka 10-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "sharanagati"
-    ]
+    "tags": []
   },
   {
     "id": "n_0087",
@@ -4783,9 +4714,6 @@ const NODES = [
     ],
     "tags": [
       "c_avatara_vamana"
-    ],
-    "gita_concept_ids": [
-      "avatara"
     ]
   },
   {
@@ -4910,10 +4838,7 @@ const NODES = [
         "text": "ūrjitaḥ — śloka 17-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "antaryamin"
-    ]
+    "tags": []
   },
   {
     "id": "n_0157",
@@ -5785,10 +5710,7 @@ const NODES = [
         "text": "satāṃ gatiḥ — śloka 20-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "paramagati"
-    ]
+    "tags": []
   },
   {
     "id": "n_0185",
@@ -7672,16 +7594,7 @@ const NODES = [
     "tags": [
       "c_antaryamitva",
       "c_hari_sarvottamatva"
-    ],
-    "gita_concept_ids": [
-      "paramatman"
-    ],
-    "madhva": {
-      "en": "Madhva: 'Narayana' is the supreme proper-noun for Hari; Brahman, Paramatman, Vasudeva etc. are all svarupaikya names for the same Narayana.",
-      "dev": "मध्व-मते 'नारायणः' इति हरेः परम-प्रसिद्ध-नाम; ब्रह्म-परमात्म-वासुदेव-आदयः सर्वे स्वरूपैक्येन तस्यैव।",
-      "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ 'ನಾರಾಯಣ' ಹರಿಯ ಪರಮ-ಪ್ರಸಿದ್ಧ ನಾಮ; ಬ್ರಹ್ಮ-ಪರಮಾತ್ಮ-ವಾಸುದೇವಾದಿಗಳೆಲ್ಲರೂ ಸ್ವರೂಪೈಕ್ಯದಿಂದ ಅವನೇ.",
-      "hi": "माध्वाचार्य के अनुसार, इस नाम का तात्पर्य है — माध्व-सम्प्रदाय में यह नाम हरि के सर्वोत्तमत्व को रेखांकित करता है। माध्व-सम्प्रदाय में ‘नारायणः’ का यह आशय विशेष रूप से प्रसिद्ध है।"
-    }
+    ]
   },
   {
     "id": "n_0246",
@@ -10529,13 +10442,7 @@ const NODES = [
     "tags": [
       "c_hari_sarvottamatva",
       "c_avatara_rupa"
-    ],
-    "madhva": {
-      "en": "For Madhva, 'Vasudeva' carries the full sarvottamatva of Hari; it is not a lesser-form name.",
-      "dev": "मध्व-मते 'वासुदेवः' पूर्ण-सर्वोत्तमत्व-वाची; न तु अल्प-रूप-नाम।",
-      "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ 'ವಾಸುದೇವ' ಪೂರ್ಣ-ಸರ್ವೋತ್ತಮತ್ವ-ವಾಚಿ; ಅಲ್ಪ-ರೂಪ-ನಾಮವಲ್ಲ.",
-      "hi": "माध्वाचार्य के अनुसार, इस नाम का तात्पर्य है — माध्व के मत में, 'Vasudeva' हरि के पूर्ण सर्वोत्तमत्व को धारण करता है; यह कोई गौण रूप का नाम नहीं। माध्व-सम्प्रदाय में ‘वासुदेवः’ का यह आशय विशेष रूप से प्रसिद्ध है।"
-    }
+    ]
   },
   {
     "id": "n_0338",
@@ -12309,9 +12216,6 @@ const NODES = [
     ],
     "tags": [
       "c_avatara_rama"
-    ],
-    "gita_concept_ids": [
-      "avatara"
     ]
   },
   {
@@ -12684,11 +12588,7 @@ const NODES = [
         "text": "puruṣaḥ — śloka 44-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "purushottama",
-      "salokya"
-    ]
+    "tags": []
   },
   {
     "id": "n_0407",
@@ -14407,10 +14307,7 @@ const NODES = [
         "text": "suhṛt — śloka 49-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "sharanagati"
-    ]
+    "tags": []
   },
   {
     "id": "n_0462",
@@ -16078,9 +15975,6 @@ const NODES = [
     },
     "tags": [
       "c_moksha_prada"
-    ],
-    "gita_concept_ids": [
-      "moksha"
     ]
   },
   {
@@ -16543,9 +16437,6 @@ const NODES = [
     "tags": [
       "c_avatara_rupa",
       "c_sarva_vyapakatva"
-    ],
-    "gita_concept_ids": [
-      "vibhuti"
     ]
   },
   {
@@ -16829,10 +16720,7 @@ const NODES = [
         "text": "mahāvarāhaḥ — śloka 58-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "avatara"
-    ]
+    "tags": []
   },
   {
     "id": "n_0540",
@@ -17797,10 +17685,7 @@ const NODES = [
         "text": "khaṇḍaparaśuḥ — śloka 61-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "avatara"
-    ]
+    "tags": []
   },
   {
     "id": "n_0571",
@@ -20051,13 +19936,7 @@ const NODES = [
     },
     "tags": [
       "c_lakshmi_sambandha"
-    ],
-    "madhva": {
-      "en": "Madhva: Sri/Lakshmi is the highest jiva-tattva, eternally subordinate to Hari but supreme above all other jivas (Brahma included).",
-      "dev": "मध्व-मते लक्ष्मीः उच्चतमं जीव-तत्त्वम्, हरेः नित्य-परतन्त्रा, अथ च ब्रह्मादीन् सर्व-जीवान् अतिशेते।",
-      "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ ಲಕ್ಷ್ಮೀ ಉಚ್ಚತಮ ಜೀವ-ತತ್ತ್ವ, ಹರಿಯ ನಿತ್ಯ-ಪರತಂತ್ರ, ಆದರೆ ಬ್ರಹ್ಮಾದಿ ಸರ್ವ-ಜೀವಗಳಿಗಿಂತ ಮೇಲೆ.",
-      "hi": "माध्वाचार्य के अनुसार, इस नाम का तात्पर्य है — माध्व-सम्प्रदाय में यह नाम हरि के सर्वोत्तमत्व को रेखांकित करता है। माध्व-सम्प्रदाय में ‘श्रीनिवासः’ का यह आशय विशेष रूप से प्रसिद्ध है।"
-    }
+    ]
   },
   {
     "id": "n_0644",
@@ -20270,9 +20149,6 @@ const NODES = [
     },
     "tags": [
       "c_hari_sarvottamatva"
-    ],
-    "gita_concept_ids": [
-      "sarvottamatva"
     ]
   },
   {
@@ -20456,17 +20332,7 @@ const NODES = [
     "tags": [
       "c_karunya",
       "c_moksha_prada"
-    ],
-    "gita_concept_ids": [
-      "sarvottamatva",
-      "sarva_dharman_parityajya"
-    ],
-    "madhva": {
-      "en": "Madhva's most-emphasized nama. 'Hari-sarvottamatva' is the central axiom of his entire system - 'Hari is highest above all'.",
-      "dev": "मध्व-सम्प्रदायस्य परम-केन्द्र-नाम। 'हरि-सर्वोत्तमत्वम्' इति समस्त-मध्व-तत्त्व-शास्त्रस्य आधार-अक्षम् - 'सर्वोपरि हरिः'।",
-      "kn": "ಮಧ್ವ-ಸಂಪ್ರದಾಯದ ಪರಮ-ಕೇಂದ್ರ-ನಾಮ. 'ಹರಿ-ಸರ್ವೋತ್ತಮತ್ವ' ಸಮಸ್ತ ಮಧ್ವ-ತತ್ತ್ವ-ಶಾಸ್ತ್ರದ ಆಧಾರ-ಅಕ್ಷ — 'ಸರ್ವೋಪರಿ ಹರಿಃ'.",
-      "hi": "माध्वाचार्य के अनुसार, इस नाम का तात्पर्य है — माध्व-सम्प्रदाय में यह नाम हरि के सर्वोत्तमत्व को रेखांकित करता है। माध्व-सम्प्रदाय में ‘हरिः’ का यह आशय विशेष रूप से प्रसिद्ध है।"
-    }
+    ]
   },
   {
     "id": "n_0657",
@@ -20803,10 +20669,7 @@ const NODES = [
         "text": "brahma — śloka 71-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "brahman"
-    ]
+    "tags": []
   },
   {
     "id": "n_0668",
@@ -21893,13 +21756,7 @@ const NODES = [
     },
     "tags": [
       "c_hari_sarvottamatva"
-    ],
-    "madhva": {
-      "en": "For Madhva, the 'Brahman' of Upanishads is strictly Hari/Vishnu/Narayana - not a nirvishesha tattva nor the chatur-mukha Brahma.",
-      "dev": "मध्व-मते उपनिषद्-ब्रह्म-शब्दः अनन्यथा हरिः/विष्णुः/नारायणः - न निर्विशेष-तत्त्वम्, न चतुर्मुख-ब्रह्मा।",
-      "kn": "ಮಧ್ವ-ಮತದಲ್ಲಿ ಉಪನಿಷದ್-ಬ್ರಹ್ಮ-ಶಬ್ದ ಅನ್ಯಥಾ ಅಲ್ಲ — ಹರಿಯೇ; ನಿರ್ವಿಶೇಷ-ತತ್ತ್ವವಲ್ಲ, ಚತುರ್ಮುಖ-ಬ್ರಹ್ಮನೂ ಅಲ್ಲ.",
-      "hi": "माध्वाचार्य के अनुसार, इस नाम का तात्पर्य है — माध्व-सम्प्रदाय में यह नाम हरि के सर्वोत्तमत्व को रेखांकित करता है। माध्व-सम्प्रदाय में ‘ब्रह्मा’ का यह आशय विशेष रूप से प्रसिद्ध है।"
-    }
+    ]
   },
   {
     "id": "n_0703",
@@ -22991,9 +22848,6 @@ const NODES = [
     ],
     "tags": [
       "c_bhakta_priya"
-    ],
-    "gita_concept_ids": [
-      "bhakti_yoga"
     ]
   },
   {
@@ -23058,9 +22912,6 @@ const NODES = [
     ],
     "tags": [
       "c_bhakta_vatsalatva"
-    ],
-    "gita_concept_ids": [
-      "bhakti_yoga"
     ]
   },
   {
@@ -24324,16 +24175,7 @@ const NODES = [
     },
     "tags": [
       "c_bhakta_vatsala"
-    ],
-    "gita_concept_ids": [
-      "bhakti_yoga"
-    ],
-    "madhva": {
-      "en": "Mention of 'vatsala' is a key Madhva theme - Hari's swabhava is to remember and reward bhaktas; vatsalatva is not contingent.",
-      "dev": "वत्सल-शब्दः मध्व-सम्प्रदाये अति-महत्त्व-शाली; भक्त-स्मरण-अनुग्रहौ हरेः स्वभाव-सिद्धौ, न प्रासङ्गिकौ।",
-      "kn": "ವತ್ಸಲ-ಶಬ್ದ ಮಧ್ವ-ಸಂಪ್ರದಾಯದಲ್ಲಿ ಅತಿ-ಮಹತ್ತ್ವಶಾಲಿ; ಭಕ್ತ-ಸ್ಮರಣ-ಅನುಗ್ರಹಗಳು ಹರಿಯ ಸ್ವಭಾವ-ಸಿದ್ಧ, ಪ್ರಾಸಂಗಿಕ ಅಲ್ಲ.",
-      "hi": "माध्वाचार्य के अनुसार, इस नाम का तात्पर्य है — माध्व-सम्प्रदाय में यह नाम हरि के सर्वोत्तमत्व को रेखांकित करता है। माध्व-सम्प्रदाय में ‘भक्तवत्सलः’ का यह आशय विशेष रूप से प्रसिद्ध है।"
-    }
+    ]
   },
   {
     "id": "n_0781",
@@ -26570,10 +26412,7 @@ const NODES = [
         "text": "yogī — śloka 91-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "dhyana_yoga"
-    ]
+    "tags": []
   },
   {
     "id": "n_0853",
@@ -26604,10 +26443,7 @@ const NODES = [
         "text": "yogīśaḥ — śloka 91-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "dhyana_yoga"
-    ]
+    "tags": []
   },
   {
     "id": "n_0854",
@@ -28928,10 +28764,7 @@ const NODES = [
         "text": "vīrahā — śloka 99-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "sharanagati"
-    ]
+    "tags": []
   },
   {
     "id": "n_0929",
@@ -29739,10 +29572,7 @@ const NODES = [
         "text": "puṣpahāsaḥ — śloka 102-stham nāma."
       }
     ],
-    "tags": [],
-    "gita_concept_ids": [
-      "sayujya"
-    ]
+    "tags": []
   },
   {
     "id": "n_0955",
